@@ -1,0 +1,21 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <UWP_DelphiLogo150>$(BDS)\bin\Artwork\Windows\UWP\delphi_UwpDefault_150.png</UWP_DelphiLogo150>
+        <DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
+        <Icon_MainIcon>$(BDS)\bin\delphi_PROJECTICON.ico</Icon_MainIcon>
+        <DCC_BplOutput>bpl</DCC_BplOutput>
+        <DCC_DcpOutput>dcp</DCC_DcpOutput>
+        <UWP_DelphiLogo44>$(BDS)\bin\Artwork\Windows\UWP\delphi_UwpDefault_44.png</UWP_DelphiLogo44>
+        <DCC_Namespace>System;Xml;Data;Datasnap;Web;Soap;Vcl;Vcl.Imaging;Vcl.Touch;Vcl.Samples;Vcl.Shell;$(DCC_Namespace)</DCC_Namespace>
+        <DCC_DcuOutput>bin</DCC_DcuOutput>
+        <DCC_ExeOutput>dcu</DCC_ExeOutput>
+    </PropertyGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Delphi.Personality.12</Borland.Personality>
+        <Borland.ProjectType>OptionSet</Borland.ProjectType>
+        <BorlandProject>
+            <Delphi.Personality/>
+        </BorlandProject>
+        <ProjectFileVersion>12</ProjectFileVersion>
+    </ProjectExtensions>
+</Project>
