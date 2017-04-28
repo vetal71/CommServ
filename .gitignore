@@ -65,6 +65,10 @@ __recovery/
 Data/
 Icons/
 Comp/
+bin/
+bpl/
+dcu/
+Samples/
 *.~*
 
 # Castalia statistics file (since XE7 Castalia is distributed with Delphi)
