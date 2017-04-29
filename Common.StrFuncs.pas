@@ -23,6 +23,9 @@ function DateOfPeriod(Index: integer): double;
 function ShowError ( const aMsg : String ) : Word;
 function ShowErrorFmt ( aMsg : String; Args : array of const ) : Word;
 
+function ComponentToString(Component: TComponent): string;
+procedure StringToComponent(Component: TComponent; Value: string);
+
 var
   SoundSignalization: Boolean = False;
   SoundStr: array[TMsgDlgType] of string = (
@@ -175,6 +178,45 @@ function ConfirmWarn(const aMsg: string): Boolean;
 begin
   Result := MessageBox(0, PChar(aMsg), PChar(SMsgDlgWarning), MB_YESNO or
       MB_ICONWARNING or MB_DEFBUTTON2 or MB_TASKMODAL) = IDYES;
+end;
+
+function ComponentToString(Component: TComponent): string;
+var
+  ms: TMemoryStream;
+  ss: TStringStream;
+begin
+  ss := TStringStream.Create(' ');
+  ms := TMemoryStream.Create;
+  try
+    ms.WriteComponent(Component);
+    ms.position := 0;
+    ObjectBinaryToText(ms, ss);
+    ss.position := 0;
+    Result := ss.DataString;
+  finally
+    ms.Free;
+    ss.free;
+  end;
+end;
+
+procedure StringToComponent(Component: TComponent; Value: string);
+var
+  StrStream:TStringStream;
+  ms: TMemoryStream;
+begin
+  StrStream := TStringStream.Create(Value);
+  try
+    ms := TMemoryStream.Create;
+    try
+      ObjectTextToBinary(StrStream, ms);
+      ms.position := 0;
+      ms.ReadComponent(Component);
+    finally
+      ms.Free;
+    end;
+  finally
+    StrStream.Free;
+  end;
 end;
 
 end.

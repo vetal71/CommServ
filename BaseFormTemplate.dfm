@@ -783,4 +783,8 @@ object BaseForm: TBaseForm
       0000000000000000000000000000000000000000000000000000000000000000
       000000000000}
   end
+  object MainActionList: TActionList
+    Left = 248
+    Top = 167
+  end
 end

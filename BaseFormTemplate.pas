@@ -5,7 +5,8 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus, TB2Item, SpTBXItem,
-  Vcl.ExtCtrls, TB2Dock, TB2Toolbar, System.ImageList, Vcl.ImgList;
+  Vcl.ExtCtrls, TB2Dock, TB2Toolbar, System.ImageList, Vcl.ImgList,
+  System.Actions, Vcl.ActnList;
 
 type
   TTimeLabelItem = class(TSpTBXLabelItem)
@@ -37,6 +38,7 @@ type
     ilMainSmall: TImageList;
     miExit: TMenuItem;
     lblAppHint: TSpTBXLabelItem;
+    MainActionList: TActionList;
     procedure FormCreate(Sender: TObject);
     procedure tmMainTimerTimer(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
