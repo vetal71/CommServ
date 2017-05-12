@@ -63,12 +63,6 @@ inherited fMain: TfMain
       end
     end
   end
-  inherited dckBottom: TSpTBXDock
-    Top = 607
-    Width = 1016
-    ExplicitTop = 607
-    ExplicitWidth = 1016
-  end
   inherited MainMenu: TMainMenu
     Images = ilMainSmall
     inherited miActions: TMenuItem
@@ -85,5 +79,11 @@ inherited fMain: TfMain
         ImageIndex = 1
       end
     end
+  end
+  inherited ilMainLarge: TcxImageList
+    FormatVersion = 1
+  end
+  inherited ilMainSmall: TcxImageList
+    FormatVersion = 1
   end
 end

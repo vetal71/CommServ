@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus, TB2Item, SpTBXItem,
   Vcl.ExtCtrls, TB2Dock, TB2Toolbar, System.ImageList, Vcl.ImgList,
-  System.Actions, Vcl.ActnList;
+  System.Actions, Vcl.ActnList, cxGraphics;
 
 type
   TTimeLabelItem = class(TSpTBXLabelItem)
@@ -31,14 +31,13 @@ type
     grpTime: TTBGroupItem;
     tmMainTimer: TTimer;
     dckTop: TSpTBXDock;
-    dckBottom: TSpTBXDock;
     tbrMain: TSpTBXToolbar;
     tbiExit: TSpTBXItem;
-    ilMainLarge: TImageList;
-    ilMainSmall: TImageList;
     miExit: TMenuItem;
     lblAppHint: TSpTBXLabelItem;
     MainActionList: TActionList;
+    ilMainLarge: TcxImageList;
+    ilMainSmall: TcxImageList;
     procedure FormCreate(Sender: TObject);
     procedure tmMainTimerTimer(Sender: TObject);
     procedure FormDestroy(Sender: TObject);

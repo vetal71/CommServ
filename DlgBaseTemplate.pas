@@ -13,8 +13,9 @@ type
     pnlMain: TPanel;
     btnCancel: TButton;
     btnOK: TButton;
-  private
-    { Private declarations }
+    procedure btnOKClick(Sender: TObject);
+  protected
+    function ValidFields: Boolean; virtual;
   public
     { Public declarations }
   end;
@@ -25,5 +26,18 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TDlgBase.btnOKClick(Sender: TObject);
+begin
+  if ValidFields then
+  begin
+    ModalResult := mrOk;
+  end;
+end;
+
+function TDlgBase.ValidFields: Boolean;
+begin
+  Result := True;
+end;
 
 end.

@@ -24,8 +24,6 @@ object DlgBase: TDlgBase
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 0
-    ExplicitTop = 224
-    ExplicitWidth = 559
     DesignSize = (
       494
       35)
@@ -48,8 +46,8 @@ object DlgBase: TDlgBase
       Anchors = [akTop, akRight]
       Caption = 'OK'
       Default = True
-      ModalResult = 1
       TabOrder = 1
+      OnClick = btnOKClick
     end
   end
   object pnlMain: TPanel
@@ -60,9 +58,5 @@ object DlgBase: TDlgBase
     Height = 131
     Align = alClient
     TabOrder = 1
-    ExplicitLeft = -2
-    ExplicitTop = 0
-    ExplicitWidth = 553
-    ExplicitHeight = 218
   end
 end

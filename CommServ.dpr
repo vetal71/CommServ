@@ -12,7 +12,8 @@ uses
   Common.Config in 'Common.Config.pas',
   Common.StrFuncs in 'Common.StrFuncs.pas',
   Common.DBUtils in 'Common.DBUtils.pas',
-  ConsumersForm in 'ConsumersForm.pas' {fConsumers};
+  ConsumersForm in 'ConsumersForm.pas' {fConsumers},
+  DlgConsumerEditor in 'DlgConsumerEditor.pas' {fConsumerEditor};
 
 {$R *.res}
 
@@ -24,7 +25,7 @@ begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(Tdm, dm);
-//  dlgConn := TdlgConn.Create(Application);
+  //  dlgConn := TdlgConn.Create(Application);
 //  try
 //    if dlgConn.ShowModal = mrOK then begin
 //      User := dlgConn.LoginUser;

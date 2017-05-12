@@ -4,8 +4,9 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BaseFormTemplate, System.ImageList,
-  Vcl.ImgList, Vcl.ExtCtrls, Vcl.Menus, SpTBXItem, TB2Dock, TB2Toolbar, TB2Item, ConsumersForm;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BaseFormTemplate,
+  Vcl.ExtCtrls, Vcl.Menus, SpTBXItem, TB2Dock, TB2Toolbar, TB2Item, ConsumersForm,
+  cxGraphics, System.Actions, Vcl.ActnList, System.ImageList, Vcl.ImgList;
 
 type
   TfMain = class(TBaseForm)
