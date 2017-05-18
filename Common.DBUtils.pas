@@ -36,6 +36,8 @@ function GetOrgParams: TOrgParams;
 // выпонить инструкцию
 procedure RunExecSQL (const aSQL : String);
 
+function GetItemsByQuery(AKeyField, ANameField, ATableName: string; IsAddAll: Boolean = False): TStringList;
+
 implementation
 
 function GetOrgParams: TOrgParams;
@@ -148,6 +150,38 @@ begin
         Log.Error(Format('Не удалось выполнить SQL запрос.'#13'(%s)'#13'%s', [aSQL, E.Message]), 'DATABASE');
         raise Exception.CreateFmt('Не удалось выполнить SQL запрос.'#13'(%s)'#13'%s', [aSQL, E.Message]);
       end;
+    end;
+  finally
+    Query.Free;
+  end;
+end;
+
+function GetItemsByQuery(AKeyField, ANameField, ATableName: string; IsAddAll: Boolean = False): TStringList;
+const
+  cSQL = 'select %0:s, %1:s from %2:s order by %0:s';
+var
+  Query : TMyQuery;
+  eKey: TObject;
+  eName : string;
+begin
+  Query := TMyQuery.Create(nil);
+  Result := TStringList.Create;
+  with Query do
+  try
+    SQL.Text := Format(cSQL, [AKeyField, ANameField, ATableName]);
+    try
+      Open;
+      if IsAddAll then
+        Result.Add('(Все)');
+      while (not Query.Eof) do
+      begin
+        eKey  := Pointer(Query.FieldByName(AKeyField).AsInteger);
+        eName := Query.FieldByName(ANameField).AsString;
+        Result.AddObject(eName, eKey);
+        Next;
+      end;
+    except
+      Result := nil;
     end;
   finally
     Query.Free;

@@ -70,6 +70,7 @@ bin/
 bpl/
 dcu/
 Samples/
+Скрипты/
 *.~*
 
 # Castalia statistics file (since XE7 Castalia is distributed with Delphi)

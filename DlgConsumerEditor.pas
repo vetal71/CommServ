@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, DlgBaseDBEditor, Vcl.StdCtrls,
   Vcl.ExtCtrls, Vcl.Mask, Vcl.DBCtrls, Data.DB, DBAccess, Uni, MemDS, RxDBComb,
-  RxToolEdit, RxDBCtrl, RxLookup, DlgCommon, DlgBaseTemplate;
+  RxToolEdit, RxDBCtrl, RxLookup, DlgCommon, DlgBaseTemplate, KVComp_UComboExt;
 
 type
   TfConsumerEditor = class(TDlgDBEditor)
@@ -27,9 +27,6 @@ type
     lbl3: TLabel;
     lbl4: TLabel;
     lblOt: TLabel;
-    edtDataDog: TDBDateEdit;
-    cbTipOrg: TComboBox;
-    cbMin: TComboBox;
     edtNazv: TEdit;
     edtAddress: TEdit;
     edtAccount: TEdit;
@@ -37,6 +34,9 @@ type
     edtDogNum: TEdit;
     edtBankNameExt: TEdit;
     ceBank: TComboEdit;
+    dDataDog: TDateEdit;
+    cbBudgetKind: TQueryComboBox;
+    cbConsumerKind: TQueryComboBox;
     procedure ceBankButtonClick(Sender: TObject);
   protected
     function ValidFields: Boolean; override;
@@ -72,21 +72,21 @@ begin
   // заполняем данными поля
   with DataSet do
   begin
-    FieldByName('nazv').AsString      := edtNazv.Text;
-    FieldByName('adres').AsString     := edtAddress.Text;
-    FieldByName('rschet').AsString    := edtAccount.Text;
-    FieldByName('unn').AsString       := edtUnn.Text;
-    FieldByName('ndog').AsInteger     := string.ToInteger(edtDogNum.Text);
-    FieldByName('datadog').AsDateTime := edtDataDog.Date;
-    FieldByName('kodbank').AsInteger  := string.ToInteger(ceBank.Text);
-    FieldByName('tiporg').AsInteger   := cbTipOrg.ItemIndex;
-    FieldByName('tipbud').AsInteger   := cbMin.ItemIndex;
+    FieldByName('ConsumerName').AsString      := edtNazv.Text;
+    FieldByName('ConsumerAddress').AsString     := edtAddress.Text;
+    FieldByName('Account').AsString    := edtAccount.Text;
+    FieldByName('UNN').AsString       := edtUnn.Text;
+//    FieldByName('ndog').AsInteger     := string.ToInteger(edtDogNum.Text);
+//    FieldByName('datadog').AsDateTime := edtDataDog.Date;
+    FieldByName('BankId').AsInteger  := string.ToInteger(ceBank.Text);
+    FieldByName('ConsumerKindId').AsInteger := cbConsumerKind.Code;
+    FieldByName('BudgetKindId').AsInteger   := cbBudgetKind.Code;
   end;
 end;
 
 procedure TfConsumerEditor.ceBankButtonClick(Sender: TObject);
 const
-  cSQLText = 'select kod_bank as CODE, nazv_bank as NAME from bank';
+  cSQLText = 'select BankId as CODE, BankName as NAME from bank';
   cCaption = 'Справочник банков';
 var
   eCode: Variant;
@@ -102,6 +102,8 @@ end;
 
 procedure TfConsumerEditor.InitFields;
 begin
+  cbConsumerKind.Load;
+  cbBudgetKind.Load;
   if DataSet = nil then Exit;
   with DataSet do
   begin
@@ -110,24 +112,24 @@ begin
         begin
           Self.Caption := 'Новый потребитель';
           DataSet.Append;
-          cbTipOrg.ItemIndex := 0;
-          cbMin.ItemIndex    := 0;
+          cbConsumerKind.Code := 0;
+          cbBudgetKind.Code   := 0;
         end;
       emEdit:
         begin
-          Self.Caption := Format('Редактирование потребителя: %s', [ DataSet.FieldByName('nazv').AsString ]);
+          Self.Caption := Format('Редактирование потребителя: %s', [ DataSet.FieldByName('ConsumerName').AsString ]);
           DataSet.Edit;
-          cbTipOrg.ItemIndex := DataSet.FieldValues['tiporg'];
-          cbMin.ItemIndex    := DataSet.FieldValues['tipbud'];
+          cbConsumerKind.Code := DataSet.FieldValues['ConsumerKindId'];
+          cbBudgetKind.Code   := DataSet.FieldValues['BudgetKindId'];
         end;
     end;
-    edtNazv.Text    := FieldByName('nazv').AsString;
-    edtAddress.Text := FieldByName('adres').AsString;
-    edtAccount.Text := FieldByName('rschet').AsString;
-    edtUnn.Text     := FieldByName('unn').AsString;
-    edtDogNum.Text  := FieldByName('ndog').AsString;
-    edtDataDog.Date := FieldByName('datadog').AsDateTime;
-    SetBankMFO(FieldByName('kodbank').AsString);
+    edtNazv.Text    := FieldByName('ConsumerName').AsString;
+    edtAddress.Text := FieldByName('ConsumerAddress').AsString;
+    edtAccount.Text := FieldByName('Account').AsString;
+    edtUnn.Text     := FieldByName('UNN').AsString;
+//    edtDogNum.Text  := FieldByName('ndog').AsString;
+//    edtDataDog.Date := FieldByName('datadog').AsDateTime;
+    SetBankMFO(FieldByName('BankId').AsString);
   end;
 end;
 
@@ -135,13 +137,13 @@ procedure TfConsumerEditor.SetBankMFO(AValue: Variant);
 begin
   if VarIsNull(AValue) then Exit;
   ceBank.Text := AValue;
-  edtBankNameExt.Text := GetFieldValue('nazv_bank', 'bank', Format('kod_bank=%s', [AValue]), '?');
+  edtBankNameExt.Text := GetFieldValue('BankName', 'Banks', Format('BankId=%s', [AValue]), '?');
 end;
 
 function TfConsumerEditor.ValidFields: Boolean;
 begin
   Result := (edtNazv.Text > '') and
-            (cbTipOrg.ItemIndex > -1);
+            (cbConsumerKind.Code > 0);
 end;
 
 end.

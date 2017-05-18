@@ -100,11 +100,11 @@ inherited fConsumerEditor: TfConsumerEditor
         Anchors = [akLeft, akTop, akRight]
       end
       object lblDogovor: TLabel
-        Left = 5
-        Top = 224
-        Width = 55
+        Left = 3
+        Top = 225
+        Width = 62
         Height = 14
-        Caption = #1044#1086#1075#1086#1074#1086#1088
+        Caption = #1044#1086#1075#1086#1074#1086#1088#1072
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -12
@@ -163,45 +163,6 @@ inherited fConsumerEditor: TfConsumerEditor
         Height = 14
         Caption = #1086#1090
       end
-      object edtDataDog: TDBDateEdit
-        Left = 244
-        Top = 253
-        Width = 121
-        Height = 22
-        DataField = 'datadog'
-        DataSource = fConsumers.dsOrgs
-        DefaultToday = True
-        DialogTitle = #1042#1099#1073#1086#1088' '#1076#1072#1090#1099
-        NumGlyphs = 2
-        TabOrder = 7
-      end
-      object cbTipOrg: TComboBox
-        Left = 130
-        Top = 80
-        Width = 223
-        Height = 22
-        TabOrder = 2
-        Text = 'cbTipOrg'
-        Items.Strings = (
-          #1041#1102#1076#1078#1077#1090#1085#1072#1103
-          #1061#1086#1079#1088#1072#1089#1095#1077#1090#1085#1072#1103
-          #1046#1057#1050
-          #1046#1057#1050' ('#1041#1043#1057#1061#1040')')
-      end
-      object cbMin: TComboBox
-        Left = 492
-        Top = 81
-        Width = 189
-        Height = 22
-        Anchors = [akLeft, akTop, akRight]
-        TabOrder = 3
-        Text = 'cbMin'
-        Items.Strings = (
-          #1052#1077#1089#1090#1085#1099#1081' '#1041#1102#1076#1078#1077#1090
-          #1054#1073#1083#1072#1089#1090#1085#1086#1081' '#1041#1102#1076#1078#1077#1090
-          #1056#1077#1089#1087#1091#1073#1083#1080#1082#1072#1085#1089#1082#1080#1081' '#1041#1102#1076#1078#1077#1090
-          #1055#1088#1086#1095#1077#1077)
-      end
       object edtNazv: TEdit
         Left = 5
         Top = 20
@@ -232,7 +193,7 @@ inherited fConsumerEditor: TfConsumerEditor
         Width = 551
         Height = 22
         Anchors = [akLeft, akTop, akRight]
-        TabOrder = 4
+        TabOrder = 3
         Text = 'edtAccount'
       end
       object edtUnn: TEdit
@@ -240,7 +201,7 @@ inherited fConsumerEditor: TfConsumerEditor
         Top = 190
         Width = 223
         Height = 22
-        TabOrder = 5
+        TabOrder = 4
         Text = 'edtUnn'
       end
       object edtDogNum: TEdit
@@ -248,7 +209,7 @@ inherited fConsumerEditor: TfConsumerEditor
         Top = 253
         Width = 89
         Height = 22
-        TabOrder = 6
+        TabOrder = 5
         Text = 'edtDogNum'
       end
       object edtBankNameExt: TEdit
@@ -260,7 +221,7 @@ inherited fConsumerEditor: TfConsumerEditor
         Color = clBtnFace
         Enabled = False
         ReadOnly = True
-        TabOrder = 9
+        TabOrder = 8
         Text = '?'
       end
       object ceBank: TComboEdit
@@ -271,16 +232,103 @@ inherited fConsumerEditor: TfConsumerEditor
         GlyphKind = gkEllipsis
         ButtonWidth = 17
         NumGlyphs = 1
-        TabOrder = 8
+        TabOrder = 7
         Text = ''
         OnButtonClick = ceBankButtonClick
+      end
+      object dDataDog: TDateEdit
+        Left = 244
+        Top = 253
+        Width = 121
+        Height = 22
+        DefaultToday = True
+        DialogTitle = #1042#1099#1073#1086#1088' '#1076#1072#1090#1099
+        GlyphKind = gkCustom
+        Glyph.Data = {
+          76050000424D760500000000000036000000280000001C0000000C0000000100
+          2000000000004005000000000000000000000000000000000000FF00FF00FF00
+          FF00FF00FF008080800080808000808080008080800080808000808080008080
+          800080808000808080008080800080808000FF00FF00FF00FF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FF00FF00FF00FF000000000000000000800000000000
+          0000800000008000000000000000800000000000000000000000800000008080
+          8000FF00FF008080800080808000808080008080800080808000808080008080
+          80008080800080808000808080008080800080808000FFFFFF00FF00FF00FF00
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+          FF00FFFFFF00FFFFFF00FFFFFF00FF00FF00FFFFFF00FFFFFF00FFFFFF00FF00
+          FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF0000000000000000000000
+          0000FFFFFF00000000000000000000000000C0C0C000FFFFFF00800000008080
+          8000FF00FF0080808000FFFFFF00808080008080800080808000FF00FF008080
+          80008080800080808000FF00FF00FFFFFF0080808000FFFFFF00FF00FF00FF00
+          FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF00C0C0C000FFFFFF00C0C0
+          C00000000000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+          FF0080808000FFFFFF00FF00FF00FF00FF00FF00FF00FF00FF0080808000FFFF
+          FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF00FFFFFF0000000000FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0000000000FFFFFF00800000008080
+          8000FF00FF0080808000FFFFFF00FF00FF0080808000FFFFFF00FF00FF00FF00
+          FF00FFFFFF00FFFFFF0080808000FF00FF0080808000FFFFFF00FF00FF00FF00
+          FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF0000000000000000000000
+          0000C0C0C000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+          FF0080808000FFFFFF00FF00FF00808080008080800080808000FF00FF00FF00
+          FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF000000000000000000FFFF
+          FF00FFFFFF0000000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00800000008080
+          8000FF00FF0080808000FFFFFF008080800080808000FFFFFF00FF00FF008080
+          8000FFFFFF00FFFFFF00FFFFFF00FFFFFF0080808000FFFFFF00FF00FF00FF00
+          FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF0000000000000000000000
+          000000000000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+          FF0080808000FF00FF00FF00FF0080808000808080008080800080808000FF00
+          FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00800000008080
+          8000FF00FF0080808000FFFFFF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
+          FF00FF00FF00FF00FF00FF00FF00FF00FF0080808000FFFFFF00FF00FF00FF00
+          FF00FFFFFF00C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0
+          C000C0C0C000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF0080808000FFFFFF00FF00FF00FF00FF000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000FF00FF00FF00
+          FF00FF00FF008080800080808000808080008080800080808000808080008080
+          80008080800080808000808080008080800080808000FF00FF00}
+        NumGlyphs = 2
+        TabOrder = 6
+        Text = '18/05/2017'
+      end
+      object cbBudgetKind: TQueryComboBox
+        Left = 492
+        Top = 81
+        Width = 189
+        Height = 22
+        Anchors = [akLeft, akTop, akRight]
+        TabOrder = 2
+        Text = 'cbBudgetKind'
+        Complete = True
+        MinLengthComplete = 0
+        Connection = dm.dbConn
+        SQL.Strings = (
+          'select BudgetKindRefId, BudgetKindName '
+          'from BudgetKindRef '
+          'order by BudgetKindRefId')
+      end
+      object cbConsumerKind: TQueryComboBox
+        Left = 130
+        Top = 80
+        Width = 223
+        Height = 22
+        TabOrder = 9
+        Complete = True
+        MinLengthComplete = 0
+        Connection = dm.dbConn
+        SQL.Strings = (
+          'select ConsumerKindRefId, ConsumerKindName '
+          'from ConsumersKindRef '
+          'order by ConsumerKindRefId')
       end
     end
   end
   object qryBanks: TUniQuery
     Connection = dm.dbConn
     SQL.Strings = (
-      'select * from bank')
+      'select * from Banks')
     Left = 404
     Top = 196
   end

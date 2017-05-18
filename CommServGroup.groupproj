@@ -1,9 +1,12 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
-        <ProjectGuid>{E87F20A3-258C-475B-839A-E8D3F108B751}</ProjectGuid>
+        <ProjectGuid>{873D9911-B600-4989-B69E-92DA0AAE6979}</ProjectGuid>
     </PropertyGroup>
     <ItemGroup>
         <Projects Include="CommServ.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Comp\kvv\KVComp.dproj">
             <Dependencies/>
         </Projects>
     </ItemGroup>
@@ -23,14 +26,23 @@
     <Target Name="CommServ:Make">
         <MSBuild Projects="CommServ.dproj" Targets="Make"/>
     </Target>
+    <Target Name="KVComp">
+        <MSBuild Projects="Comp\kvv\KVComp.dproj"/>
+    </Target>
+    <Target Name="KVComp:Clean">
+        <MSBuild Projects="Comp\kvv\KVComp.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="KVComp:Make">
+        <MSBuild Projects="Comp\kvv\KVComp.dproj" Targets="Make"/>
+    </Target>
     <Target Name="Build">
-        <CallTarget Targets="CommServ"/>
+        <CallTarget Targets="CommServ;KVComp"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="CommServ:Clean"/>
+        <CallTarget Targets="CommServ:Clean;KVComp:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="CommServ:Make"/>
+        <CallTarget Targets="CommServ:Make;KVComp:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>

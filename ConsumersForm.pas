@@ -150,6 +150,7 @@ end;
 procedure TfConsumers.AfterConstruction;
 begin
   inherited;
+  cbTypeConsumer.Items := GetItemsByQuery('ConsumerKindRefId', 'ConsumerKindName', 'ConsumersKindRef', True);
   if qryOrgs.Active then
     qryOrgs.Close;
   try
@@ -248,7 +249,7 @@ begin
   if cbTypeConsumer.ItemIndex = 0 then
     qryOrgs.FilterSQL := ''
   else if cbTypeConsumer.ItemIndex > 0 then
-    qryOrgs.FilterSQL := Format('tiporg=%d', [cbTypeConsumer.ItemIndex - 1]);
+    qryOrgs.FilterSQL := Format('ConsumerKindId=%d', [cbTypeConsumer.ItemIndex]);
 end;
 
 procedure TfConsumers.FormClose(Sender: TObject; var Action: TCloseAction);
