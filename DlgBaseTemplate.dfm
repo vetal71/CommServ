@@ -47,7 +47,6 @@ object DlgBase: TDlgBase
       Caption = 'OK'
       Default = True
       TabOrder = 1
-      OnClick = btnOKClick
     end
   end
   object pnlMain: TPanel

@@ -8,17 +8,8 @@ uses
   Vcl.ImgList, cxGraphics, System.Actions, Vcl.ActnList, Vcl.ExtCtrls,
   Vcl.Menus, SpTBXItem, TB2Dock, TB2Toolbar, TB2Item, DBGridEhGrouping,
   ToolCtrlsEh, DBGridEhToolCtrls, DynVarsEh, Data.DB, DBAccess, Uni, MemDS,
-  RxSplit, EhLibVCL, GridsEh, DBAxisGridsEh, DBGridEh, Vcl.StdCtrls;
-
-type
-  TEditMode = (emAppend, emEdit);
-
-type
-  TConsumer = record
-    Name, Address, Account, UNN, BankName, NumDog: string;
-    BankMFO, TypeConsumer, TypeBudget: Integer;
-    DateDog: TDate;
-  end;
+  RxSplit, EhLibVCL, GridsEh, DBAxisGridsEh, DBGridEh, Vcl.StdCtrls,
+  Common.DBUtils;
 
 type
   TfConsumers = class(TBaseForm)
@@ -81,12 +72,15 @@ type
     actFilterObject: TAction;
     pmObjects: TSpTBXPopupMenu;
     pmConsumers: TSpTBXPopupMenu;
+    miN2: TMenuItem;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure actFilterConsumerExecute(Sender: TObject);
     procedure actFilterObjectExecute(Sender: TObject);
     procedure actAddConsumerExecute(Sender: TObject);
     procedure actEditConsumerExecute(Sender: TObject);
+    procedure actDelConsumerExecute(Sender: TObject);
+    procedure cbTypeConsumerChange(Sender: TObject);
   private
     procedure ShowGridFilter(AGrid: TDBGridEh);
     procedure BuildPopupMenu(ASource: TSpTBXToolbar; ADest: TSpTBXPopupMenu);
@@ -120,6 +114,19 @@ procedure TfConsumers.actAddConsumerExecute(Sender: TObject);
 begin
   // Новый потребитель
   EditCustomer(emAppend);
+end;
+
+procedure TfConsumers.actDelConsumerExecute(Sender: TObject);
+begin
+  inherited;
+  // Удаление потребителя
+  if ConfirmWarn(Format('Вы действительно хотите удалить потребителя "%s"?'#13 +
+    'Также будут удалены все объекты и начисления. Удалить ?', [qryOrgs['nazv']])) then
+  begin
+    // TODO выполнение процедуры удаления
+    // Добавить поле в таблицу Org - IsDeleted
+    // Переписать запросы на выборку только актуальных записей
+  end;
 end;
 
 procedure TfConsumers.actEditConsumerExecute(Sender: TObject);
@@ -167,25 +174,8 @@ procedure TfConsumers.EditCustomer(AMode: TEditMode);
 var
   F: TfConsumerEditor;
 begin
-  F := TfConsumerEditor.Create(Owner);
+  F := TfConsumerEditor.Create(Owner, qryOrgs, AMode);
   try
-    case AMode of
-      emAppend:
-        begin
-          F.Caption := 'Новый потребитель';
-          qryOrgs.Append;
-          F.cbTipOrg.ItemIndex := 0;
-          F.cbMin.ItemIndex    := 0;
-        end;
-      emEdit:
-        begin
-          F.Caption := Format('Редактирование потребителя: %s', [ qryOrgs.FieldByName('nazv').AsString ]);
-          F.cbTipOrg.ItemIndex := qryOrgs.FieldValues['tiporg'];
-          F.cbMin.ItemIndex    := qryOrgs.FieldValues['tipbud'];
-          qryOrgs.Edit;
-        end;
-    end;
-
     if F.ShowModal = mrOk then
       try
         qryOrgs.Post;
@@ -250,6 +240,15 @@ begin
       ADest.Items.Add(NewMenuItem(ASource.Items[ I ]));
     end;
   end;
+end;
+
+procedure TfConsumers.cbTypeConsumerChange(Sender: TObject);
+begin
+  inherited;
+  if cbTypeConsumer.ItemIndex = 0 then
+    qryOrgs.FilterSQL := ''
+  else if cbTypeConsumer.ItemIndex > 0 then
+    qryOrgs.FilterSQL := Format('tiporg=%d', [cbTypeConsumer.ItemIndex - 1]);
 end;
 
 procedure TfConsumers.FormClose(Sender: TObject; var Action: TCloseAction);

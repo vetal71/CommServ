@@ -52,6 +52,7 @@ inherited fConsumers: TfConsumers
         Hint = #1059#1076#1072#1083#1080#1090#1100' '#1079#1072#1087#1080#1089#1100
         ImageIndex = 2
         Images = ilMainLarge
+        OnClick = actDelConsumerExecute
       end
       object SpTBXSeparatorItem5: TSpTBXSeparatorItem
       end
@@ -86,6 +87,7 @@ inherited fConsumers: TfConsumers
         ItemIndex = 0
         TabOrder = 0
         Text = '('#1042#1089#1077')'
+        OnChange = cbTypeConsumerChange
         Items.Strings = (
           '('#1042#1089#1077')'
           #1041#1102#1076#1078#1077#1090#1085#1099#1077
@@ -132,6 +134,7 @@ inherited fConsumers: TfConsumers
         SortLocal = True
         STFilter.Local = True
         TabOrder = 0
+        OnDblClick = actEditConsumerExecute
         Columns = <
           item
             CellButtons = <>
@@ -320,18 +323,24 @@ inherited fConsumers: TfConsumers
         Caption = #1055#1086#1090#1088#1077#1073#1080#1090#1077#1083#1080
         object miAddConsumer: TMenuItem
           Caption = #1044#1086#1073#1072#1074#1080#1090#1100' '#1079#1072#1087#1080#1089#1100
+          OnClick = actAddConsumerExecute
         end
         object miEditConsumer: TMenuItem
           Caption = #1056#1077#1076#1072#1082#1090#1080#1088#1086#1074#1072#1090#1100' '#1079#1072#1087#1080#1089#1100
+          OnClick = actEditConsumerExecute
         end
         object miDeleteConsumer: TMenuItem
           Caption = #1059#1076#1072#1083#1080#1090#1100' '#1079#1072#1087#1080#1089#1100
+          OnClick = actDelConsumerExecute
         end
         object miN7: TMenuItem
           Caption = '-'
         end
         object miPrint: TMenuItem
           Caption = #1055#1077#1095#1072#1090#1100
+          object miN2: TMenuItem
+            Caption = '<'#1055#1091#1089#1090#1086'>'
+          end
         end
         object miN5: TMenuItem
           Caption = '-'
@@ -392,6 +401,7 @@ inherited fConsumers: TfConsumers
     object actDelConsumer: TAction
       Category = 'Consumers'
       Caption = 'actDelConsumer'
+      OnExecute = actDelConsumerExecute
     end
     object actAddObject: TAction
       Category = 'Objects'

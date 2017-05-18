@@ -7,6 +7,9 @@ uses
   DataModule, Uni, Common.Config, System.Classes;
 
 type
+  TEditMode = (emAppend, emEdit);
+
+type
   TOrgParams = record
     OrgName, OrgAddress, OrgUnn : string;
     OrgMFO: Integer;

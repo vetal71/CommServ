@@ -113,9 +113,9 @@ inherited fConsumerEditor: TfConsumerEditor
         ParentFont = False
       end
       object bvl3: TBevel
-        Left = 1
+        Left = 4
         Top = 240
-        Width = 680
+        Width = 677
         Height = 3
         Anchors = [akLeft, akTop, akRight]
       end
@@ -163,98 +163,6 @@ inherited fConsumerEditor: TfConsumerEditor
         Height = 14
         Caption = #1086#1090
       end
-      object cbMFO: TDBLookupComboBox
-        Left = 130
-        Top = 162
-        Width = 89
-        Height = 22
-        Hint = #1042#1099#1073#1086#1088' '#1073#1072#1085#1082#1072
-        DataField = 'kodbank'
-        DataSource = fConsumers.dsOrgs
-        KeyField = 'kod_bank'
-        ListField = 'kod_bank;nazv_bank'
-        ListSource = dsBanks
-        TabOrder = 5
-      end
-      object edtNazv: TRxDBComboEdit
-        Left = 5
-        Top = 20
-        Width = 676
-        Height = 22
-        DataField = 'nazv'
-        DataSource = fConsumers.dsOrgs
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -12
-        Font.Name = 'Tahoma'
-        Font.Style = [fsBold]
-        ButtonWidth = 0
-        Anchors = [akLeft, akTop, akRight]
-        NumGlyphs = 1
-        ParentFont = False
-        TabOrder = 0
-      end
-      object edtAddress: TRxDBComboEdit
-        Left = 130
-        Top = 53
-        Width = 551
-        Height = 22
-        DataField = 'adres'
-        DataSource = fConsumers.dsOrgs
-        ButtonWidth = 0
-        Anchors = [akLeft, akTop, akRight]
-        NumGlyphs = 1
-        TabOrder = 1
-      end
-      object edtAccount: TRxDBComboEdit
-        Left = 130
-        Top = 134
-        Width = 551
-        Height = 22
-        DataField = 'rschet'
-        DataSource = fConsumers.dsOrgs
-        ButtonWidth = 0
-        Anchors = [akLeft, akTop, akRight]
-        NumGlyphs = 1
-        TabOrder = 4
-      end
-      object edtBankName: TRxDBComboEdit
-        Left = 222
-        Top = 162
-        Width = 459
-        Height = 22
-        Color = clBtnFace
-        DataField = 'bank'
-        DataSource = fConsumers.dsOrgs
-        Enabled = False
-        ButtonWidth = 0
-        Anchors = [akLeft, akTop, akRight]
-        NumGlyphs = 1
-        ReadOnly = True
-        TabOrder = 6
-      end
-      object edtUnn: TRxDBComboEdit
-        Left = 130
-        Top = 190
-        Width = 223
-        Height = 22
-        DataField = 'unn'
-        DataSource = fConsumers.dsOrgs
-        ButtonWidth = 0
-        NumGlyphs = 1
-        TabOrder = 7
-      end
-      object edtDogNum: TRxDBComboEdit
-        Left = 130
-        Top = 253
-        Width = 89
-        Height = 22
-        DataField = 'ndog'
-        DataSource = fConsumers.dsOrgs
-        ButtonWidth = 0
-        NumGlyphs = 1
-        TabOrder = 8
-      end
       object edtDataDog: TDBDateEdit
         Left = 244
         Top = 253
@@ -265,7 +173,7 @@ inherited fConsumerEditor: TfConsumerEditor
         DefaultToday = True
         DialogTitle = #1042#1099#1073#1086#1088' '#1076#1072#1090#1099
         NumGlyphs = 2
-        TabOrder = 9
+        TabOrder = 7
       end
       object cbTipOrg: TComboBox
         Left = 130
@@ -293,6 +201,79 @@ inherited fConsumerEditor: TfConsumerEditor
           #1054#1073#1083#1072#1089#1090#1085#1086#1081' '#1041#1102#1076#1078#1077#1090
           #1056#1077#1089#1087#1091#1073#1083#1080#1082#1072#1085#1089#1082#1080#1081' '#1041#1102#1076#1078#1077#1090
           #1055#1088#1086#1095#1077#1077)
+      end
+      object edtNazv: TEdit
+        Left = 5
+        Top = 20
+        Width = 676
+        Height = 22
+        Anchors = [akLeft, akTop, akRight]
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -12
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 0
+        Text = 'edtNazv'
+      end
+      object edtAddress: TEdit
+        Left = 130
+        Top = 53
+        Width = 551
+        Height = 22
+        Anchors = [akLeft, akTop, akRight]
+        TabOrder = 1
+        Text = 'edtAddress'
+      end
+      object edtAccount: TEdit
+        Left = 130
+        Top = 134
+        Width = 551
+        Height = 22
+        Anchors = [akLeft, akTop, akRight]
+        TabOrder = 4
+        Text = 'edtAccount'
+      end
+      object edtUnn: TEdit
+        Left = 130
+        Top = 190
+        Width = 223
+        Height = 22
+        TabOrder = 5
+        Text = 'edtUnn'
+      end
+      object edtDogNum: TEdit
+        Left = 130
+        Top = 253
+        Width = 89
+        Height = 22
+        TabOrder = 6
+        Text = 'edtDogNum'
+      end
+      object edtBankNameExt: TEdit
+        Left = 225
+        Top = 162
+        Width = 456
+        Height = 22
+        Anchors = [akLeft, akTop, akRight]
+        Color = clBtnFace
+        Enabled = False
+        ReadOnly = True
+        TabOrder = 9
+        Text = '?'
+      end
+      object ceBank: TComboEdit
+        Left = 130
+        Top = 162
+        Width = 89
+        Height = 22
+        GlyphKind = gkEllipsis
+        ButtonWidth = 17
+        NumGlyphs = 1
+        TabOrder = 8
+        Text = ''
+        OnButtonClick = ceBankButtonClick
       end
     end
   end

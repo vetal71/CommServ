@@ -3,6 +3,7 @@ program CommServ;
 uses
   Vcl.Forms,
   Vcl.Controls,
+  System.SysUtils,
   BaseFormTemplate in 'BaseFormTemplate.pas' {BaseForm},
   MainForm in 'MainForm.pas' {fMain},
   Common.Consts in 'Common.Consts.pas',
@@ -13,7 +14,9 @@ uses
   Common.StrFuncs in 'Common.StrFuncs.pas',
   Common.DBUtils in 'Common.DBUtils.pas',
   ConsumersForm in 'ConsumersForm.pas' {fConsumers},
-  DlgConsumerEditor in 'DlgConsumerEditor.pas' {fConsumerEditor};
+  DlgConsumerEditor in 'DlgConsumerEditor.pas' {fConsumerEditor},
+  DlgCommon in 'DlgCommon.pas' {FDlgCommon},
+  DlgBaseDBEditor in 'DlgBaseDBEditor.pas' {DlgDBEditor};
 
 {$R *.res}
 
@@ -22,25 +25,29 @@ var
   AllowRun: Boolean;
 
 begin
-  Application.Initialize;
-  Application.MainFormOnTaskbar := True;
-  Application.CreateForm(Tdm, dm);
-  //  dlgConn := TdlgConn.Create(Application);
-//  try
-//    if dlgConn.ShowModal = mrOK then begin
-//      User := dlgConn.LoginUser;
-      User := 'sa';
-//      Pass := dlgConn.LoginPass;
-      Pass := 'hHTAUOOp7';
-      AllowRun := dm.Authorize( User, Pass );
-//    end;
-//  finally
-//    dlgConn.Free;
-//  end;
-  if AllowRun then
-  begin
-    Application.CreateForm(TfMain, fMain);
-    fMain.UserName := User;
-    Application.Run;
+  try
+    Application.Initialize;
+    Application.MainFormOnTaskbar := True;
+    Application.CreateForm(Tdm, dm);
+    //  dlgConn := TdlgConn.Create(Application);
+  //  try
+  //    if dlgConn.ShowModal = mrOK then begin
+  //      User := dlgConn.LoginUser;
+        User := 'sa';
+  //      Pass := dlgConn.LoginPass;
+        Pass := 'hHTAUOOp7';
+        AllowRun := dm.Authorize( User, Pass );
+  //    end;
+  //  finally
+  //    dlgConn.Free;
+  //  end;
+    if AllowRun then
+    begin
+      Application.CreateForm(TfMain, fMain);
+      fMain.UserName := User;
+      Application.Run;
+    end;
+  except on E: Exception do
+    ShowErrorFmt('При запуске программы возникла непредвиденная ошибка.'#13'%s', [E.Message]);
   end;
 end.
