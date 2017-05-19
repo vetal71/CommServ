@@ -56,25 +56,25 @@ GO
 DELETE FROM dbo.ConsumersKindRef
 GO
 INSERT INTO dbo.ConsumersKindRef (ConsumerKindRefId, ConsumerKindName)
-  VALUES (1, 'Бюджетные организации');
+  VALUES (1, N'Бюджетные организации');
 INSERT INTO dbo.ConsumersKindRef (ConsumerKindRefId, ConsumerKindName)
-  VALUES (2, 'Хозрасчетные организации');
+  VALUES (2, N'Хозрасчетные организации');
     INSERT INTO dbo.ConsumersKindRef (ConsumerKindRefId, ConsumerKindName)
-  VALUES (3, 'ЖСК');
+  VALUES (3, N'ЖСК');
     INSERT INTO dbo.ConsumersKindRef (ConsumerKindRefId, ConsumerKindName)
-  VALUES (4, 'ЖСК (БГСХА)');
+  VALUES (4, N'ЖСК (БГСХА)');
 GO
 
 DELETE FROM dbo.BudgetKindRef
 GO
 INSERT INTO dbo.BudgetKindRef (BudgetKindRefId, BudgetKindName)
-  VALUES (1, 'Местный бюджет');
+  VALUES (1, N'Местный бюджет');
 INSERT INTO dbo.BudgetKindRef (BudgetKindRefId, BudgetKindName)
-  VALUES (2, 'Областной бюджет');
+  VALUES (2, N'Областной бюджет');
 INSERT INTO dbo.BudgetKindRef (BudgetKindRefId, BudgetKindName)
-  VALUES (3, 'Республиканский бюджет');
+  VALUES (3, N'Республиканский бюджет');
 INSERT INTO dbo.BudgetKindRef (BudgetKindRefId, BudgetKindName)
-  VALUES (4, 'Прочее финансирование');
+  VALUES (4, N'Прочее финансирование');
 GO
 PRINT 'Заполнили вспомагательные таблицы'
 
