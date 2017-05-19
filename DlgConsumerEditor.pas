@@ -6,7 +6,8 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, DlgBaseDBEditor, Vcl.StdCtrls,
   Vcl.ExtCtrls, Vcl.Mask, Vcl.DBCtrls, Data.DB, DBAccess, Uni, MemDS, RxDBComb,
-  RxToolEdit, RxDBCtrl, RxLookup, DlgCommon, DlgBaseTemplate, KVComp_UComboExt;
+  RxToolEdit, RxDBCtrl, RxLookup, DlgCommon, DlgBaseTemplate, KVComp_UComboExt,
+  KVComp_uPickCommon, KVComp_uPickDict, DataModule;
 
 type
   TfConsumerEditor = class(TDlgDBEditor)
@@ -14,8 +15,6 @@ type
     lblOrgName: TLabel;
     bvl1: TBevel;
     lblAddress: TLabel;
-    qryBanks: TUniQuery;
-    dsBanks: TUniDataSource;
     lblTipOrg: TLabel;
     lblRekv: TLabel;
     bvl2: TBevel;
@@ -32,39 +31,27 @@ type
     edtAccount: TEdit;
     edtUnn: TEdit;
     edtDogNum: TEdit;
-    edtBankNameExt: TEdit;
-    ceBank: TComboEdit;
     dDataDog: TDateEdit;
     cbBudgetKind: TQueryComboBox;
     cbConsumerKind: TQueryComboBox;
-    procedure ceBankButtonClick(Sender: TObject);
+    ceBank: TComboEditDict;
+    edtBankName: TEditDict;
   protected
     function ValidFields: Boolean; override;
     procedure AssignFields; override;
     procedure InitFields; override;
-    procedure OpenData; override;
   private
-    procedure SetBankMFO(AValue: Variant);
+//    procedure SetBankMFO(AValue: Variant);
   end;
 
 implementation
 
 uses
-  ConsumersForm, DataModule, Common.DBUtils;
+  ConsumersForm, Common.DBUtils;
 
 {$R *.dfm}
 
 { TfConsumerEditor }
-
-procedure TfConsumerEditor.OpenData;
-begin
-  if qryBanks.Active then qryBanks.Close;
-  try
-    qryBanks.Open;
-  except on E: Exception do
-    raise Exception.CreateFmt('Ќе удалось получить список банков.'#13'%s', [ E.Message ]);
-  end;
-end;
 
 procedure TfConsumerEditor.AssignFields;
 begin
@@ -72,31 +59,13 @@ begin
   // заполн€ем данными пол€
   with DataSet do
   begin
-    FieldByName('ConsumerName').AsString      := edtNazv.Text;
-    FieldByName('ConsumerAddress').AsString     := edtAddress.Text;
-    FieldByName('Account').AsString    := edtAccount.Text;
-    FieldByName('UNN').AsString       := edtUnn.Text;
-//    FieldByName('ndog').AsInteger     := string.ToInteger(edtDogNum.Text);
-//    FieldByName('datadog').AsDateTime := edtDataDog.Date;
-    FieldByName('BankId').AsInteger  := string.ToInteger(ceBank.Text);
+    FieldByName('ConsumerName').AsString    := edtNazv.Text;
+    FieldByName('ConsumerAddress').AsString := edtAddress.Text;
+    FieldByName('Account').AsString         := edtAccount.Text;
+    FieldByName('UNN').AsString             := edtUnn.Text;
+    FieldByName('BankId').AsInteger         := ceBank.DictID;
     FieldByName('ConsumerKindId').AsInteger := cbConsumerKind.Code;
     FieldByName('BudgetKindId').AsInteger   := cbBudgetKind.Code;
-  end;
-end;
-
-procedure TfConsumerEditor.ceBankButtonClick(Sender: TObject);
-const
-  cSQLText = 'select BankId as CODE, BankName as NAME from bank';
-  cCaption = '—правочник банков';
-var
-  eCode: Variant;
-begin
-  inherited;
-  eCode := ceBank.Text;
-  if ShowDlgCommon(dm.dbConn, cSQLText, cCaption, eCode) then
-  begin
-    ceBank.Text := eCode;
-    SetBankMFO(eCode);
   end;
 end;
 
@@ -127,17 +96,8 @@ begin
     edtAddress.Text := FieldByName('ConsumerAddress').AsString;
     edtAccount.Text := FieldByName('Account').AsString;
     edtUnn.Text     := FieldByName('UNN').AsString;
-//    edtDogNum.Text  := FieldByName('ndog').AsString;
-//    edtDataDog.Date := FieldByName('datadog').AsDateTime;
-    SetBankMFO(FieldByName('BankId').AsString);
+    ceBank.DictID   := FieldByName('BankId').AsInteger;
   end;
-end;
-
-procedure TfConsumerEditor.SetBankMFO(AValue: Variant);
-begin
-  if VarIsNull(AValue) then Exit;
-  ceBank.Text := AValue;
-  edtBankNameExt.Text := GetFieldValue('BankName', 'Banks', Format('BankId=%s', [AValue]), '?');
 end;
 
 function TfConsumerEditor.ValidFields: Boolean;

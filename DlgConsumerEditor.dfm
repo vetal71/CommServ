@@ -170,10 +170,10 @@ inherited fConsumerEditor: TfConsumerEditor
         Height = 22
         Anchors = [akLeft, akTop, akRight]
         Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
+        Font.Color = clHighlight
         Font.Height = -12
         Font.Name = 'Tahoma'
-        Font.Style = [fsBold]
+        Font.Style = [fsBold, fsItalic]
         ParentFont = False
         TabOrder = 0
         Text = 'edtNazv'
@@ -211,30 +211,6 @@ inherited fConsumerEditor: TfConsumerEditor
         Height = 22
         TabOrder = 5
         Text = 'edtDogNum'
-      end
-      object edtBankNameExt: TEdit
-        Left = 225
-        Top = 162
-        Width = 456
-        Height = 22
-        Anchors = [akLeft, akTop, akRight]
-        Color = clBtnFace
-        Enabled = False
-        ReadOnly = True
-        TabOrder = 8
-        Text = '?'
-      end
-      object ceBank: TComboEdit
-        Left = 130
-        Top = 162
-        Width = 89
-        Height = 22
-        GlyphKind = gkEllipsis
-        ButtonWidth = 17
-        NumGlyphs = 1
-        TabOrder = 7
-        Text = ''
-        OnButtonClick = ceBankButtonClick
       end
       object dDataDog: TDateEdit
         Left = 244
@@ -298,9 +274,9 @@ inherited fConsumerEditor: TfConsumerEditor
         Top = 81
         Width = 189
         Height = 22
+        Style = csDropDownList
         Anchors = [akLeft, akTop, akRight]
         TabOrder = 2
-        Text = 'cbBudgetKind'
         Complete = True
         MinLengthComplete = 0
         Connection = dm.dbConn
@@ -314,7 +290,8 @@ inherited fConsumerEditor: TfConsumerEditor
         Top = 80
         Width = 223
         Height = 22
-        TabOrder = 9
+        Style = csDropDownList
+        TabOrder = 7
         Complete = True
         MinLengthComplete = 0
         Connection = dm.dbConn
@@ -323,18 +300,36 @@ inherited fConsumerEditor: TfConsumerEditor
           'from ConsumersKindRef '
           'order by ConsumerKindRefId')
       end
+      object ceBank: TComboEditDict
+        Left = 130
+        Top = 162
+        Width = 70
+        Height = 22
+        Hint = #1050#1086#1076' '#1073#1072#1085#1082#1072
+        FormCaption = #1057#1087#1088#1072#1074#1086#1095#1085#1080#1082' '#1087#1086#1090#1088#1077#1073#1080#1090#1077#1083#1077#1081
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 8
+        Text = ''
+        Connection = dm.dbConn
+        SQLs.Strings = (
+          'select BankId as Code, BankName as Name from Banks')
+      end
+      object edtBankName: TEditDict
+        Left = 206
+        Top = 162
+        Width = 475
+        Height = 22
+        Hint = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077' '#1073#1072#1085#1082#1072
+        TabStop = False
+        Anchors = [akLeft, akTop, akRight]
+        MaxLength = 2000
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 9
+        Text = '?'
+        DictSource = ceBank
+      end
     end
-  end
-  object qryBanks: TUniQuery
-    Connection = dm.dbConn
-    SQL.Strings = (
-      'select * from Banks')
-    Left = 404
-    Top = 196
-  end
-  object dsBanks: TUniDataSource
-    DataSet = qryBanks
-    Left = 458
-    Top = 196
   end
 end

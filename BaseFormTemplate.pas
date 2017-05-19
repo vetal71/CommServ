@@ -45,6 +45,8 @@ type
   private
     lblTime: TTimeLabelItem;
     procedure ShowHint(Sender: TObject);
+  protected
+    function ReportGroup: Integer; virtual;
   public
     { Public declarations }
   end;

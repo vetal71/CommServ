@@ -21,8 +21,8 @@ inherited fConsumers: TfConsumers
     Width = 812
     ExplicitWidth = 812
     inherited tbrMain: TSpTBXToolbar
-      Left = 432
-      ExplicitLeft = 432
+      Left = 487
+      ExplicitLeft = 487
     end
     object tbrConsumers: TSpTBXToolbar
       Left = 0
@@ -82,11 +82,10 @@ inherited fConsumers: TfConsumers
       object cbTypeConsumer: TComboBox
         Left = 174
         Top = 8
-        Width = 145
+        Width = 200
         Height = 22
         ItemIndex = 0
         TabOrder = 0
-        Text = '('#1042#1089#1077')'
         OnChange = cbTypeConsumerChange
         Items.Strings = (
           '('#1042#1089#1077')'
@@ -381,6 +380,12 @@ inherited fConsumers: TfConsumers
         Caption = '-'
       end
     end
+    inherited miService: TMenuItem
+      object miReportMan: TMenuItem
+        Caption = #1052#1077#1085#1077#1076#1078#1077#1088' '#1086#1090#1095#1077#1090#1086#1074
+        Hint = #1052#1077#1085#1077#1076#1078#1077#1088' '#1086#1090#1095#1077#1090#1086#1074' '#1080' '#1087#1077#1095#1072#1090#1085#1099#1093' '#1092#1086#1088#1084
+      end
+    end
   end
   inherited MainActionList: TActionList
     object actAddConsumer: TAction
@@ -433,46 +438,49 @@ inherited fConsumers: TfConsumers
   end
   object qryOrgs: TUniQuery
     SQLInsert.Strings = (
-      'INSERT INTO org'
+      'INSERT INTO Consumers'
       
-        '  (nazv, adres, bank, rschet, unn, tiporg, datadog, ndog, [_min]' +
-        ', tipbud, kodbank, data_per)'
+        '  (ConsumerName, ConsumerAddress, Account, UNN, ConsumerKindId, ' +
+        'MinistryId, BudgetKindId, BankId, IsDeleted)'
       'VALUES'
       
-        '  (:nazv, :adres, :bank, :rschet, :unn, :tiporg, :datadog, :ndog' +
-        ', :[_min], :tipbud, :kodbank, :data_per)'
-      'SET :kodorg = SCOPE_IDENTITY()')
+        '  (:ConsumerName, :ConsumerAddress, :Account, :UNN, :ConsumerKin' +
+        'dId, :MinistryId, :BudgetKindId, :BankId, :IsDeleted)'
+      'SET :ConsumerId = SCOPE_IDENTITY()')
     SQLDelete.Strings = (
-      'DELETE FROM org'
+      'UPADTE Consumers'
+      'SET'
+      '  IsDeleted = 1'
       'WHERE'
-      '  kodorg = :Old_kodorg')
+      '  ConsumerId = :Old_ConsumerId')
     SQLUpdate.Strings = (
-      'UPDATE org'
+      'UPDATE Consumers'
       'SET'
       
-        '  nazv = :nazv, adres = :adres, bank = :bank, rschet = :rschet, ' +
-        'unn = :unn, tiporg = :tiporg, datadog = :datadog, ndog = :ndog, ' +
-        '[_min] = :[_min], tipbud = :tipbud, kodbank = :kodbank, data_per' +
-        ' = :data_per'
+        '  ConsumerName = :ConsumerName, ConsumerAddress = :ConsumerAddre' +
+        'ss, Account = :Account, UNN = :UNN, ConsumerKindId = :ConsumerKi' +
+        'ndId, MinistryId = :MinistryId, BudgetKindId = :BudgetKindId, Ba' +
+        'nkId = :BankId, IsDeleted = :IsDeleted'
       'WHERE'
-      '  kodorg = :Old_kodorg')
+      '  ConsumerId = :Old_ConsumerId')
     SQLLock.Strings = (
-      'SELECT * FROM org'
+      'SELECT * FROM Consumers'
       'WITH (UPDLOCK, ROWLOCK, HOLDLOCK)'
       'WHERE'
-      '  kodorg = :Old_kodorg')
+      '  ConsumerId = :Old_ConsumerId')
     SQLRefresh.Strings = (
       
-        'SELECT nazv, adres, bank, rschet, unn, tiporg, datadog, ndog, [_' +
-        'min], tipbud, kodbank, data_per FROM org'
+        'SELECT ConsumerName, ConsumerAddress, Account, UNN, ConsumerKind' +
+        'Id, MinistryId, BudgetKindId, BankId, IsDeleted FROM Consumers'
       'WHERE'
-      '  kodorg = :kodorg')
+      '  ConsumerId = :ConsumerId AND IsDeleted = 0')
     SQLRecCount.Strings = (
-      'SET :PCOUNT = (SELECT COUNT(*) FROM org'
+      'SET :PCOUNT = (SELECT COUNT(*) FROM Consumers'
       ')')
     Connection = dm.dbConn
     SQL.Strings = (
       'select * from Consumers'
+      'where IsDeleted = 0'
       'order by ConsumerId')
     Left = 336
     Top = 224

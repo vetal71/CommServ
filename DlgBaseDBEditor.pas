@@ -15,7 +15,7 @@ type
     FEditMode: TEditMode;
   protected
     function ValidFields: Boolean; virtual;
-    procedure OpenData; virtual; abstract;
+    procedure OpenData; virtual;
     procedure AssignFields; virtual; abstract;
     procedure InitFields; virtual; abstract;
   public
@@ -58,6 +58,11 @@ begin
   inherited Create(AOwner);
   FDataSet  := ADataSet;
   FEditMode := AMode;
+end;
+
+procedure TDlgDBEditor.OpenData;
+begin
+  //
 end;
 
 function TDlgDBEditor.ValidFields: Boolean;

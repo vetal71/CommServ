@@ -73,6 +73,7 @@ type
     pmObjects: TSpTBXPopupMenu;
     pmConsumers: TSpTBXPopupMenu;
     miN2: TMenuItem;
+    miReportMan: TMenuItem;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure actFilterConsumerExecute(Sender: TObject);
@@ -121,11 +122,20 @@ begin
   inherited;
   // Удаление потребителя
   if ConfirmWarn(Format('Вы действительно хотите удалить потребителя "%s"?'#13 +
-    'Также будут удалены все объекты и начисления. Удалить ?', [qryOrgs['nazv']])) then
+    'Также будут удалены все объекты и начисления. Удалить ?', [qryOrgs['ConsumerName']])) then
   begin
     // TODO выполнение процедуры удаления
-    // Добавить поле в таблицу Org - IsDeleted
-    // Переписать запросы на выборку только актуальных записей
+    try
+      qryOrgs.Edit;
+      qryOrgs.FieldValues['IsDeleted'] := 1;
+      qryOrgs.Refresh;
+    except
+      on E: Exception do
+      begin
+        qryOrgs.Cancel;
+        ShowErrorFmt('Ошибка при удалении данных по потребителю.'#13'%s', [E.Message]);
+      end;
+    end;
   end;
 end;
 
@@ -182,7 +192,10 @@ begin
         qryOrgs.Post;
       except
         on E: Exception do
+        begin
+          qryOrgs.Cancel;
           ShowErrorFmt('Ошибка при сохранении данных по потребителю.'#13'%s', [E.Message]);
+        end;
       end
     else
       qryOrgs.Cancel;

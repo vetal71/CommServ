@@ -8,7 +8,6 @@ object dm: Tdm
     Options.KeepDesignConnected = False
     Username = 'sa'
     Server = 'KOLESNIK\DEVELOPER'
-    Connected = True
     LoginPrompt = False
     Left = 24
     Top = 26
