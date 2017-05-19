@@ -19,17 +19,22 @@ inherited fConsumers: TfConsumers
   end
   inherited dckTop: TSpTBXDock
     Width = 812
+    Height = 26
     ExplicitWidth = 812
+    ExplicitHeight = 26
     inherited tbrMain: TSpTBXToolbar
-      Left = 487
-      ExplicitLeft = 487
+      Left = 407
+      Images = ilMainSmall
+      ExplicitLeft = 407
+      ExplicitWidth = 33
+      ExplicitHeight = 26
     end
     object tbrConsumers: TSpTBXToolbar
       Left = 0
       Top = 0
       ChevronHint = #1044#1086#1087#1086#1083#1085#1080#1090#1077#1083#1100#1085#1086'|'
       DockPos = -6
-      Images = ilMainLarge
+      Images = ilMainSmall
       ShowCaption = False
       TabOrder = 1
       Caption = #1055#1072#1085#1077#1083#1100' '#1080#1085#1089#1090#1088#1091#1084#1077#1085#1090#1086#1074' "'#1056#1077#1076#1072#1082#1090#1080#1088#1086#1074#1072#1085#1080#1077' '#1086#1088#1075#1072#1085#1080#1079#1072#1094#1080#1081'"'
@@ -44,14 +49,12 @@ inherited fConsumers: TfConsumers
         Caption = #1056#1077#1076#1072#1082#1090#1080#1088#1086#1074#1072#1090#1100' '#1079#1072#1087#1080#1089#1100
         Hint = #1056#1077#1076#1072#1082#1090#1080#1088#1086#1074#1072#1090#1100' '#1079#1072#1087#1080#1089#1100
         ImageIndex = 3
-        Images = ilMainLarge
         OnClick = actEditConsumerExecute
       end
       object tbiDeleteConsumer: TSpTBXItem
         Caption = #1059#1076#1072#1083#1080#1090#1100' '#1079#1072#1087#1080#1089#1100
         Hint = #1059#1076#1072#1083#1080#1090#1100' '#1079#1072#1087#1080#1089#1100
         ImageIndex = 2
-        Images = ilMainLarge
         OnClick = actDelConsumerExecute
       end
       object SpTBXSeparatorItem5: TSpTBXSeparatorItem
@@ -80,8 +83,8 @@ inherited fConsumers: TfConsumers
         OnClick = actFilterConsumerExecute
       end
       object cbTypeConsumer: TComboBox
-        Left = 174
-        Top = 8
+        Left = 126
+        Top = 0
         Width = 200
         Height = 22
         ItemIndex = 0
@@ -98,11 +101,13 @@ inherited fConsumers: TfConsumers
   end
   object pnlView: TPanel [2]
     Left = 0
-    Top = 42
+    Top = 26
     Width = 812
-    Height = 620
+    Height = 636
     Align = alClient
     TabOrder = 2
+    ExplicitTop = 42
+    ExplicitHeight = 620
     object pnlOrg: TPanel
       Left = 1
       Top = 1
@@ -178,20 +183,21 @@ inherited fConsumers: TfConsumers
       Left = 1
       Top = 268
       Width = 810
-      Height = 351
+      Height = 367
       Align = alClient
       BevelOuter = bvNone
       TabOrder = 2
+      ExplicitHeight = 351
       object dckObject: TSpTBXDock
         Left = 0
         Top = 0
         Width = 810
-        Height = 42
+        Height = 26
         object tbrObjects: TSpTBXToolbar
           Left = 0
           Top = 0
           ChevronHint = #1044#1086#1087#1086#1083#1085#1080#1090#1077#1083#1100#1085#1086'|'
-          Images = ilMainLarge
+          Images = ilMainSmall
           ShowCaption = False
           TabOrder = 0
           Caption = #1055#1072#1085#1077#1083#1100' '#1080#1085#1089#1090#1088#1091#1084#1077#1085#1090#1086#1074' "'#1056#1077#1076#1072#1082#1090#1080#1088#1086#1074#1072#1085#1080#1077' '#1086#1073#1098#1077#1082#1090#1086#1074'"'
@@ -201,19 +207,16 @@ inherited fConsumers: TfConsumers
             Caption = #1044#1086#1073#1072#1074#1080#1090#1100' '#1079#1072#1087#1080#1089#1100
             Hint = #1044#1086#1073#1072#1074#1080#1090#1100' '#1079#1072#1087#1080#1089#1100
             ImageIndex = 4
-            Images = ilMainLarge
           end
           object tbiEditObject: TSpTBXItem
             Caption = #1056#1077#1076#1072#1082#1090#1080#1088#1086#1074#1072#1090#1100' '#1079#1072#1087#1080#1089#1100
             Hint = #1056#1077#1076#1072#1082#1090#1080#1088#1086#1074#1072#1090#1100' '#1079#1072#1087#1080#1089#1100
             ImageIndex = 3
-            Images = ilMainLarge
           end
           object tbiDeleteObject: TSpTBXItem
             Caption = #1059#1076#1072#1083#1080#1090#1100' '#1079#1072#1087#1080#1089#1100
             Hint = #1059#1076#1072#1083#1080#1090#1100' '#1079#1072#1087#1080#1089#1100
             ImageIndex = 2
-            Images = ilMainLarge
           end
           object SpTBXSeparatorItem1: TSpTBXSeparatorItem
           end
@@ -221,7 +224,6 @@ inherited fConsumers: TfConsumers
             Caption = #1048#1089#1090#1086#1088#1080#1103
             Hint = #1055#1086#1089#1084#1086#1090#1088#1077#1090#1100' '#1080#1089#1090#1086#1088#1080#1102' '#1080#1079#1084#1077#1085#1077#1085#1080#1103' '#1072#1090#1088#1080#1073#1091#1090#1086#1074
             ImageIndex = 5
-            Images = ilMainLarge
           end
           object SpTBXSeparatorItem7: TSpTBXSeparatorItem
           end
@@ -237,9 +239,9 @@ inherited fConsumers: TfConsumers
       object grdObjects: TDBGridEh
         AlignWithMargins = True
         Left = 3
-        Top = 45
+        Top = 29
         Width = 804
-        Height = 303
+        Height = 335
         Align = alClient
         AutoFitColWidths = True
         ColumnDefValues.Title.TitleButton = True

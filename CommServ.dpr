@@ -16,7 +16,8 @@ uses
   ConsumersForm in 'ConsumersForm.pas' {fConsumers},
   DlgConsumerEditor in 'DlgConsumerEditor.pas' {fConsumerEditor},
   DlgCommon in 'DlgCommon.pas' {FDlgCommon},
-  DlgBaseDBEditor in 'DlgBaseDBEditor.pas' {DlgDBEditor};
+  DlgBaseDBEditor in 'DlgBaseDBEditor.pas' {DlgDBEditor},
+  TariffServsForm in 'TariffServsForm.pas' {fTariffServs};
 
 {$R *.res}
 
@@ -29,7 +30,7 @@ begin
     Application.Initialize;
     Application.MainFormOnTaskbar := True;
     Application.CreateForm(Tdm, dm);
-    //  dlgConn := TdlgConn.Create(Application);
+  //  dlgConn := TdlgConn.Create(Application);
   //  try
   //    if dlgConn.ShowModal = mrOK then begin
   //      User := dlgConn.LoginUser;

@@ -6,14 +6,14 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, BaseFormTemplate,
   Vcl.ExtCtrls, Vcl.Menus, SpTBXItem, TB2Dock, TB2Toolbar, TB2Item, ConsumersForm,
-  cxGraphics, System.Actions, Vcl.ActnList, System.ImageList, Vcl.ImgList;
+  cxGraphics, System.Actions, Vcl.ActnList, System.ImageList, Vcl.ImgList, TariffServsForm;
 
 type
   TfMain = class(TBaseForm)
     miDictions: TMenuItem;
     miConsumers: TMenuItem;
     SpTBXSeparatorItem1: TSpTBXSeparatorItem;
-    tbi1: TSpTBXItem;
+    tbiConsumers: TSpTBXItem;
     grpAuth: TTBGroupItem;
     lblUserName: TSpTBXLabelItem;
     lblAuthCaption: TSpTBXLabelItem;
@@ -22,8 +22,13 @@ type
     SpTBXSeparatorItem5: TSpTBXSeparatorItem;
     lblCalcPeriod: TSpTBXLabelItem;
     lblCalcPeriodCaption: TSpTBXLabelItem;
+    tbiTariffServs: TSpTBXItem;
+    SpTBXSeparatorItem6: TSpTBXSeparatorItem;
+    miTariffServs: TMenuItem;
+    miN2: TMenuItem;
     procedure FormCreate(Sender: TObject);
-    procedure tbi1Click(Sender: TObject);
+    procedure tbiConsumersClick(Sender: TObject);
+    procedure tbiTariffServsClick(Sender: TObject);
   private
     FUserName: string;
     procedure SetUserName(const Value: string);
@@ -63,7 +68,7 @@ begin
   RunExecSQL(Format('exec sp_defaultlanguage %s, %s',[FUserName, 'русский']));
 end;
 
-procedure TfMain.tbi1Click(Sender: TObject);
+procedure TfMain.tbiConsumersClick(Sender: TObject);
 var
   CF: TfConsumers;
 begin
@@ -73,6 +78,19 @@ begin
     CF.ShowModal;
   finally
     CF.Free;
+  end;
+end;
+
+procedure TfMain.tbiTariffServsClick(Sender: TObject);
+var
+  F: TfTariffServs;
+begin
+  inherited;
+  F := TfTariffServs.Create(Application);
+  try
+    F.ShowModal;
+  finally
+    F.Free;
   end;
 end;
 

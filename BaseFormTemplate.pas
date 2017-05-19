@@ -97,6 +97,11 @@ begin
   Close;
 end;
 
+function TBaseForm.ReportGroup: Integer;
+begin
+  // Переопределение в потомках
+end;
+
 procedure TBaseForm.ShowHint(Sender: TObject);
 begin
   lblAppHint.Caption := Application.Hint;
