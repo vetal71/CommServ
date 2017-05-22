@@ -65,7 +65,9 @@ __history/
 __recovery/
 Data/
 Icons/
-Comp/
+Comp/loggerpro
+Comp/mathparser
+Comp/timer
 bin/
 bpl/
 dcu/
