@@ -28,7 +28,7 @@ object BaseForm: TBaseForm
       end
     end
     object SpTBXRightAlignSpacerItem1: TSpTBXRightAlignSpacerItem
-      CustomWidth = 485
+      CustomWidth = 0
     end
     object SpTBXSeparatorItem3: TSpTBXSeparatorItem
     end

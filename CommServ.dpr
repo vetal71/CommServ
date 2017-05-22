@@ -17,7 +17,8 @@ uses
   DlgConsumerEditor in 'DlgConsumerEditor.pas' {fConsumerEditor},
   DlgCommon in 'DlgCommon.pas' {FDlgCommon},
   DlgBaseDBEditor in 'DlgBaseDBEditor.pas' {DlgDBEditor},
-  TariffServsForm in 'TariffServsForm.pas' {fTariffServs};
+  TariffServsForm in 'TariffServsForm.pas' {fTariffServs},
+  TestForm in 'TestForm.pas' {fTest};
 
 {$R *.res}
 

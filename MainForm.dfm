@@ -27,9 +27,6 @@ inherited fMain: TfMain
       object SpTBXSeparatorItem4: TSpTBXSeparatorItem [1]
       end
     end
-    inherited SpTBXRightAlignSpacerItem1: TSpTBXRightAlignSpacerItem
-      CustomWidth = 587
-    end
     inherited grpDate: TTBGroupItem
       inherited lblData: TSpTBXLabelItem
         FontSettings.Color = clHighlight
@@ -53,7 +50,7 @@ inherited fMain: TfMain
     Width = 1016
     ExplicitWidth = 1016
     inherited tbrMain: TSpTBXToolbar
-      ExplicitWidth = 139
+      ExplicitWidth = 173
       object tbiConsumers: TSpTBXItem [0]
         Caption = #1055#1086#1090#1088#1077#1073#1080#1090#1077#1083#1080
         ImageIndex = 1
@@ -66,7 +63,11 @@ inherited fMain: TfMain
         ImageIndex = 8
         OnClick = tbiTariffServsClick
       end
-      object SpTBXSeparatorItem1: TSpTBXSeparatorItem [3]
+      object tbi1: TSpTBXItem [3]
+        Caption = #1058#1077#1089#1090
+        OnClick = tbi1Click
+      end
+      object SpTBXSeparatorItem1: TSpTBXSeparatorItem [4]
       end
     end
   end

@@ -89,6 +89,7 @@ inherited fConsumers: TfConsumers
         Height = 22
         ItemIndex = 0
         TabOrder = 0
+        Text = '('#1042#1089#1077')'
         OnChange = cbTypeConsumerChange
         Items.Strings = (
           '('#1042#1089#1077')'
@@ -106,8 +107,6 @@ inherited fConsumers: TfConsumers
     Height = 636
     Align = alClient
     TabOrder = 2
-    ExplicitTop = 42
-    ExplicitHeight = 620
     object pnlOrg: TPanel
       Left = 1
       Top = 1
@@ -116,58 +115,44 @@ inherited fConsumers: TfConsumers
       Align = alTop
       BevelOuter = bvNone
       TabOrder = 0
-      object grdConsumers: TDBGridEh
+      object dspConsumers: TDataSetPanel
         AlignWithMargins = True
         Left = 3
         Top = 3
         Width = 804
         Height = 257
         Align = alClient
-        AutoFitColWidths = True
-        ColumnDefValues.Title.Alignment = taCenter
-        ColumnDefValues.Title.TitleButton = True
-        ColumnDefValues.Title.ToolTips = True
-        ColumnDefValues.ToolTips = True
-        DataSource = dsOrgs
-        DynProps = <>
-        EvenRowColor = 16776176
-        GridLineParams.ColorScheme = glcsFlatEh
-        Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
-        OptionsEh = [dghFixed3D, dghResizeWholeRightPart, dghHighlightFocus, dghClearSelection, dghAutoSortMarking, dghMultiSortMarking, dghIncSearch, dghPreferIncSearch, dghDialogFind, dghColumnResize, dghColumnMove, dghExtendVertLines]
-        PopupMenu = pmConsumers
-        SortLocal = True
-        STFilter.Local = True
+        BevelOuter = bvNone
         TabOrder = 0
-        OnDblClick = actEditConsumerExecute
-        Columns = <
-          item
-            CellButtons = <>
-            DynProps = <>
-            EditButtons = <>
-            FieldName = 'ConsumerId'
-            Footers = <>
-            Title.Caption = #1050#1086#1076
-          end
-          item
-            CellButtons = <>
-            DynProps = <>
-            EditButtons = <>
-            FieldName = 'ConsumerName'
-            Footers = <>
-            Title.Caption = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077' '#1086#1088#1075#1072#1085#1080#1079#1072#1094#1080#1080
-            Width = 450
-          end
-          item
-            CellButtons = <>
-            DynProps = <>
-            EditButtons = <>
-            FieldName = 'ConsumerAddress'
-            Footers = <>
-            Title.Caption = #1070#1088#1080#1076#1080#1095#1077#1089#1082#1080#1081' '#1072#1076#1088#1077#1089
-            Width = 263
-          end>
-        object RowDetailData: TRowDetailPanelControlEh
-        end
+        DataSource = dsOrgs
+        Title = #1055#1086#1090#1088#1077#1073#1080#1090#1077#1083#1080
+        Toolbar = tbrConsumers
+        FGrid = {
+          54504630095444424772696445680447726964044C656674020003546F700214
+          0557696474680324030648656967687403ED0005416C69676E0708616C436C69
+          656E741B436F6C756D6E44656656616C7565732E456E64456C6C697073697309
+          1F436F6C756D6E44656656616C7565732E5469746C652E416C69676E6D656E74
+          0708746143656E74657221436F6C756D6E44656656616C7565732E5469746C65
+          2E456E64456C6C69707369730921436F6C756D6E44656656616C7565732E5469
+          746C652E5469746C65427574746F6E091E436F6C756D6E44656656616C756573
+          2E5469746C652E546F6F6C546970730918436F6C756D6E44656656616C756573
+          2E546F6F6C54697073090A44617461536F75726365071166436F6E73756D6572
+          732E64734F7267730844796E50726F70730E00074F7074696F6E730B08646754
+          69746C65730B6467496E64696361746F720E6467436F6C756D6E526573697A65
+          0A6467436F6C4C696E65730A6467526F774C696E6573066467546162730F6467
+          436F6E6669726D44656C6574650E646743616E63656C4F6E4578697400094F70
+          74696F6E7345680B0A6467684669786564334411646768486967686C69676874
+          466F63757311646768436C65617253656C656374696F6E126467684175746F53
+          6F72744D61726B696E670C646768496E63536561726368126467685072656665
+          72496E635365617263680D6467684469616C6F6746696E640F646768436F6C75
+          6D6E526573697A650D646768436F6C756D6E4D6F766512646768457874656E64
+          566572744C696E65730009536F72744C6F63616C09085461624F726465720200
+          001854526F7744657461696C50616E656C436F6E74726F6C45680D526F774465
+          7461696C44617461000000}
+        FStorage = {
+          5450463011544669656C647344656653746F72616765000B53746F726167654E
+          616D65060A666C646465662E696E690C53746F72616765546F7069630609434F
+          4E53554D4552530000}
       end
     end
     object splMain: TRxSplitter
@@ -187,7 +172,6 @@ inherited fConsumers: TfConsumers
       Align = alClient
       BevelOuter = bvNone
       TabOrder = 2
-      ExplicitHeight = 351
       object dckObject: TSpTBXDock
         Left = 0
         Top = 0
@@ -236,85 +220,45 @@ inherited fConsumers: TfConsumers
           end
         end
       end
-      object grdObjects: TDBGridEh
+      object dspObjects: TDataSetPanel
         AlignWithMargins = True
         Left = 3
         Top = 29
         Width = 804
         Height = 335
         Align = alClient
-        AutoFitColWidths = True
-        ColumnDefValues.Title.TitleButton = True
-        ColumnDefValues.Title.ToolTips = True
-        ColumnDefValues.ToolTips = True
-        DataSource = dsObjects
-        DynProps = <>
-        EvenRowColor = clMoneyGreen
-        GridLineParams.ColorScheme = glcsFlatEh
-        PopupMenu = pmObjects
+        BevelOuter = bvNone
+        ShowCaption = False
         TabOrder = 1
-        Columns = <
-          item
-            CellButtons = <>
-            DynProps = <>
-            EditButtons = <>
-            FieldName = 'kodobk'
-            Footers = <>
-            Title.Alignment = taCenter
-            Title.Caption = #1050#1086#1076
-          end
-          item
-            CellButtons = <>
-            DynProps = <>
-            EditButtons = <>
-            FieldName = 'nazv'
-            Footers = <>
-            Title.Alignment = taCenter
-            Title.Caption = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077' '#1087#1086#1090#1088#1077#1073#1080#1090#1077#1083#1103
-            Width = 450
-          end
-          item
-            CellButtons = <>
-            DynProps = <>
-            EditButtons = <>
-            FieldName = 'q'
-            Footers = <>
-            Title.Alignment = taCenter
-            Title.Caption = 'Q'#1086#1090'.'
-            Title.Hint = #1053#1086#1084#1080#1085#1072#1083#1100#1085#1072#1103' '#1085#1072#1075#1088#1091#1079#1082#1072' '#1085#1072' '#1086#1090#1086#1087#1083#1077#1085#1080#1077' ('#1082#1082#1072#1083'/'#1084'2)'
-          end
-          item
-            CellButtons = <>
-            DynProps = <>
-            EditButtons = <>
-            FieldName = 'qv'
-            Footers = <>
-            Title.Alignment = taCenter
-            Title.Caption = 'Q'#1093'.'#1074'.'
-            Title.Hint = #1053#1086#1084#1080#1085#1072#1083#1100#1085#1099#1081' '#1088#1072#1089#1093#1086#1076' '#1085#1072' '#1074#1086#1076#1086#1089#1085#1072#1073#1078#1077#1085#1080#1077
-          end
-          item
-            CellButtons = <>
-            DynProps = <>
-            EditButtons = <>
-            FieldName = 'qk'
-            Footers = <>
-            Title.Alignment = taCenter
-            Title.Caption = 'Q'#1082#1072#1085'.'
-            Title.Hint = #1053#1086#1084#1080#1085#1072#1083#1100#1085#1099#1081' '#1088#1072#1089#1093#1086#1076' '#1085#1072' '#1074#1086#1076#1086#1086#1090#1074#1077#1076#1077#1085#1080#1077
-          end
-          item
-            CellButtons = <>
-            DynProps = <>
-            EditButtons = <>
-            FieldName = 'qg'
-            Footers = <>
-            Title.Alignment = taCenter
-            Title.Caption = 'Q'#1084'.'
-            Title.Hint = #1053#1086#1084#1080#1085#1072#1083#1100#1085#1099#1081' '#1086#1073#1098#1077#1084' '#1058#1041#1054
-          end>
-        object RowDetailData: TRowDetailPanelControlEh
-        end
+        DataSource = dsObjects
+        Title = #1054#1073#1098#1077#1082#1090#1099
+        Toolbar = tbrObjects
+        FGrid = {
+          54504630095444424772696445680447726964044C656674020003546F700214
+          05576964746803240306486569676874033B0105416C69676E0708616C436C69
+          656E741B436F6C756D6E44656656616C7565732E456E64456C6C697073697309
+          1F436F6C756D6E44656656616C7565732E5469746C652E416C69676E6D656E74
+          0708746143656E74657221436F6C756D6E44656656616C7565732E5469746C65
+          2E456E64456C6C69707369730921436F6C756D6E44656656616C7565732E5469
+          746C652E5469746C65427574746F6E091E436F6C756D6E44656656616C756573
+          2E5469746C652E546F6F6C546970730918436F6C756D6E44656656616C756573
+          2E546F6F6C54697073090A44617461536F75726365071466436F6E73756D6572
+          732E64734F626A656374730844796E50726F70730E00074F7074696F6E730B08
+          64675469746C65730B6467496E64696361746F720E6467436F6C756D6E526573
+          697A650A6467436F6C4C696E65730A6467526F774C696E657306646754616273
+          0F6467436F6E6669726D44656C6574650E646743616E63656C4F6E4578697400
+          094F7074696F6E7345680B0A6467684669786564334411646768486967686C69
+          676874466F63757311646768436C65617253656C656374696F6E126467684175
+          746F536F72744D61726B696E670C646768496E63536561726368126467685072
+          65666572496E635365617263680D6467684469616C6F6746696E640F64676843
+          6F6C756D6E526573697A650D646768436F6C756D6E4D6F766512646768457874
+          656E64566572744C696E65730009536F72744C6F63616C09085461624F726465
+          720200001854526F7744657461696C50616E656C436F6E74726F6C45680D526F
+          7744657461696C44617461000000}
+        FStorage = {
+          5450463011544669656C647344656653746F72616765000B53746F726167654E
+          616D65060A666C646465662E696E690C53746F72616765546F70696306074F42
+          4A454354530000}
       end
     end
   end
@@ -484,6 +428,7 @@ inherited fConsumers: TfConsumers
       'select * from Consumers'
       'where IsDeleted = 0'
       'order by ConsumerId')
+    AfterOpen = qryOrgsAfterOpen
     Left = 336
     Top = 224
   end
@@ -548,6 +493,7 @@ inherited fConsumers: TfConsumers
     MasterSource = dsOrgs
     MasterFields = 'ConsumerId'
     DetailFields = 'kodorg'
+    AfterOpen = qryObjectsAfterOpen
     Left = 336
     Top = 360
     ParamData = <
@@ -561,13 +507,5 @@ inherited fConsumers: TfConsumers
     DataSet = qryObjects
     Left = 392
     Top = 360
-  end
-  object pmObjects: TSpTBXPopupMenu
-    Left = 305
-    Top = 446
-  end
-  object pmConsumers: TSpTBXPopupMenu
-    Left = 409
-    Top = 446
   end
 end

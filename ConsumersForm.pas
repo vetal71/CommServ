@@ -9,7 +9,7 @@ uses
   Vcl.Menus, SpTBXItem, TB2Dock, TB2Toolbar, TB2Item, DBGridEhGrouping,
   ToolCtrlsEh, DBGridEhToolCtrls, DynVarsEh, Data.DB, DBAccess, Uni, MemDS,
   RxSplit, EhLibVCL, GridsEh, DBAxisGridsEh, DBGridEh, Vcl.StdCtrls,
-  Common.DBUtils;
+  Common.DBUtils, KVComp_UDataSetPanel;
 
 type
   TfConsumers = class(TBaseForm)
@@ -27,7 +27,6 @@ type
     cbTypeConsumer: TComboBox;
     pnlView: TPanel;
     pnlOrg: TPanel;
-    grdConsumers: TDBGridEh;
     splMain: TRxSplitter;
     pnlObjects: TPanel;
     dckObject: TSpTBXDock;
@@ -39,7 +38,6 @@ type
     tbiHistoryAttrs: TSpTBXItem;
     SpTBXSeparatorItem7: TSpTBXSeparatorItem;
     tbiFilterExtObject: TSpTBXItem;
-    grdObjects: TDBGridEh;
     qryOrgs: TUniQuery;
     dsOrgs: TUniDataSource;
     qryObjects: TUniQuery;
@@ -70,10 +68,10 @@ type
     actDelObject: TAction;
     actHistory: TAction;
     actFilterObject: TAction;
-    pmObjects: TSpTBXPopupMenu;
-    pmConsumers: TSpTBXPopupMenu;
     miN2: TMenuItem;
     miReportMan: TMenuItem;
+    dspConsumers: TDataSetPanel;
+    dspObjects: TDataSetPanel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure actFilterConsumerExecute(Sender: TObject);
@@ -82,9 +80,10 @@ type
     procedure actEditConsumerExecute(Sender: TObject);
     procedure actDelConsumerExecute(Sender: TObject);
     procedure cbTypeConsumerChange(Sender: TObject);
+    procedure qryOrgsAfterOpen(DataSet: TDataSet);
+    procedure qryObjectsAfterOpen(DataSet: TDataSet);
   private
     procedure ShowGridFilter(AGrid: TDBGridEh);
-    procedure BuildPopupMenu(ASource: TSpTBXToolbar; ADest: TSpTBXPopupMenu);
     procedure EditCustomer(AMode: TEditMode);
   public
     procedure AfterConstruction; override;
@@ -95,7 +94,7 @@ type
 implementation
 
 uses
-  Common.StrFuncs, EhLibUniDAC, DlgConsumerEditor;
+  Common.StrFuncs, DlgConsumerEditor;
 
 {$R *.dfm}
 
@@ -148,13 +147,13 @@ end;
 procedure TfConsumers.actFilterConsumerExecute(Sender: TObject);
 begin
   inherited;
-  ShowGridFilter(grdConsumers);
+  ShowGridFilter(dspConsumers.Grid);
 end;
 
 procedure TfConsumers.actFilterObjectExecute(Sender: TObject);
 begin
   inherited;
-  ShowGridFilter(grdObjects);
+  ShowGridFilter(dspObjects.Grid);
 end;
 
 procedure TfConsumers.AfterConstruction;
@@ -176,9 +175,6 @@ begin
     raise Exception.CreateFmt('Не удалось получить список потребителей.'#13'%s', [ E.Message ]);
   end;
 
-  // Создание PopupMenu
-  BuildPopupMenu(tbrConsumers, pmConsumers);
-  BuildPopupMenu(tbrObjects, pmObjects);
 end;
 
 procedure TfConsumers.EditCustomer(AMode: TEditMode);
@@ -201,58 +197,6 @@ begin
       qryOrgs.Cancel;
   finally
     F.Free;
-  end;
-end;
-
-procedure TfConsumers.BuildPopupMenu(ASource: TSpTBXToolbar; ADest: TSpTBXPopupMenu);
-var
-  I, J: Integer;
-
-  function NewSeparator(ASourceItem: TTBCustomItem): TSpTBXSeparatorItem;
-  begin
-    Result      := TSpTBXSeparatorItem.Create(Owner);
-    Result.Name := ASourceItem.Name + 'Pm';
-  end;
-
-  function NewSubMenuItem(ASourceItem: TTBCustomItem): TSpTBXSubmenuItem;
-  begin
-    Result := TSpTBXSubmenuItem.Create(Owner);
-    StringToComponent( Result, ComponentToString(ASourceItem as TSpTBXSubmenuItem) );
-    Result.Name       := ASourceItem.Name + 'Pm';
-    Result.Images     := nil;
-    Result.ImageIndex := -1;
-    Result.OnClick    := ASourceItem.OnClick;
-  end;
-
-  function NewMenuItem(ASourceItem: TTBCustomItem): TSpTBXItem;
-  begin
-    Result := TSpTBXItem.Create(Owner);
-    StringToComponent( Result, ComponentToString(ASourceItem as TSpTBXItem) );
-    Result.Name       := ASourceItem.Name + 'Pm';
-    Result.Images     := nil;
-    Result.ImageIndex := -1;
-    Result.OnClick    := ASourceItem.OnClick;
-  end;
-
-begin
-  for I := 0 to ASource.Items.Count - 1 do
-  begin
-    if (ASource.Items[ I ] is TSpTBXSeparatorItem) then
-    begin
-      ADest.Items.Add(NewSeparator(ASource.Items[ I ]));
-    end
-    else if (ASource.Items[ I ] is TSpTBXSubmenuItem) then
-    begin
-      ADest.Items.Add(NewSubMenuItem(ASource.Items[ I ]));
-      for J := 0 to ASource.Items[ I ].Count - 1 do
-      begin
-        ADest.Items.Add(NewMenuItem(ASource.Items[ I ].Items[ J ]));
-      end;
-    end
-    else if (ASource.Items[ I ] is TSpTBXItem) then
-    begin
-      ADest.Items.Add(NewMenuItem(ASource.Items[ I ]));
-    end;
   end;
 end;
 
@@ -281,6 +225,18 @@ begin
         (ActiveControl as TDBGridEh).STFilter.Visible;
     end;
   end;
+end;
+
+procedure TfConsumers.qryObjectsAfterOpen(DataSet: TDataSet);
+begin
+  inherited;
+  dspObjects.LoadFieldsDef;
+end;
+
+procedure TfConsumers.qryOrgsAfterOpen(DataSet: TDataSet);
+begin
+  inherited;
+  dspConsumers.LoadFieldsDef;
 end;
 
 procedure TfConsumers.ShowGridFilter(AGrid: TDBGridEh);

@@ -26,9 +26,11 @@ type
     SpTBXSeparatorItem6: TSpTBXSeparatorItem;
     miTariffServs: TMenuItem;
     miN2: TMenuItem;
+    tbi1: TSpTBXItem;
     procedure FormCreate(Sender: TObject);
     procedure tbiConsumersClick(Sender: TObject);
     procedure tbiTariffServsClick(Sender: TObject);
+    procedure tbi1Click(Sender: TObject);
   private
     FUserName: string;
     procedure SetUserName(const Value: string);
@@ -43,7 +45,7 @@ var
 implementation
 
 uses
-  Common.Consts, Common.StrFuncs, Common.DBUtils, Common.Config;
+  Common.Consts, Common.StrFuncs, Common.DBUtils, Common.Config, TestForm;
 
 {$R *.dfm}
 
@@ -66,6 +68,19 @@ begin
   lblUserName.Caption := Value;
   // выполним инициализацию SQL Server
   RunExecSQL(Format('exec sp_defaultlanguage %s, %s',[FUserName, 'русский']));
+end;
+
+procedure TfMain.tbi1Click(Sender: TObject);
+var
+  CF: TfTest;
+begin
+  inherited;
+  CF := TfTest.Create(Application);
+  try
+    CF.ShowModal;
+  finally
+    CF.Free;
+  end;
 end;
 
 procedure TfMain.tbiConsumersClick(Sender: TObject);

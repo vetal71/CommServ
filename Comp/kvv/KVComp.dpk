@@ -38,12 +38,18 @@ requires
   vcldb,
   VclSmp,
   EhLib240,
-  RtmRxCtl240;
+  RtmRxCtl240,
+  dsnap,
+  tb2k_d12,
+  SpTBXLib;
 
 contains
   KVComp_UComboExt in 'KVComp_UComboExt.pas',
   KVComp_uPickCommon in 'KVComp_uPickCommon.pas',
   KVComp_uPickDict in 'KVComp_uPickDict.pas',
-  KVComp_FDlgDBDict in 'KVComp_FDlgDBDict.pas' {fDict};
+  KVComp_FDlgDBDict in 'KVComp_FDlgDBDict.pas' {fDict},
+  KVComp_FDSPFieldView in 'KVComp_FDSPFieldView.pas' {FieldViewDialog},
+  KVComp_UDataSetPanel in 'KVComp_UDataSetPanel.pas',
+  KVComp_UDSPFields in 'KVComp_UDSPFields.pas';
 
 end.

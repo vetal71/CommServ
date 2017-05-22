@@ -49,7 +49,7 @@
         <DCC_K>false</DCC_K>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win32)'!=''">
-        <DCC_UsePackage>rtl;vcl;dbrtl;dac240;unidac240;xmlrtl;vclx;vcldb;VclSmp;EhLib240;RtmRxCtl240;$(DCC_UsePackage)</DCC_UsePackage>
+        <DCC_UsePackage>rtl;vcl;dbrtl;dac240;unidac240;xmlrtl;vclx;vcldb;VclSmp;EhLib240;RtmRxCtl240;dsnap;tb2k_d12;SpTBXLib;$(DCC_UsePackage)</DCC_UsePackage>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
         <BT_BuildType>Debug</BT_BuildType>
@@ -88,6 +88,9 @@
         <DCCReference Include="VclSmp.dcp"/>
         <DCCReference Include="EhLib240.dcp"/>
         <DCCReference Include="RtmRxCtl240.dcp"/>
+        <DCCReference Include="dsnap.dcp"/>
+        <DCCReference Include="tb2k_d12.dcp"/>
+        <DCCReference Include="SpTBXLib.dcp"/>
         <DCCReference Include="KVComp_UComboExt.pas"/>
         <DCCReference Include="KVComp_uPickCommon.pas"/>
         <DCCReference Include="KVComp_uPickDict.pas"/>
@@ -95,6 +98,12 @@
             <Form>fDict</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="KVComp_FDSPFieldView.pas">
+            <Form>FieldViewDialog</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="KVComp_UDataSetPanel.pas"/>
+        <DCCReference Include="KVComp_UDSPFields.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
