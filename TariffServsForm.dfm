@@ -142,11 +142,13 @@ inherited fTariffServs: TfTariffServs
               Caption = #1044#1086#1073#1072#1074#1080#1090#1100' '#1079#1072#1087#1080#1089#1100
               Hint = #1044#1086#1073#1072#1074#1080#1090#1100' '#1079#1072#1087#1080#1089#1100
               ImageIndex = 4
+              OnClick = tbiAddTariffClick
             end
             object tbiEditTariff: TSpTBXItem
               Caption = #1048#1079#1084#1077#1085#1080#1090#1100' '#1079#1072#1087#1080#1089#1100
               Hint = #1048#1079#1084#1077#1085#1080#1090#1100' '#1079#1072#1087#1080#1089#1100
               ImageIndex = 3
+              OnClick = tbiEditTariffClick
             end
             object tbiDelTariff: TSpTBXItem
               Caption = #1059#1076#1072#1083#1080#1090#1100' '#1079#1072#1087#1080#1089#1100
@@ -167,6 +169,7 @@ inherited fTariffServs: TfTariffServs
           DataSource = dsTariffServ
           Title = #1042#1080#1076#1099' '#1090#1072#1088#1080#1092#1086#1074
           Toolbar = tbrTariffServ
+          OnGridDblClick = tbiEditTariffClick
           FGrid = {
             54504630095444424772696445680447726964044C656674020003546F700214
             055769647468033A0306486569676874031B0105416C69676E0708616C436C69
@@ -367,10 +370,9 @@ inherited fTariffServs: TfTariffServs
   object qryTariffServ: TUniQuery
     SQLInsert.Strings = (
       'INSERT INTO TariffServs'
-      '  (ServTitle, ServiceKindId, VatID)'
+      '  (ServId, ServTitle, ServiceKindId, VatID)'
       'VALUES'
-      '  (:ServTitle, :ServiceKindId, :VatID)'
-      'SET :ServId = SCOPE_IDENTITY()')
+      '  (:ServId, :ServTitle, :ServiceKindId, :VatID)')
     SQLDelete.Strings = (
       'DELETE FROM TariffServs'
       'WHERE'
@@ -379,8 +381,8 @@ inherited fTariffServs: TfTariffServs
       'UPDATE TariffServs'
       'SET'
       
-        '  ServTitle = :ServTitle, ServiceKindId = :ServiceKindId, VatID ' +
-        '= :VatID'
+        '  ServId = :ServId, ServTitle = :ServTitle, ServiceKindId = :Ser' +
+        'viceKindId, VatID = :VatID'
       'WHERE'
       '  ServId = :Old_ServId')
     SQLLock.Strings = (
@@ -389,7 +391,7 @@ inherited fTariffServs: TfTariffServs
       'WHERE'
       '  ServId = :Old_ServId')
     SQLRefresh.Strings = (
-      'SELECT ServTitle, ServiceKindId, VatID FROM TariffServs'
+      'SELECT ServId, ServTitle, ServiceKindId, VatID FROM TariffServs'
       'WHERE'
       '  ServId = :ServId')
     SQLRecCount.Strings = (
@@ -403,6 +405,7 @@ inherited fTariffServs: TfTariffServs
     MasterSource = dsServices
     MasterFields = 'ServiceKindRefId'
     DetailFields = 'ServiceKindId'
+    RefreshOptions = [roAfterInsert, roAfterUpdate]
     AfterOpen = qryTariffServAfterOpen
     Left = 368
     Top = 368

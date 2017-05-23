@@ -19,7 +19,8 @@ uses
   DlgBaseDBEditor in 'DlgBaseDBEditor.pas' {DlgDBEditor},
   TariffServsForm in 'TariffServsForm.pas' {fTariffServs},
   TestForm in 'TestForm.pas' {fTest},
-  DlgServiceEditor in 'DlgServiceEditor.pas' {fServiceEditor};
+  DlgServiceEditor in 'DlgServiceEditor.pas' {fServiceEditor},
+  DlgTariffServEditor in 'DlgTariffServEditor.pas' {fTariffServEditor};
 
 {$R *.res}
 

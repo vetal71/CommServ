@@ -142,6 +142,10 @@
             <Form>fServiceEditor</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="DlgTariffServEditor.pas">
+            <Form>fTariffServEditor</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

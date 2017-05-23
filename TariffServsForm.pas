@@ -9,7 +9,7 @@ uses
   Vcl.Menus, SpTBXItem, TB2Dock, TB2Toolbar, TB2Item, RxSplit, DBGridEhGrouping,
   ToolCtrlsEh, DBGridEhToolCtrls, DynVarsEh, EhLibVCL, GridsEh, DBAxisGridsEh,
   DBGridEh, Data.DB, MemDS, DBAccess, Uni, KVComp_UDataSetPanel, DataModule,
-  Vcl.StdCtrls;
+  Vcl.StdCtrls, Common.DBUtils;
 
 type
   TfTariffServs = class(TBaseForm)
@@ -50,8 +50,11 @@ type
     procedure chkActualClick(Sender: TObject);
     procedure qryTariffValAfterOpen(DataSet: TDataSet);
     procedure tbiEditServiceClick(Sender: TObject);
+    procedure tbiAddTariffClick(Sender: TObject);
+    procedure tbiEditTariffClick(Sender: TObject);
+
   private
-    { Private declarations }
+    procedure EditTariff(AMode: TEditMode);
   public
     procedure AfterConstruction; override;
   end;
@@ -62,7 +65,7 @@ var
 implementation
 
 uses
-  DlgServiceEditor, Common.DBUtils, Common.StrFuncs;
+  DlgServiceEditor, Common.StrFuncs, DlgTariffServEditor;
 
 {$R *.dfm}
 
@@ -126,6 +129,12 @@ begin
   dspTariffVal.LoadFieldsDef;
 end;
 
+procedure TfTariffServs.tbiAddTariffClick(Sender: TObject);
+begin
+  inherited;
+  EditTariff(emAppend);
+end;
+
 procedure TfTariffServs.tbiEditServiceClick(Sender: TObject);
 var
   F: TfServiceEditor;
@@ -144,6 +153,47 @@ begin
       end
     else
       qryServices.Cancel;
+  finally
+    F.Free;
+  end;
+end;
+
+procedure TfTariffServs.tbiEditTariffClick(Sender: TObject);
+begin
+  inherited;
+  EditTariff(emEdit);
+end;
+
+procedure TfTariffServs.EditTariff(AMode: TEditMode);
+var
+  F: TfTariffServEditor;
+  SQLWhere: string;
+  ServiceKindID, RangeStart, RangeEnd: Integer;
+begin
+  F := TfTariffServEditor.Create(Owner, qryTariffServ, AMode);
+  try
+    F.ParentService := qryServices['ServiceKindName'];
+    if AMode = emAppend then
+    begin
+      ServiceKindID := qryTariffServ.FieldByName('ServiceKindId').AsInteger;
+      RangeStart := 100 * (ServiceKindID - 1) + 1;
+      RangeEnd   := 100 * ServiceKindID - 1;
+      SQLWhere := Format('ServId Between %d And %d', [ RangeStart, RangeEnd ]);
+      ShowMessageFmt('Key=%d', [GenerateKeyValue('ServId', 'TariffServs', SQLWhere)]);
+      qryTariffServ.FieldByName('ServId').AsInteger := GenerateKeyValue('ServId', 'TariffServs', SQLWhere);
+    end;
+    if F.ShowModal = mrOk then
+      try
+        qryTariffServ.Post;
+      except
+        on E: Exception do
+        begin
+          qryTariffServ.Cancel;
+          ShowErrorFmt('Ошибка при сохранении данных по тарифам.'#13'%s', [E.Message]);
+        end;
+      end
+    else
+      qryTariffServ.Cancel;
   finally
     F.Free;
   end;

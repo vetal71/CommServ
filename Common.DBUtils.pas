@@ -33,12 +33,26 @@ function OrgParams: TOrgParams;
 
 function GetOrgParams: TOrgParams;
 
+function GenerateKeyValue(const AKey, ATable: string; AWhere: string = ''): Integer;
+
 // выпонить инструкцию
 procedure RunExecSQL (const aSQL : String);
 
 function GetItemsByQuery(AKeyField, ANameField, ATableName: string; IsAddAll: Boolean = False): TStringList;
 
+function GetFieldValueEx(const aFieldName,aFromStr,aWhereStr,aOrderStr : String;
+  aDefaultValue : Variant) : Variant;
+
+function GetFieldValueBySQL(const aSQL, aFieldName : String; aDefaultValue : Variant) : Variant;
+
 implementation
+
+function GenerateKeyValue(const AKey, ATable: string; AWhere: string = ''): Integer;
+const
+  cSQL = 'select MAX(%s) + 1 As Code from %s where %s';
+begin
+  Result := GetFieldValueBySQL(Format(cSQL, [ AKey, ATable, AWhere]), 'Code', 0);
+end;
 
 function GetOrgParams: TOrgParams;
 const
@@ -97,7 +111,35 @@ begin
   end;
 end;
 
-function GetFieldValueEx(const aFieldName,aFromStr,aWhereStr,aOrderStr : String;
+function GetFieldValueBySQL(const aSQL, aFieldName : String; aDefaultValue : Variant) : Variant;
+var
+  Query : TMyQuery;
+begin
+  Query := TMyQuery.Create(nil);
+  with Query do
+  try
+    SQL.Text := aSQL;
+    try
+      Open;
+      if (Common.DBUtils.GetRecordCount(Query) > 0) then
+        Result := Query[aFieldName]
+      else
+        Result := aDefaultValue;
+    except
+      on E: Exception do
+      begin
+        Log.Error(Format('Не удалось получить значение поля %s '#13'%s', [aFieldName, E.Message]), 'DATABASE');
+        Result := aDefaultValue;
+      end;
+    end;
+  finally
+    Query.Free;
+  end;
+  if (VarIsNull(Result)) then
+    Result := aDefaultValue;
+end;
+
+function GetFieldValueEx(const aFieldName, aFromStr, aWhereStr, aOrderStr : String;
   aDefaultValue : Variant) : Variant;
 const
   sSQL = 'select %s from %s where (%s) %s';
