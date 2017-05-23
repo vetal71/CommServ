@@ -71,6 +71,7 @@ type
     FToolbar     : TSpTBXToolbar;
 
     bActivate    : Boolean;
+    FShowTitle   : Boolean;
 
  protected
    procedure ReadState(Reader: TReader); override;
@@ -94,6 +95,7 @@ private
    procedure SetToolbar (Value : TSpTBXToolbar);
    procedure SetTitle(const Value: string);
    function GetTitle: string;
+   procedure SetShowTitle(Value: Boolean);
    procedure CreatePopupMenus;
    procedure OnPopupClick (Sender: TObject);
 
@@ -152,6 +154,7 @@ private
    property Grid       : TDBGridEh read FGrid;
    property Storage    : TFieldsDefStorage read FStorage;
    property Toolbar    : TSpTBXToolbar read FToolbar write SetToolbar;
+   property ShowTitle  : Boolean read FShowTitle write SetShowTitle default True;
 
    property OnGridCellClick      : TDBGridEhClickEvent read GetGridCellClick write SetGridCellClick;
    property OnGridColEnter       : TNotifyEvent read GetGridColEnter write SetGridColEnter;
@@ -340,6 +343,8 @@ begin
   FGrid.ColumnDefValues.Title.ToolTips    := True;
   FGrid.ColumnDefValues.ToolTips          := True;
 
+  FShowTitle := True;
+
 end;
 
 destructor TDataSetPanel.Destroy;
@@ -420,6 +425,7 @@ procedure TDataSetPanel.CreatePopupMenus;
 var
   I, J: Integer;
   ePopupMenu: TSpTBXPopupMenu;
+  eSub: TSpTBXSubmenuItem;
 
   function NewSeparator(ASourceItem: TTBCustomItem = nil; AName: string = ''): TSpTBXSeparatorItem;
   begin
@@ -494,10 +500,11 @@ begin
     end
     else if (FToolbar.Items[ I ] is TSpTBXSubmenuItem) then
     begin
-      ePopupMenu.Items.Add(NewSubMenuItem(FToolbar.Items[ I ]));
+      eSub := NewSubMenuItem(FToolbar.Items[ I ]);
+      ePopupMenu.Items.Add(eSub);
       for J := 0 to FToolbar.Items[ I ].Count - 1 do
       begin
-        ePopupMenu.Items.Add(NewMenuItem(FToolbar.Items[ I ].Items[ J ]));
+        eSub.Add(NewMenuItem(FToolbar.Items[ I ].Items[ J ]));
       end;
     end
     else if (FToolbar.Items[ I ] is TSpTBXItem) then
@@ -699,6 +706,12 @@ end;
 procedure TDataSetPanel.SetGridTitleClick (Value : TDBGridEhClickEvent);
 begin
   FGrid.OnTitleClick := Value;
+end;
+
+procedure TDataSetPanel.SetShowTitle(Value: Boolean);
+begin
+  if Assigned(FTitle) then
+    FTitle.Visible := Value;
 end;
 
 procedure TDataSetPanel.SetTitle(const Value: string);

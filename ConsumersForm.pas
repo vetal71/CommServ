@@ -43,23 +43,6 @@ type
     qryObjects: TUniQuery;
     dsObjects: TUniDataSource;
     actAddConsumer: TAction;
-    miN1: TMenuItem;
-    miConsumers: TMenuItem;
-    miAddConsumer: TMenuItem;
-    miEditConsumer: TMenuItem;
-    miDeleteConsumer: TMenuItem;
-    miN5: TMenuItem;
-    miFilterConsumer: TMenuItem;
-    miN7: TMenuItem;
-    miPrint: TMenuItem;
-    miObjects: TMenuItem;
-    miAddObject: TMenuItem;
-    miEditObject: TMenuItem;
-    miDeleteObject: TMenuItem;
-    miN13: TMenuItem;
-    miHistoryAttrs: TMenuItem;
-    miN15: TMenuItem;
-    miFilterObject: TMenuItem;
     actFilterConsumer: TAction;
     actEditConsumer: TAction;
     actDelConsumer: TAction;
@@ -68,10 +51,10 @@ type
     actDelObject: TAction;
     actHistory: TAction;
     actFilterObject: TAction;
-    miN2: TMenuItem;
     miReportMan: TMenuItem;
     dspConsumers: TDataSetPanel;
     dspObjects: TDataSetPanel;
+    tbiTest: TSpTBXItem;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure actFilterConsumerExecute(Sender: TObject);
@@ -174,7 +157,9 @@ begin
   except on E: Exception do
     raise Exception.CreateFmt('Не удалось получить список потребителей.'#13'%s', [ E.Message ]);
   end;
-
+  // построение меню
+  BuildMenu(tbrConsumers, 0);
+  BuildMenu(tbrObjects, 1);
 end;
 
 procedure TfConsumers.EditCustomer(AMode: TEditMode);

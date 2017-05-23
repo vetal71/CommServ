@@ -5,14 +5,10 @@ DELETE FROM dbo.TariffServs
 GO
 DELETE FROM dbo.ServiceKindRef
 GO
-SET IDENTITY_INSERT dbo.ServiceKindRef ON
-GO
 INSERT INTO dbo.ServiceKindRef(ServiceKindRefId, ServiceKindName) VALUES(1, N'Отпуск тепловой энергии')
 INSERT INTO dbo.ServiceKindRef(ServiceKindRefId, ServiceKindName) VALUES(2, N'Отпуск холодной воды')
 INSERT INTO dbo.ServiceKindRef(ServiceKindRefId, ServiceKindName) VALUES(3, N'Пропуск сточных вод')
 INSERT INTO dbo.ServiceKindRef(ServiceKindRefId, ServiceKindName) VALUES(4, N'Вывоз мусора')
-GO
-SET IDENTITY_INSERT dbo.ServiceKindRef OFF
 GO
 
 DELETE FROM dbo.VatsRef
@@ -28,8 +24,6 @@ PRINT 'Заполнили вспомагательные таблицы'
 
 DELETE FROM dbo.TariffServs
 GO
-SET IDENTITY_INSERT dbo.TariffServs ON
-GO
 INSERT INTO dbo.TariffServs (ServId, ServTitle, ServiceKindId, VatID)
   SELECT kodtt, nazt, 1, 2 FROM dbo.Tarift
 GO
@@ -42,27 +36,29 @@ GO
 INSERT INTO dbo.TariffServs (ServId, ServTitle, ServiceKindId, VatID)
   SELECT kodtg + 300, nazt, 4, 2 FROM dbo.Tarifg
 GO
-SET IDENTITY_INSERT dbo.TariffServs OFF
-GO
 PRINT 'Заполнили виды тарифов'
 
 DELETE FROM dbo.TariffServsVal
 GO
 INSERT INTO dbo.TariffServsVal (ServId, DateFrom, Value)
-  SELECT ts.ServId, d.DATAN, d.CENA FROM dbo.TariffServs ts, dbo.datatarif d
-    WHERE d.KODTT = ts.ServId AND d.DATAN = (SELECT MAX(d1.DATAN) FROM dbo.datatarif d1)
+  SELECT ts.ServId, dd.DATAN, dd.CENA FROM dbo.TariffServs ts, 
+    (SELECT DISTINCT dt.KODTT, dt.CENA, (SELECT MAX(d.DATAN) FROM dbo.datatarif d WHERE dt.KODTT=d.KODTT AND dt.CENA = d.CENA) AS DATAN FROM dbo.datatarif dt) dd
+    WHERE dd.KODTT = ts.ServId AND dd.DATAN > '30-09-2005'
 GO
 INSERT INTO dbo.TariffServsVal (ServId, DateFrom, Value)
-  SELECT ts.ServId, d.DATAN, d.CENAV FROM dbo.TariffServs ts, dbo.datatarifv d
-    WHERE d.KODTV + 100 = ts.ServId AND d.DATAN = (SELECT MAX(d1.DATAN) FROM dbo.datatarifv d1)
+  SELECT ts.ServId, dd.DATAN, dd.CENAV FROM dbo.TariffServs ts, 
+    (SELECT DISTINCT dt.KODTV, dt.CENAV, (SELECT MAX(d.DATAN) FROM dbo.datatarifv d WHERE dt.KODTV=d.KODTV AND dt.CENAV = d.CENAV) AS DATAN FROM dbo.datatarifv dt) dd
+    WHERE dd.KODTV + 100 = ts.ServId
 GO
 INSERT INTO dbo.TariffServsVal (ServId, DateFrom, Value)
-  SELECT ts.ServId, d.DATAN, d.CENAK FROM dbo.TariffServs ts, dbo.datatarifv d
-    WHERE d.KODTV + 200 = ts.ServId AND d.DATAN = (SELECT MAX(d1.DATAN) FROM dbo.datatarifv d1)
+  SELECT ts.ServId, dd.DATAN, dd.CENAK FROM dbo.TariffServs ts, 
+    (SELECT DISTINCT dt.KODTV, dt.CENAK, (SELECT MAX(d.DATAN) FROM dbo.datatarifv d WHERE dt.KODTV=d.KODTV AND dt.CENAK = d.CENAK) AS DATAN FROM dbo.datatarifv dt) dd
+    WHERE dd.KODTV + 200 = ts.ServId
 GO
-INSERT INTO dbo.TariffServsVal (ServId, DateFrom, Value)
-  SELECT ts.ServId, d.DATAN, d.CENAG FROM dbo.TariffServs ts, dbo.datatarifg d
-    WHERE d.KODTG + 300 = ts.ServId AND d.DATAN = (SELECT MAX(d1.DATAN) FROM dbo.datatarifg d1)
+INSERT INTO dbo.TariffServsVal (ServId, DateFrom, Value)  
+  SELECT ts.ServId, dd.DATAN, dd.CENAG FROM dbo.TariffServs ts, 
+    (SELECT DISTINCT dt.KODTG, dt.CENAG, (SELECT MAX(d.DATAN) FROM dbo.datatarifg d WHERE dt.KODTG=d.KODTG AND dt.CENAG = d.CENAG) AS DATAN FROM dbo.datatarifg dt) dd
+    WHERE dd.KODTG + 300 = ts.ServId
 GO
 PRINT 'Заполнили значения тарифов'
 

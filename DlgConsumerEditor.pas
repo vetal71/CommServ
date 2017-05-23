@@ -40,8 +40,6 @@ type
     function ValidFields: Boolean; override;
     procedure AssignFields; override;
     procedure InitFields; override;
-  private
-//    procedure SetBankMFO(AValue: Variant);
   end;
 
 implementation

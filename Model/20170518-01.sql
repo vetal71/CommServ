@@ -3,101 +3,220 @@
 /* Created on:     18/05/2017 15:10:40                          */
 /*==============================================================*/
 
+BEGIN TRANSACTION
+GO
+
+/*==============================================================*/
+/* Drop ForeignKeys                                             */
+/*==============================================================*/
+
+IF (OBJECT_ID('dbo.Consumers') IS NOT NULL)
+BEGIN
+  ALTER TABLE dbo.Consumers
+  DROP CONSTRAINT FK_CONSUMER_FK_CONSUM_BANKS
+  ALTER TABLE dbo.Consumers
+  DROP CONSTRAINT FK_CONSUMER_FK_CONSUM_BUDGETKI
+  ALTER TABLE dbo.Consumers
+  DROP CONSTRAINT FK_CONSUMER_FK_CONSUM_CONSUMER
+  ALTER TABLE dbo.Consumers
+  DROP CONSTRAINT FK_CONSUMER_FK_MINIST_MINISTRY
+END
+GO
+IF @@error <> 0
+  AND @@trancount > 0
+  ROLLBACK TRANSACTION
+GO
+
+/*==============================================================*/
+/* Drop Indexes                                                 */
+/*==============================================================*/
+DROP INDEX ConsumerKind_Idx ON dbo.Consumers
+GO
+IF @@error <> 0
+  AND @@trancount > 0
+  ROLLBACK TRANSACTION
+GO
+DROP INDEX ConsumerName_Idx ON dbo.Consumers
+GO
+IF @@error <> 0
+  AND @@trancount > 0
+  ROLLBACK TRANSACTION
+GO
 
 /*==============================================================*/
 /* Table: Banks                                                 */
 /*==============================================================*/
-create table dbo.Banks (
-   BankId               int                  not null,
-   BankName             varchar(100)         collate Cyrillic_General_CI_AS not null,
-   BankAddress          varchar(100)         collate Cyrillic_General_CI_AS null,
-   constraint PK_BANKS primary key (BankId)
-)
-on "PRIMARY"
-go
+IF (OBJECT_ID('dbo.Banks') IS NOT NULL)
+  DROP TABLE dbo.Banks
+GO
+IF @@error <> 0
+  AND @@trancount > 0
+  ROLLBACK TRANSACTION
+GO
+CREATE TABLE dbo.Banks (
+  BankId INT NOT NULL
+ ,BankName VARCHAR(100) COLLATE Cyrillic_General_CI_AS NOT NULL
+ ,BankAddress VARCHAR(100) COLLATE Cyrillic_General_CI_AS NULL
+ ,CONSTRAINT PK_BANKS PRIMARY KEY (BankId)
+) ON "PRIMARY"
+GO
+IF @@error <> 0
+  AND @@trancount > 0
+  ROLLBACK TRANSACTION
+GO
 
 /*==============================================================*/
 /* Table: BudgetKindRef                                         */
 /*==============================================================*/
-create table dbo.BudgetKindRef (
-   BudgetKindRefId      smallint             not null,
-   BudgetKindName       varchar(50)          not null,
-   constraint PK_BUDGETKINDREF primary key (BudgetKindRefId)
+IF (OBJECT_ID('dbo.BudgetKindRef') IS NOT NULL)
+  DROP TABLE dbo.BudgetKindRef
+GO
+IF @@error <> 0
+  AND @@trancount > 0
+  ROLLBACK TRANSACTION
+GO
+CREATE TABLE dbo.BudgetKindRef (
+  BudgetKindRefId SMALLINT NOT NULL
+ ,BudgetKindName VARCHAR(50) NOT NULL
+ ,CONSTRAINT PK_BUDGETKINDREF PRIMARY KEY (BudgetKindRefId)
 )
-go
+GO
+IF @@error <> 0
+  AND @@trancount > 0
+  ROLLBACK TRANSACTION
+GO
 
 /*==============================================================*/
 /* Table: Consumers                                             */
 /*==============================================================*/
-create table dbo.Consumers (
-   ConsumerId           int                  identity(1, 1) not for replication,
-   ConsumerName         varchar(100)         collate Cyrillic_General_CI_AS not null,
-   ConsumerAddress      varchar(100)         collate Cyrillic_General_CI_AS not null,
-   Account              varchar(30)          collate Cyrillic_General_CI_AS not null,
-   UNN                  varchar(10)          collate Cyrillic_General_CI_AS not null,
-   ConsumerKindId       smallint             not null,
-   MinistryId           smallint             null,
-   BudgetKindId         smallint             null,
-   BankId               int                  null,
-   IsDeleted            smallint             null,
-   constraint PK_CONSUMERS primary key (ConsumerId)
-)
-on "PRIMARY"
-go
+IF (OBJECT_ID('dbo.Consumers') IS NOT NULL)
+  DROP TABLE dbo.Consumers
+GO
+IF @@error <> 0
+  AND @@trancount > 0
+  ROLLBACK TRANSACTION
+GO
+CREATE TABLE dbo.Consumers (
+  ConsumerId INT IDENTITY (1, 1) NOT FOR REPLICATION
+ ,ConsumerName VARCHAR(100) COLLATE Cyrillic_General_CI_AS NOT NULL
+ ,ConsumerAddress VARCHAR(100) COLLATE Cyrillic_General_CI_AS NOT NULL
+ ,Account VARCHAR(30) COLLATE Cyrillic_General_CI_AS NOT NULL
+ ,UNN VARCHAR(10) COLLATE Cyrillic_General_CI_AS NOT NULL
+ ,ConsumerKindId SMALLINT NOT NULL
+ ,MinistryId SMALLINT NULL
+ ,BudgetKindId SMALLINT NULL
+ ,BankId INT NULL
+ ,IsDeleted SMALLINT NULL
+ ,CONSTRAINT PK_CONSUMERS PRIMARY KEY (ConsumerId)
+) ON "PRIMARY"
+GO
+IF @@error <> 0
+  AND @@trancount > 0
+  ROLLBACK TRANSACTION
+GO
 
 /*==============================================================*/
 /* Index: ConsumerKind_Idx                                      */
 /*==============================================================*/
-create index ConsumerKind_Idx on dbo.Consumers (
+CREATE INDEX ConsumerKind_Idx ON dbo.Consumers (
 ConsumerKindId ASC
 )
-go
+GO
+IF @@error <> 0
+  AND @@trancount > 0
+  ROLLBACK TRANSACTION
+GO
 
 /*==============================================================*/
 /* Index: ConsumerName_Idx                                      */
 /*==============================================================*/
-create index ConsumerName_Idx on dbo.Consumers (
+CREATE INDEX ConsumerName_Idx ON dbo.Consumers (
 ConsumerName ASC
 )
-go
+GO
+IF @@error <> 0
+  AND @@trancount > 0
+  ROLLBACK TRANSACTION
+GO
 
 /*==============================================================*/
 /* Table: ConsumersKindRef                                      */
 /*==============================================================*/
-create table dbo.ConsumersKindRef (
-   ConsumerKindRefId    smallint             not null,
-   ConsumerKindName     varchar(50)          not null,
-   constraint PK_CONSUMERSKINDREF primary key (ConsumerKindRefId)
+IF (OBJECT_ID('dbo.ConsumersKindRef') IS NOT NULL)
+  DROP TABLE dbo.ConsumersKindRef
+GO
+IF @@error <> 0
+  AND @@trancount > 0
+  ROLLBACK TRANSACTION
+GO
+CREATE TABLE dbo.ConsumersKindRef (
+  ConsumerKindRefId SMALLINT NOT NULL
+ ,ConsumerKindName VARCHAR(50) NOT NULL
+ ,CONSTRAINT PK_CONSUMERSKINDREF PRIMARY KEY (ConsumerKindRefId)
 )
-go
+GO
+IF @@error <> 0
+  AND @@trancount > 0
+  ROLLBACK TRANSACTION
+GO
 
 /*==============================================================*/
 /* Table: MinistryRef                                           */
 /*==============================================================*/
-create table dbo.MinistryRef (
-   MinistryRefId        smallint             not null,
-   MinistryName         varchar(100)         not null,
-   constraint PK_MINISTRYREF primary key (MinistryRefId)
+IF (OBJECT_ID('dbo.MinistryRef') IS NOT NULL)
+  DROP TABLE dbo.MinistryRef
+GO
+IF @@error <> 0
+  AND @@trancount > 0
+  ROLLBACK TRANSACTION
+GO
+CREATE TABLE dbo.MinistryRef (
+  MinistryRefId SMALLINT NOT NULL
+ ,MinistryName VARCHAR(100) NOT NULL
+ ,CONSTRAINT PK_MINISTRYREF PRIMARY KEY (MinistryRefId)
 )
-go
+GO
+IF @@error <> 0
+  AND @@trancount > 0
+  ROLLBACK TRANSACTION
+GO
 
-alter table dbo.Consumers
-   add constraint FK_CONSUMER_FK_CONSUM_BANKS foreign key (BankId)
-      references dbo.Banks (BankId)
-go
+ALTER TABLE dbo.Consumers
+ADD CONSTRAINT FK_CONSUMER_FK_CONSUM_BANKS FOREIGN KEY (BankId)
+REFERENCES dbo.Banks (BankId)
+GO
+IF @@error <> 0
+  AND @@trancount > 0
+  ROLLBACK TRANSACTION
+GO
 
-alter table dbo.Consumers
-   add constraint FK_CONSUMER_FK_CONSUM_BUDGETKI foreign key (BudgetKindId)
-      references dbo.BudgetKindRef (BudgetKindRefId)
-go
+ALTER TABLE dbo.Consumers
+ADD CONSTRAINT FK_CONSUMER_FK_CONSUM_BUDGETKI FOREIGN KEY (BudgetKindId)
+REFERENCES dbo.BudgetKindRef (BudgetKindRefId)
+GO
+IF @@error <> 0
+  AND @@trancount > 0
+  ROLLBACK TRANSACTION
+GO
 
-alter table dbo.Consumers
-   add constraint FK_CONSUMER_FK_CONSUM_CONSUMER foreign key (ConsumerKindId)
-      references dbo.ConsumersKindRef (ConsumerKindRefId)
-go
+ALTER TABLE dbo.Consumers
+ADD CONSTRAINT FK_CONSUMER_FK_CONSUM_CONSUMER FOREIGN KEY (ConsumerKindId)
+REFERENCES dbo.ConsumersKindRef (ConsumerKindRefId)
+GO
+IF @@error <> 0
+  AND @@trancount > 0
+  ROLLBACK TRANSACTION
+GO
 
-alter table dbo.Consumers
-   add constraint FK_CONSUMER_FK_MINIST_MINISTRY foreign key (MinistryId)
-      references dbo.MinistryRef (MinistryRefId)
-go
+ALTER TABLE dbo.Consumers
+ADD CONSTRAINT FK_CONSUMER_FK_MINIST_MINISTRY FOREIGN KEY (MinistryId)
+REFERENCES dbo.MinistryRef (MinistryRefId)
+GO
+IF @@error <> 0
+  AND @@trancount > 0
+  ROLLBACK TRANSACTION
+GO
+
+COMMIT TRANSACTION
+GO
 

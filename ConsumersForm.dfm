@@ -37,7 +37,7 @@ inherited fConsumers: TfConsumers
       Images = ilMainSmall
       ShowCaption = False
       TabOrder = 1
-      Caption = #1055#1072#1085#1077#1083#1100' '#1080#1085#1089#1090#1088#1091#1084#1077#1085#1090#1086#1074' "'#1056#1077#1076#1072#1082#1090#1080#1088#1086#1074#1072#1085#1080#1077' '#1086#1088#1075#1072#1085#1080#1079#1072#1094#1080#1081'"'
+      Caption = #1055#1086#1090#1088#1077#1073#1080#1090#1077#1083#1080
       Customizable = False
       object tbiAddConsumer: TSpTBXItem
         Caption = #1044#1086#1073#1072#1074#1080#1090#1100' '#1079#1072#1087#1080#1089#1100
@@ -72,6 +72,9 @@ inherited fConsumers: TfConsumers
         Hint = #1055#1077#1095#1072#1090#1100' '#1086#1090#1095#1077#1090#1086#1074
         ImageIndex = 6
         DropdownCombo = True
+        object tbiTest: TSpTBXItem
+          Caption = #1058#1077#1089#1090
+        end
       end
       object SpTBXSeparatorItem6: TSpTBXSeparatorItem
       end
@@ -184,7 +187,7 @@ inherited fConsumers: TfConsumers
           Images = ilMainSmall
           ShowCaption = False
           TabOrder = 0
-          Caption = #1055#1072#1085#1077#1083#1100' '#1080#1085#1089#1090#1088#1091#1084#1077#1085#1090#1086#1074' "'#1056#1077#1076#1072#1082#1090#1080#1088#1086#1074#1072#1085#1080#1077' '#1086#1073#1098#1077#1082#1090#1086#1074'"'
+          Caption = #1054#1073#1098#1077#1082#1090#1099
           Customizable = False
           DisplayMode = tbdmImageOnly
           object tbiAddObject: TSpTBXItem
@@ -263,69 +266,6 @@ inherited fConsumers: TfConsumers
     end
   end
   inherited MainMenu: TMainMenu
-    inherited miActions: TMenuItem
-      object miConsumers: TMenuItem [0]
-        Caption = #1055#1086#1090#1088#1077#1073#1080#1090#1077#1083#1080
-        object miAddConsumer: TMenuItem
-          Caption = #1044#1086#1073#1072#1074#1080#1090#1100' '#1079#1072#1087#1080#1089#1100
-          OnClick = actAddConsumerExecute
-        end
-        object miEditConsumer: TMenuItem
-          Caption = #1056#1077#1076#1072#1082#1090#1080#1088#1086#1074#1072#1090#1100' '#1079#1072#1087#1080#1089#1100
-          OnClick = actEditConsumerExecute
-        end
-        object miDeleteConsumer: TMenuItem
-          Caption = #1059#1076#1072#1083#1080#1090#1100' '#1079#1072#1087#1080#1089#1100
-          OnClick = actDelConsumerExecute
-        end
-        object miN7: TMenuItem
-          Caption = '-'
-        end
-        object miPrint: TMenuItem
-          Caption = #1055#1077#1095#1072#1090#1100
-          object miN2: TMenuItem
-            Caption = '<'#1055#1091#1089#1090#1086'>'
-          end
-        end
-        object miN5: TMenuItem
-          Caption = '-'
-        end
-        object miFilterConsumer: TMenuItem
-          AutoCheck = True
-          Caption = #1060#1080#1083#1100#1090#1088
-          OnClick = actFilterConsumerExecute
-        end
-      end
-      object miObjects: TMenuItem [1]
-        Caption = #1054#1073#1098#1077#1082#1090#1099
-        object miAddObject: TMenuItem
-          Caption = #1044#1086#1073#1072#1074#1080#1090#1100' '#1079#1072#1087#1080#1089#1100
-        end
-        object miEditObject: TMenuItem
-          Caption = #1056#1077#1076#1072#1082#1090#1080#1088#1086#1074#1072#1090#1100' '#1079#1072#1087#1080#1089#1100
-        end
-        object miDeleteObject: TMenuItem
-          Caption = #1059#1076#1072#1083#1080#1090#1100' '#1079#1072#1087#1080#1089#1100
-        end
-        object miN13: TMenuItem
-          Caption = '-'
-        end
-        object miHistoryAttrs: TMenuItem
-          Caption = #1048#1089#1090#1086#1088#1080#1103
-        end
-        object miN15: TMenuItem
-          Caption = '-'
-        end
-        object miFilterObject: TMenuItem
-          AutoCheck = True
-          Caption = #1060#1080#1083#1100#1090#1088
-          OnClick = actFilterObjectExecute
-        end
-      end
-      object miN1: TMenuItem [2]
-        Caption = '-'
-      end
-    end
     inherited miService: TMenuItem
       object miReportMan: TMenuItem
         Caption = #1052#1077#1085#1077#1076#1078#1077#1088' '#1086#1090#1095#1077#1090#1086#1074

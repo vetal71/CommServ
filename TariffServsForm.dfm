@@ -30,6 +30,7 @@ inherited fTariffServs: TfTariffServs
     object tbrServices: TSpTBXToolbar
       Left = 0
       Top = 0
+      ChevronHint = #1044#1086#1087#1086#1083#1085#1080#1090#1077#1083#1100#1085#1086'|'
       Images = ilMainSmall
       TabOrder = 1
       Caption = #1042#1080#1076#1099' '#1091#1089#1083#1091#1075
@@ -43,6 +44,7 @@ inherited fTariffServs: TfTariffServs
         Caption = #1048#1079#1084#1077#1085#1080#1090#1100' '#1079#1072#1087#1080#1089#1100
         Hint = #1048#1079#1084#1077#1085#1080#1090#1100' '#1079#1072#1087#1080#1089#1100
         ImageIndex = 3
+        OnClick = tbiEditServiceClick
       end
       object tbiDelService: TSpTBXItem
         Caption = #1059#1076#1072#1083#1080#1090#1100' '#1079#1072#1087#1080#1089#1100
@@ -89,6 +91,7 @@ inherited fTariffServs: TfTariffServs
           DataSource = dsServices
           Title = #1042#1080#1076#1099' '#1091#1089#1083#1091#1075
           Toolbar = tbrServices
+          OnGridDblClick = tbiEditServiceClick
           FGrid = {
             54504630095444424772696445680447726964044C656674020003546F700214
             055769647468033A030648656967687403950005416C69676E0708616C436C69
@@ -164,10 +167,6 @@ inherited fTariffServs: TfTariffServs
           DataSource = dsTariffServ
           Title = #1042#1080#1076#1099' '#1090#1072#1088#1080#1092#1086#1074
           Toolbar = tbrTariffServ
-          ExplicitLeft = 352
-          ExplicitTop = 137
-          ExplicitWidth = 300
-          ExplicitHeight = 200
           FGrid = {
             54504630095444424772696445680447726964044C656674020003546F700214
             055769647468033A0306486569676874031B0105416C69676E0708616C436C69
@@ -222,18 +221,88 @@ inherited fTariffServs: TfTariffServs
         Height = 141
         Align = alBottom
         TabOrder = 4
-        object dck2: TSpTBXDock
+        object dckTariffVal: TSpTBXDock
           Left = 1
           Top = 1
           Width = 832
           Height = 26
-          object tbr2: TSpTBXToolbar
+          object tbrTariffVal: TSpTBXToolbar
             Left = 0
             Top = 0
             Images = ilMainSmall
             TabOrder = 0
-            Caption = 'tbr2'
+            Caption = #1042#1080#1076#1099' '#1091#1089#1083#1091#1075
+            object tbiAddTariffVal: TSpTBXItem
+              Caption = #1044#1086#1073#1072#1074#1080#1090#1100' '#1079#1072#1087#1080#1089#1100
+              Hint = #1044#1086#1073#1072#1074#1080#1090#1100' '#1079#1072#1087#1080#1089#1100
+              ImageIndex = 4
+            end
+            object tbiEditTariffVal: TSpTBXItem
+              Caption = #1048#1079#1084#1077#1085#1080#1090#1100' '#1079#1072#1087#1080#1089#1100
+              Hint = #1048#1079#1084#1077#1085#1080#1090#1100' '#1079#1072#1087#1080#1089#1100
+              ImageIndex = 3
+            end
+            object tbiDelTariffVal: TSpTBXItem
+              Caption = #1059#1076#1072#1083#1080#1090#1100' '#1079#1072#1087#1080#1089#1100
+              Hint = #1059#1076#1072#1083#1080#1090#1100' '#1079#1072#1087#1080#1089#1100
+              ImageIndex = 2
+            end
+            object SpTBXSeparatorItem1: TSpTBXSeparatorItem
+            end
+            object tbcFilterActual: TTBControlItem
+              Control = chkActual
+            end
+            object chkActual: TCheckBox
+              Left = 75
+              Top = 2
+              Width = 150
+              Height = 17
+              Caption = #1058#1086#1083#1100#1082#1086' '#1076#1077#1081#1089#1090#1074#1091#1102#1097#1080#1077
+              Checked = True
+              State = cbChecked
+              TabOrder = 0
+              OnClick = chkActualClick
+            end
           end
+        end
+        object dspTariffVal: TDataSetPanel
+          AlignWithMargins = True
+          Left = 4
+          Top = 30
+          Width = 826
+          Height = 107
+          Align = alClient
+          BevelOuter = bvNone
+          TabOrder = 1
+          DataSource = dsTariffVal
+          Title = #1058#1072#1088#1080#1092#1099
+          Toolbar = tbrTariffVal
+          FGrid = {
+            54504630095444424772696445680447726964044C656674020003546F700214
+            055769647468033A0306486569676874025705416C69676E0708616C436C6965
+            6E741B436F6C756D6E44656656616C7565732E456E64456C6C6970736973091F
+            436F6C756D6E44656656616C7565732E5469746C652E416C69676E6D656E7407
+            08746143656E74657221436F6C756D6E44656656616C7565732E5469746C652E
+            456E64456C6C69707369730921436F6C756D6E44656656616C7565732E546974
+            6C652E5469746C65427574746F6E091E436F6C756D6E44656656616C7565732E
+            5469746C652E546F6F6C546970730918436F6C756D6E44656656616C7565732E
+            546F6F6C54697073090A44617461536F75726365071866546172696666536572
+            76732E647354617269666656616C0844796E50726F70730E00074F7074696F6E
+            730B0864675469746C65730B6467496E64696361746F720E6467436F6C756D6E
+            526573697A650A6467436F6C4C696E65730A6467526F774C696E657306646754
+            6162730F6467436F6E6669726D44656C6574650E646743616E63656C4F6E4578
+            697400094F7074696F6E7345680B0A6467684669786564334411646768486967
+            686C69676874466F63757311646768436C65617253656C656374696F6E126467
+            684175746F536F72744D61726B696E670C646768496E63536561726368126467
+            68507265666572496E635365617263680D6467684469616C6F6746696E640F64
+            6768436F6C756D6E526573697A650D646768436F6C756D6E4D6F766512646768
+            457874656E64566572744C696E65730009536F72744C6F63616C09085461624F
+            726465720200001854526F7744657461696C50616E656C436F6E74726F6C4568
+            0D526F7744657461696C44617461000000}
+          FStorage = {
+            5450463011544669656C647344656653746F72616765000B53746F726167654E
+            616D65060A666C646465662E696E690C53746F72616765546F70696306095441
+            5249464656414C0000}
         end
       end
     end
@@ -343,5 +412,59 @@ inherited fTariffServs: TfTariffServs
         Name = 'ServiceKindRefId'
         Value = nil
       end>
+  end
+  object qryTariffVal: TUniQuery
+    SQLInsert.Strings = (
+      'INSERT INTO TariffServsVal'
+      '  (ServId, DateFrom, Value)'
+      'VALUES'
+      '  (:ServId, :DateFrom, :Value)')
+    SQLDelete.Strings = (
+      'DELETE FROM TariffServsVal'
+      'WHERE'
+      '  ServId = :Old_ServId AND DateFrom = :Old_DateFrom')
+    SQLUpdate.Strings = (
+      'UPDATE TariffServsVal'
+      'SET'
+      '  ServId = :ServId, DateFrom = :DateFrom, Value = :Value'
+      'WHERE'
+      '  ServId = :Old_ServId AND DateFrom = :Old_DateFrom')
+    SQLLock.Strings = (
+      'SELECT * FROM TariffServsVal'
+      'WITH (UPDLOCK, ROWLOCK, HOLDLOCK)'
+      'WHERE'
+      '  ServId = :Old_ServId AND DateFrom = :Old_DateFrom')
+    SQLRefresh.Strings = (
+      'SELECT ServId, DateFrom, Value FROM TariffServsVal'
+      'WHERE'
+      '  ServId = :ServId AND DateFrom = :DateFrom')
+    SQLRecCount.Strings = (
+      'SET :PCOUNT = (SELECT COUNT(*) FROM TariffServsVal'
+      ')')
+    Connection = dm.dbConn
+    SQL.Strings = (
+      'select &Limit * from TariffServsVal'
+      'order by DateFrom Desc')
+    MasterSource = dsTariffServ
+    MasterFields = 'ServId'
+    DetailFields = 'ServId'
+    AfterOpen = qryTariffValAfterOpen
+    Left = 312
+    Top = 616
+    ParamData = <
+      item
+        DataType = ftUnknown
+        Name = 'ServId'
+        Value = nil
+      end>
+    MacroData = <
+      item
+        Name = 'Limit'
+      end>
+  end
+  object dsTariffVal: TUniDataSource
+    DataSet = qryTariffVal
+    Left = 376
+    Top = 616
   end
 end

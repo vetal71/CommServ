@@ -3,64 +3,150 @@
 /* Created on:     19/05/2017 16:03:44                          */
 /*==============================================================*/
 
+BEGIN TRANSACTION
+GO
+
+/*==============================================================*/
+/* Drop ForeignKeys                                             */
+/*==============================================================*/
+
+IF (OBJECT_ID(N'TariffServs') IS NOT NULL)
+  ALTER TABLE TariffServs
+  DROP CONSTRAINT FK_TARIFFSE_SERVKIND_SERVICEK
+ALTER TABLE TariffServs
+DROP CONSTRAINT FK_TARIFFSE_VAT_VATSREF
+GO
+IF @@error <> 0
+  AND @@trancount > 0
+  ROLLBACK TRANSACTION
+GO
+
+IF (OBJECT_ID(N'TariffServsVal') IS NOT NULL)
+  ALTER TABLE TariffServsVal
+  DROP CONSTRAINT FK_TARIFFSE_SERVID_TARIFFSE
+GO
+IF @@error <> 0
+  AND @@trancount > 0
+  ROLLBACK TRANSACTION
+GO
+
 
 /*==============================================================*/
 /* Table: ServiceKindRef                                        */
 /*==============================================================*/
-create table dbo.ServiceKindRef (
-   ServiceKindRefId     int                  identity,
-   ServiceKindName      varchar(100)         not null,
-   constraint PK_SERVICEKINDREF primary key (ServiceKindRefId)
+
+IF (OBJECT_ID(N'ServiceKindRef') IS NOT NULL)
+  DROP TABLE ServiceKindRef
+GO
+IF @@error <> 0
+  AND @@trancount > 0
+  ROLLBACK TRANSACTION
+GO
+CREATE TABLE ServiceKindRef (
+  ServiceKindRefId INT
+ ,ServiceKindName VARCHAR(100) NOT NULL
+ ,CONSTRAINT PK_SERVICEKINDREF PRIMARY KEY (ServiceKindRefId)
 )
-go
+GO
+IF @@error <> 0
+  AND @@trancount > 0
+  ROLLBACK TRANSACTION
+GO
 
 /*==============================================================*/
 /* Table: TariffServs                                           */
 /*==============================================================*/
-create table dbo.TariffServs (
-   ServId               int                  identity,
-   ServTitle            varchar(50)          not null,
-   ServiceKindId        int                  not null,
-   VatID                int                  not null,
-   constraint PK_TARIFFSERVS primary key (ServId)
+IF (OBJECT_ID(N'TariffServs') IS NOT NULL)
+  DROP TABLE TariffServs
+GO
+IF @@error <> 0
+  AND @@trancount > 0
+  ROLLBACK TRANSACTION
+GO
+CREATE TABLE TariffServs (
+  ServId INT
+ ,ServTitle VARCHAR(50) NOT NULL
+ ,ServiceKindId INT NOT NULL
+ ,VatID INT NOT NULL
+ ,CONSTRAINT PK_TARIFFSERVS PRIMARY KEY (ServId)
 )
-go
+GO
+IF @@error <> 0
+  AND @@trancount > 0
+  ROLLBACK TRANSACTION
+GO
 
 /*==============================================================*/
 /* Table: TariffServsVal                                        */
 /*==============================================================*/
-create table dbo.TariffServsVal (
-   ServId               int                  not null,
-   DateFrom             datetime             not null,
-   Value                decimal(15,4)        not null,
-   constraint PK_TARIFFSERVSVAL primary key (ServId, DateFrom)
+IF (OBJECT_ID(N'TariffServsVal') IS NOT NULL)
+  DROP TABLE TariffServsVal
+GO
+IF @@error <> 0
+  AND @@trancount > 0
+  ROLLBACK TRANSACTION
+GO
+CREATE TABLE TariffServsVal (
+  ServId INT NOT NULL
+ ,DateFrom DATETIME NOT NULL
+ ,Value DECIMAL(15, 4) NOT NULL
+ ,CONSTRAINT PK_TARIFFSERVSVAL PRIMARY KEY (ServId, DateFrom)
 )
-go
+GO
+IF @@error <> 0
+  AND @@trancount > 0
+  ROLLBACK TRANSACTION
+GO
 
 /*==============================================================*/
 /* Table: VatsRef                                               */
 /*==============================================================*/
-create table dbo.VatsRef (
-   VatId                int                  identity,
-   VatName              varchar(50)          not null,
-   VatValue             decimal(5,2)         null,
-   constraint PK_VATSREF primary key (VatId)
+IF (OBJECT_ID(N'VatsRef') IS NOT NULL)
+  DROP TABLE VatsRef
+GO
+IF @@error <> 0
+  AND @@trancount > 0
+  ROLLBACK TRANSACTION
+GO
+CREATE TABLE VatsRef (
+  VatID INT IDENTITY
+ ,VatName VARCHAR(50) NOT NULL
+ ,VatValue DECIMAL(5, 2) NULL
+ ,CONSTRAINT PK_VATSREF PRIMARY KEY (VatID)
 )
-go
+GO
+IF @@error <> 0
+  AND @@trancount > 0
+  ROLLBACK TRANSACTION
+GO
 
-alter table dbo.TariffServs
-   add constraint FK_TARIFFSE_SERVKIND_SERVICEK foreign key (ServiceKindId)
-      references dbo.ServiceKindRef (ServiceKindRefId)
-         on update cascade on delete cascade
-go
+ALTER TABLE TariffServs
+ADD CONSTRAINT FK_TARIFFSE_SERVKIND_SERVICEK FOREIGN KEY (ServiceKindId)
+REFERENCES ServiceKindRef (ServiceKindRefId)
+ON UPDATE CASCADE ON DELETE CASCADE
+GO
+IF @@error <> 0
+  AND @@trancount > 0
+  ROLLBACK TRANSACTION
+GO
 
-alter table dbo.TariffServs
-   add constraint FK_TARIFFSE_VAT_VATSREF foreign key (VatID)
-      references dbo.VatsRef (VatId)
-go
+ALTER TABLE TariffServs
+ADD CONSTRAINT FK_TARIFFSE_VAT_VATSREF FOREIGN KEY (VatID)
+REFERENCES VatsRef (VatID)
+GO
+IF @@error <> 0
+  AND @@trancount > 0
+  ROLLBACK TRANSACTION
+GO
 
-alter table dbo.TariffServsVal
-   add constraint FK_TARIFFSE_SERVID_TARIFFSE foreign key (ServId)
-      references dbo.TariffServs (ServId)
-go
+ALTER TABLE TariffServsVal
+ADD CONSTRAINT FK_TARIFFSE_SERVID_TARIFFSE FOREIGN KEY (ServId)
+REFERENCES TariffServs (ServId)
+GO
+IF @@error <> 0
+  AND @@trancount > 0
+  ROLLBACK TRANSACTION
+GO
 
+COMMIT TRANSACTION
+GO

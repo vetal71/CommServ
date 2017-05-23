@@ -104,6 +104,18 @@
         </DCCReference>
         <DCCReference Include="KVComp_UDataSetPanel.pas"/>
         <DCCReference Include="KVComp_UDSPFields.pas"/>
+        <RcItem Include="..\..\Icons\1493406505_add.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ADD_IMAGE</ResourceId>
+        </RcItem>
+        <RcItem Include="..\..\Icons\1495198304_edit.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>EDIT_IMAGE</ResourceId>
+        </RcItem>
+        <RcItem Include="..\..\Icons\1495198363_cancel.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>DEL_IMAGE</ResourceId>
+        </RcItem>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
@@ -152,16 +164,7 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployClass Name="DependencyModule">
-                    <Platform Name="Win32">
-                        <Operation>0</Operation>
-                        <Extensions>.dll;.bpl</Extensions>
-                    </Platform>
-                    <Platform Name="OSX32">
-                        <Operation>1</Operation>
-                        <Extensions>.dylib</Extensions>
-                    </Platform>
-                </DeployClass>
+                <DeployClass Name="ProjectiOSDeviceResourceRules"/>
                 <DeployClass Name="ProjectOSXResource">
                     <Platform Name="OSX32">
                         <RemoteDir>Contents\Resources</RemoteDir>
@@ -500,7 +503,16 @@
                         <Operation>1</Operation>
                     </Platform>
                 </DeployClass>
-                <DeployClass Name="ProjectiOSDeviceResourceRules"/>
+                <DeployClass Name="DependencyModule">
+                    <Platform Name="Win32">
+                        <Operation>0</Operation>
+                        <Extensions>.dll;.bpl</Extensions>
+                    </Platform>
+                    <Platform Name="OSX32">
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                </DeployClass>
                 <ProjectRoot Platform="iOSDevice64" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="Win64" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="iOSDevice32" Name="$(PROJECTNAME).app"/>

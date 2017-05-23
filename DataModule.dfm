@@ -6,6 +6,7 @@ object dm: Tdm
     ProviderName = 'SQL Server'
     Database = 'Teplosnab'
     Options.KeepDesignConnected = False
+    Debug = True
     Username = 'sa'
     Server = 'KOLESNIK\DEVELOPER'
     Connected = True

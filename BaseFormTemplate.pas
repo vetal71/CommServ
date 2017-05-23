@@ -48,7 +48,7 @@ type
   protected
     function ReportGroup: Integer; virtual;
   public
-    { Public declarations }
+    procedure BuildMenu(ASource: TSpTBXToolbar; AIndex: Integer = 0);
   end;
 
 var
@@ -56,12 +56,56 @@ var
 
 implementation
 
-resourcestring
-  rsTimerHello = 'Timer start';
+uses
+  RegularExpressions;
 
 {$R *.dfm}
 
 { TTimeLabelItem }
+
+procedure TBaseForm.BuildMenu(ASource: TSpTBXToolbar; AIndex: Integer = 0);
+var
+  I, J: Integer;
+  Dest, Sub: TMenuItem;
+  Re  : TRegEx;
+
+  function NewMenuItem(ASourceItem: TTBCustomItem): TMenuItem;
+  begin
+    Result := TMenuItem.Create(Owner);
+    Result.Name       := Re.Replace(ASourceItem.Name, 'tbi|tbs', 'mi');
+    Result.Caption    := ASourceItem.Caption;
+    Result.ImageIndex := ASourceItem.ImageIndex;
+    Result.Enabled    := ASourceItem.Enabled;
+    Result.OnClick    := ASourceItem.OnClick;
+  end;
+
+begin
+  Dest := TMenuItem.Create(Owner);
+  Dest.Caption := ASource.Caption;
+  Dest.Name    := StringReplace(ASource.Name, 'tbr', 'mi', []);
+  miActions.Insert(AIndex, Dest);
+  miActions.Insert(AIndex + 1, NewLine);
+  for I := 0 to ASource.Items.Count - 1 do
+  begin
+    if (ASource.Items[ I ] is TSpTBXSeparatorItem) then
+    begin
+      Dest.Add(NewLine);
+    end
+    else if (ASource.Items[ I ] is TSpTBXSubmenuItem) then
+    begin
+      Sub := NewMenuItem(ASource.Items[ I ]);
+      Dest.Add(Sub);
+      for J := 0 to ASource.Items[ I ].Count - 1 do
+      begin
+        Sub.Add(NewMenuItem(ASource.Items[ I ].Items[ J ]));
+      end;
+    end
+    else if (ASource.Items[ I ] is TSpTBXItem) then
+    begin
+      Dest.Add(NewMenuItem(ASource.Items[ I ]));
+    end;
+  end;
+end;
 
 constructor TTimeLabelItem.Create(AOwner: TComponent);
 begin
