@@ -110,6 +110,7 @@ begin
     try
       qryOrgs.Edit;
       qryOrgs.FieldValues['IsDeleted'] := 1;
+      qryOrgs.Post;
       qryOrgs.Refresh;
     except
       on E: Exception do

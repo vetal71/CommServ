@@ -26,11 +26,13 @@ type
     SpTBXSeparatorItem6: TSpTBXSeparatorItem;
     miTariffServs: TMenuItem;
     miN2: TMenuItem;
-    tbi1: TSpTBXItem;
+    tbiClassificator: TSpTBXItem;
+    miN1: TMenuItem;
+    miN3: TMenuItem;
     procedure FormCreate(Sender: TObject);
     procedure tbiConsumersClick(Sender: TObject);
     procedure tbiTariffServsClick(Sender: TObject);
-    procedure tbi1Click(Sender: TObject);
+    procedure tbiClassificatorClick(Sender: TObject);
   private
     FUserName: string;
     procedure SetUserName(const Value: string);
@@ -70,7 +72,7 @@ begin
   RunExecSQL(Format('exec sp_defaultlanguage %s, %s',[FUserName, 'русский']));
 end;
 
-procedure TfMain.tbi1Click(Sender: TObject);
+procedure TfMain.tbiClassificatorClick(Sender: TObject);
 var
   CF: TfTest;
 begin

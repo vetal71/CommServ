@@ -154,6 +154,7 @@ inherited fTariffServs: TfTariffServs
               Caption = #1059#1076#1072#1083#1080#1090#1100' '#1079#1072#1087#1080#1089#1100
               Hint = #1059#1076#1072#1083#1080#1090#1100' '#1079#1072#1087#1080#1089#1100
               ImageIndex = 2
+              OnClick = tbiDelTariffClick
             end
           end
         end
@@ -239,16 +240,19 @@ inherited fTariffServs: TfTariffServs
               Caption = #1044#1086#1073#1072#1074#1080#1090#1100' '#1079#1072#1087#1080#1089#1100
               Hint = #1044#1086#1073#1072#1074#1080#1090#1100' '#1079#1072#1087#1080#1089#1100
               ImageIndex = 4
+              OnClick = tbiAddTariffValClick
             end
             object tbiEditTariffVal: TSpTBXItem
               Caption = #1048#1079#1084#1077#1085#1080#1090#1100' '#1079#1072#1087#1080#1089#1100
               Hint = #1048#1079#1084#1077#1085#1080#1090#1100' '#1079#1072#1087#1080#1089#1100
               ImageIndex = 3
+              OnClick = tbiEditTariffValClick
             end
             object tbiDelTariffVal: TSpTBXItem
               Caption = #1059#1076#1072#1083#1080#1090#1100' '#1079#1072#1087#1080#1089#1100
               Hint = #1059#1076#1072#1083#1080#1090#1100' '#1079#1072#1087#1080#1089#1100
               ImageIndex = 2
+              OnClick = tbiDelTariffValClick
             end
             object SpTBXSeparatorItem1: TSpTBXSeparatorItem
             end
@@ -280,6 +284,7 @@ inherited fTariffServs: TfTariffServs
           DataSource = dsTariffVal
           Title = #1058#1072#1088#1080#1092#1099
           Toolbar = tbrTariffVal
+          OnGridDblClick = tbiEditTariffValClick
           FGrid = {
             54504630095444424772696445680447726964044C656674020003546F700214
             055769647468033A0306486569676874025705416C69676E0708616C436C6965
@@ -438,9 +443,10 @@ inherited fTariffServs: TfTariffServs
       'WHERE'
       '  ServId = :Old_ServId AND DateFrom = :Old_DateFrom')
     SQLRefresh.Strings = (
-      'SELECT ServId, DateFrom, Value FROM TariffServsVal'
+      'select &Limit * from TariffServsVal'
       'WHERE'
-      '  ServId = :ServId AND DateFrom = :DateFrom')
+      '  ServId = :ServId AND DateFrom = :DateFrom'
+      'order by DateFrom Desc')
     SQLRecCount.Strings = (
       'SET :PCOUNT = (SELECT COUNT(*) FROM TariffServsVal'
       ')')
@@ -451,6 +457,7 @@ inherited fTariffServs: TfTariffServs
     MasterSource = dsTariffServ
     MasterFields = 'ServId'
     DetailFields = 'ServId'
+    RefreshOptions = [roAfterInsert, roAfterUpdate]
     AfterOpen = qryTariffValAfterOpen
     Left = 312
     Top = 616

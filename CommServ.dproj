@@ -134,16 +134,20 @@
             <Form>fTariffServs</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="TestForm.pas">
-            <Form>fTest</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
         <DCCReference Include="DlgServiceEditor.pas">
             <Form>fServiceEditor</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="DlgTariffServEditor.pas">
             <Form>fTariffServEditor</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="DlgTariffValEditor.pas">
+            <Form>fTariffValEditor</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="ClassificatorForm.pas">
+            <Form>fClassificator</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <BuildConfiguration Include="Release">

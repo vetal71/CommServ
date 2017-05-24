@@ -52,9 +52,14 @@ type
     procedure tbiEditServiceClick(Sender: TObject);
     procedure tbiAddTariffClick(Sender: TObject);
     procedure tbiEditTariffClick(Sender: TObject);
+    procedure tbiDelTariffClick(Sender: TObject);
+    procedure tbiDelTariffValClick(Sender: TObject);
+    procedure tbiAddTariffValClick(Sender: TObject);
+    procedure tbiEditTariffValClick(Sender: TObject);
 
   private
     procedure EditTariff(AMode: TEditMode);
+    procedure EditTariffVal(AMode: TEditMode);
   public
     procedure AfterConstruction; override;
   end;
@@ -65,7 +70,7 @@ var
 implementation
 
 uses
-  DlgServiceEditor, Common.StrFuncs, DlgTariffServEditor;
+  DlgServiceEditor, Common.StrFuncs, DlgTariffServEditor, DlgTariffValEditor;
 
 {$R *.dfm}
 
@@ -135,6 +140,48 @@ begin
   EditTariff(emAppend);
 end;
 
+procedure TfTariffServs.tbiAddTariffValClick(Sender: TObject);
+begin
+  inherited;
+  EditTariffVal(emAppend);
+end;
+
+procedure TfTariffServs.tbiDelTariffClick(Sender: TObject);
+begin
+  // Удаление вида тарифа
+  if ConfirmWarn(Format('Вы действительно хотите удалить вид тарифа "%s"?'#13 +
+    'Также будут удалены все связанные данные. Удалить ?', [qryTariffServ['ServTitle']])) then
+  begin
+    try
+      qryTariffServ.Delete;
+    except
+      on E: Exception do
+      begin
+        qryTariffServ.Cancel;
+        ShowErrorFmt('Ошибка при удалении данных по видам тарифов.'#13'%s', [E.Message]);
+      end;
+    end;
+  end;
+end;
+
+procedure TfTariffServs.tbiDelTariffValClick(Sender: TObject);
+begin
+  inherited;
+  // Удаление тарифа
+  if ConfirmWarn('Вы действительно хотите удалить действующий тариф ?') then
+  begin
+    try
+      qryTariffVal.Delete;
+    except
+      on E: Exception do
+      begin
+        qryTariffVal.Cancel;
+        ShowErrorFmt('Ошибка при удалении данных тарифа.'#13'%s', [E.Message]);
+      end;
+    end;
+  end;
+end;
+
 procedure TfTariffServs.tbiEditServiceClick(Sender: TObject);
 var
   F: TfServiceEditor;
@@ -164,24 +211,19 @@ begin
   EditTariff(emEdit);
 end;
 
+procedure TfTariffServs.tbiEditTariffValClick(Sender: TObject);
+begin
+  inherited;
+  EditTariffVal(emEdit);
+end;
+
 procedure TfTariffServs.EditTariff(AMode: TEditMode);
 var
   F: TfTariffServEditor;
-  SQLWhere: string;
-  ServiceKindID, RangeStart, RangeEnd: Integer;
 begin
   F := TfTariffServEditor.Create(Owner, qryTariffServ, AMode);
   try
     F.ParentService := qryServices['ServiceKindName'];
-    if AMode = emAppend then
-    begin
-      ServiceKindID := qryTariffServ.FieldByName('ServiceKindId').AsInteger;
-      RangeStart := 100 * (ServiceKindID - 1) + 1;
-      RangeEnd   := 100 * ServiceKindID - 1;
-      SQLWhere := Format('ServId Between %d And %d', [ RangeStart, RangeEnd ]);
-      ShowMessageFmt('Key=%d', [GenerateKeyValue('ServId', 'TariffServs', SQLWhere)]);
-      qryTariffServ.FieldByName('ServId').AsInteger := GenerateKeyValue('ServId', 'TariffServs', SQLWhere);
-    end;
     if F.ShowModal = mrOk then
       try
         qryTariffServ.Post;
@@ -194,6 +236,30 @@ begin
       end
     else
       qryTariffServ.Cancel;
+  finally
+    F.Free;
+  end;
+end;
+
+procedure TfTariffServs.EditTariffVal(AMode: TEditMode);
+var
+  F: TfTariffValEditor;
+begin
+  F := TfTariffValEditor.Create(Owner, qryTariffVal, AMode);
+  try
+    F.ParentTariff := qryTariffServ['ServTitle'];
+    if F.ShowModal = mrOk then
+      try
+        qryTariffVal.Post;
+      except
+        on E: Exception do
+        begin
+          qryTariffVal.Cancel;
+          ShowErrorFmt('Ошибка при сохранении значения тарифа.'#13'%s', [E.Message]);
+        end;
+      end
+    else
+      qryTariffVal.Cancel;
   finally
     F.Free;
   end;

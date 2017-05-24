@@ -24,6 +24,8 @@ function ShowError ( const aMsg : String ) : Word;
 function ShowErrorFmt ( aMsg : String; Args : array of const ) : Word;
 function GetConfirmation(const aMsg: string): Boolean;
 function ConfirmWarn(const aMsg: string): Boolean;
+function ShowWarning ( const aMsg : String ) : Word;
+function ShowMsg ( const aMsg : String ) : Word;
 
 function ComponentToString(Component: TComponent): string;
 procedure StringToComponent(Component: TComponent; Value: string);

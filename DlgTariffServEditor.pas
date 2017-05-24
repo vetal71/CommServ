@@ -50,6 +50,9 @@ begin
 end;
 
 procedure TfTariffServEditor.InitFields;
+var
+  SQLWhere: string;
+  ServiceKindID, RangeStart, RangeEnd: Integer;
 begin
   inherited;
   cbVAT.Load;
@@ -62,6 +65,11 @@ begin
           Self.Caption := 'Новый вид тарифа';
           DataSet.Append;
           cbVAT.Code := 1;
+          ServiceKindID := FieldByName('ServiceKindId').AsInteger;
+          RangeStart := 100 * (ServiceKindID - 1) + 1;
+          RangeEnd   := 100 * ServiceKindID - 1;
+          SQLWhere   := Format('ServId Between %d And %d', [ RangeStart, RangeEnd ]);
+          FieldByName('ServId').AsInteger := GenerateKeyValue('ServId', 'TariffServs', SQLWhere);
         end;
       emEdit:
         begin

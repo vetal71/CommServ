@@ -18,9 +18,10 @@ uses
   DlgCommon in 'DlgCommon.pas' {FDlgCommon},
   DlgBaseDBEditor in 'DlgBaseDBEditor.pas' {DlgDBEditor},
   TariffServsForm in 'TariffServsForm.pas' {fTariffServs},
-  TestForm in 'TestForm.pas' {fTest},
   DlgServiceEditor in 'DlgServiceEditor.pas' {fServiceEditor},
-  DlgTariffServEditor in 'DlgTariffServEditor.pas' {fTariffServEditor};
+  DlgTariffServEditor in 'DlgTariffServEditor.pas' {fTariffServEditor},
+  DlgTariffValEditor in 'DlgTariffValEditor.pas' {fTariffValEditor},
+  ClassificatorForm in 'ClassificatorForm.pas' {fClassificator};
 
 {$R *.res}
 

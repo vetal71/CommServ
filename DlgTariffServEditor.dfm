@@ -3,9 +3,6 @@ inherited fTariffServEditor: TfTariffServEditor
   PixelsPerInch = 96
   TextHeight = 14
   inherited pnlMain: TPanel
-    ExplicitLeft = -2
-    ExplicitTop = 0
-    ExplicitHeight = 350
     object lblTariffName: TLabel
       Left = 10
       Top = 47
@@ -24,6 +21,7 @@ inherited fTariffServEditor: TfTariffServEditor
       Top = 39
       Width = 479
       Height = 2
+      Anchors = [akLeft, akTop, akRight]
     end
     object lblVAT: TLabel
       Left = 10
