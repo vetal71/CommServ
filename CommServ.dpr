@@ -21,7 +21,9 @@ uses
   DlgServiceEditor in 'DlgServiceEditor.pas' {fServiceEditor},
   DlgTariffServEditor in 'DlgTariffServEditor.pas' {fTariffServEditor},
   DlgTariffValEditor in 'DlgTariffValEditor.pas' {fTariffValEditor},
-  ClassificatorForm in 'ClassificatorForm.pas' {fClassificator};
+  ClassificatorForm in 'ClassificatorForm.pas' {fClassificator},
+  DlgCommonRecEditor in 'DlgCommonRecEditor.pas' {fCommonRecEditor},
+  DlgCommonEditor in 'DlgCommonEditor.pas' {fCommonEditor};
 
 {$R *.res}
 

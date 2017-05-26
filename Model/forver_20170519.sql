@@ -13,13 +13,10 @@ GO
 
 DELETE FROM dbo.VatsRef
 GO
-SET IDENTITY_INSERT dbo.VatsRef ON
-GO
 INSERT INTO dbo.VatsRef(VatId, VatName, VatValue) VALUES(1, N'Без НДС', 0.00)
 INSERT INTO dbo.VatsRef(VatId, VatName, VatValue) VALUES(2, N'НДС 20%', 20.00)
 INSERT INTO dbo.VatsRef(VatId, VatName, VatValue) VALUES(3, N'НДС 20% в цене', 16.67)
 GO
-SET IDENTITY_INSERT dbo.VatsRef OFF
 PRINT 'Заполнили вспомагательные таблицы'
 
 DELETE FROM dbo.TariffServs

@@ -47,7 +47,8 @@ var
 implementation
 
 uses
-  Common.Consts, Common.StrFuncs, Common.DBUtils, Common.Config, TestForm;
+  Common.Consts, Common.StrFuncs, Common.DBUtils, Common.Config,
+  ClassificatorForm;
 
 {$R *.dfm}
 
@@ -74,10 +75,10 @@ end;
 
 procedure TfMain.tbiClassificatorClick(Sender: TObject);
 var
-  CF: TfTest;
+  CF: TfClassificator;
 begin
   inherited;
-  CF := TfTest.Create(Application);
+  CF := TfClassificator.Create(Application);
   try
     CF.ShowModal;
   finally
