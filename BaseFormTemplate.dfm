@@ -28,7 +28,7 @@ object BaseForm: TBaseForm
       end
     end
     object SpTBXRightAlignSpacerItem1: TSpTBXRightAlignSpacerItem
-      CustomWidth = 0
+      CustomWidth = 477
     end
     object SpTBXSeparatorItem3: TSpTBXSeparatorItem
     end
@@ -39,6 +39,8 @@ object BaseForm: TBaseForm
       end
       object lblData: TSpTBXLabelItem
         Caption = '01/01/2000'
+        FontSettings.Color = clHighlight
+        FontSettings.Style = [fsBold]
       end
     end
     object SpTBXSeparatorItem2: TSpTBXSeparatorItem

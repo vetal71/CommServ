@@ -44,7 +44,8 @@ type
     procedure miExitClick(Sender: TObject);
   private
     lblTime: TTimeLabelItem;
-    procedure ShowHint(Sender: TObject);
+  protected
+    procedure AppShowHint(Sender: TObject);
   protected
     function ReportGroup: Integer; virtual;
   public
@@ -127,8 +128,7 @@ begin
   lblTime := TTimeLabelItem.Create(grpTime);
   grpTime.Add(lblTime);
 
-  Application.OnHint := ShowHint;
-
+  Application.OnHint := AppShowHint;
 end;
 
 procedure TBaseForm.FormDestroy(Sender: TObject);
@@ -146,9 +146,10 @@ begin
   // Переопределение в потомках
 end;
 
-procedure TBaseForm.ShowHint(Sender: TObject);
+procedure TBaseForm.AppShowHint(Sender: TObject);
 begin
-  lblAppHint.Caption := Application.Hint;
+  if Assigned(lblAppHint) then
+    lblAppHint.Caption := Application.Hint;
 end;
 
 procedure TBaseForm.tmMainTimerTimer(Sender: TObject);

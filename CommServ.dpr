@@ -23,7 +23,8 @@ uses
   DlgTariffValEditor in 'DlgTariffValEditor.pas' {fTariffValEditor},
   ClassificatorForm in 'ClassificatorForm.pas' {fClassificator},
   DlgCommonRecEditor in 'DlgCommonRecEditor.pas' {fCommonRecEditor},
-  DlgCommonEditor in 'DlgCommonEditor.pas' {fCommonEditor};
+  DlgCommonEditor in 'DlgCommonEditor.pas' {fCommonEditor},
+  CountersForm in 'CountersForm.pas' {fCounters};
 
 {$R *.res}
 

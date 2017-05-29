@@ -1,0 +1,346 @@
+inherited fCounters: TfCounters
+  Caption = #1055#1088#1080#1073#1086#1088#1099' '#1091#1095#1077#1090#1072
+  ClientHeight = 693
+  ClientWidth = 871
+  ExplicitWidth = 887
+  ExplicitHeight = 751
+  PixelsPerInch = 96
+  TextHeight = 14
+  inherited sbMain: TSpTBXStatusBar
+    Top = 668
+    Width = 871
+    ExplicitTop = 683
+    ExplicitWidth = 871
+    inherited SpTBXRightAlignSpacerItem1: TSpTBXRightAlignSpacerItem
+      CustomWidth = 678
+    end
+  end
+  inherited dckTop: TSpTBXDock
+    Width = 871
+    Height = 26
+    ExplicitWidth = 871
+    ExplicitHeight = 26
+    inherited tbrMain: TSpTBXToolbar
+      Left = 407
+      Images = ilMainSmall
+      ExplicitLeft = 407
+      ExplicitWidth = 33
+      ExplicitHeight = 26
+    end
+    object tbrCounters: TSpTBXToolbar
+      Left = 0
+      Top = 0
+      ChevronHint = #1044#1086#1087#1086#1083#1085#1080#1090#1077#1083#1100#1085#1086'|'
+      DockPos = -6
+      Images = ilMainSmall
+      ShowCaption = False
+      TabOrder = 1
+      Caption = #1055#1086#1090#1088#1077#1073#1080#1090#1077#1083#1080
+      Customizable = False
+      object tbiAddConsumer: TSpTBXItem
+        Caption = #1044#1086#1073#1072#1074#1080#1090#1100' '#1079#1072#1087#1080#1089#1100
+        Hint = #1044#1086#1073#1072#1074#1080#1090#1100' '#1079#1072#1087#1080#1089#1100
+        ImageIndex = 4
+      end
+      object tbiEditConsumer: TSpTBXItem
+        Caption = #1056#1077#1076#1072#1082#1090#1080#1088#1086#1074#1072#1090#1100' '#1079#1072#1087#1080#1089#1100
+        Hint = #1056#1077#1076#1072#1082#1090#1080#1088#1086#1074#1072#1090#1100' '#1079#1072#1087#1080#1089#1100
+        ImageIndex = 3
+      end
+      object tbiDeleteConsumer: TSpTBXItem
+        Caption = #1059#1076#1072#1083#1080#1090#1100' '#1079#1072#1087#1080#1089#1100
+        Hint = #1059#1076#1072#1083#1080#1090#1100' '#1079#1072#1087#1080#1089#1100
+        ImageIndex = 2
+      end
+      object SpTBXSeparatorItem5: TSpTBXSeparatorItem
+      end
+      object lblFilterType: TSpTBXLabelItem
+        Caption = #1054#1090#1073#1086#1088': '
+      end
+      object tbcTypeConsumer: TTBControlItem
+        Control = cbTypeConsumer
+      end
+      object SpTBXSeparatorItem4: TSpTBXSeparatorItem
+      end
+      object tbsPrint: TSpTBXSubmenuItem
+        Caption = #1055#1077#1095#1072#1090#1100
+        Hint = #1055#1077#1095#1072#1090#1100' '#1086#1090#1095#1077#1090#1086#1074
+        ImageIndex = 6
+        DropdownCombo = True
+        object tbiTest: TSpTBXItem
+          Caption = #1058#1077#1089#1090
+        end
+      end
+      object SpTBXSeparatorItem6: TSpTBXSeparatorItem
+      end
+      object tbiFilterExt: TSpTBXItem
+        Caption = #1060#1080#1083#1100#1090#1088
+        Hint = #1042#1082#1083'./'#1042#1099#1082#1083' '#1089#1090#1088#1086#1082#1091' '#1088#1072#1089#1096#1080#1088#1077#1085#1085#1086#1075#1086' '#1092#1080#1083#1100#1090#1088#1072
+        AutoCheck = True
+        ImageIndex = 7
+      end
+      object cbTypeConsumer: TComboBox
+        Left = 126
+        Top = 0
+        Width = 200
+        Height = 22
+        ItemIndex = 0
+        TabOrder = 0
+        Text = '('#1042#1089#1077')'
+        Items.Strings = (
+          '('#1042#1089#1077')'
+          #1041#1102#1076#1078#1077#1090#1085#1099#1077
+          #1061#1086#1079#1088#1072#1089#1095#1077#1090#1085#1099#1077
+          #1046#1057#1050
+          #1046#1057#1050' ('#1041#1043#1057#1061#1040')')
+      end
+    end
+  end
+  object pnlCounters: TPanel [2]
+    Left = 0
+    Top = 26
+    Width = 871
+    Height = 284
+    Align = alClient
+    BevelOuter = bvNone
+    TabOrder = 2
+    ExplicitTop = 42
+    ExplicitHeight = 268
+    object dspCounters: TDataSetPanel
+      AlignWithMargins = True
+      Left = 3
+      Top = 3
+      Width = 865
+      Height = 278
+      Align = alClient
+      BevelOuter = bvNone
+      TabOrder = 0
+      DataSource = dsCounters
+      Title = #1055#1088#1080#1073#1086#1088#1099' '#1091#1095#1077#1090#1072
+      ExplicitHeight = 262
+      FGrid = {
+        54504630095444424772696445680447726964044C656674020003546F700214
+        0557696474680361030648656967687403020105416C69676E0708616C436C69
+        656E741B436F6C756D6E44656656616C7565732E456E64456C6C697073697309
+        1F436F6C756D6E44656656616C7565732E5469746C652E416C69676E6D656E74
+        0708746143656E74657221436F6C756D6E44656656616C7565732E5469746C65
+        2E456E64456C6C69707369730921436F6C756D6E44656656616C7565732E5469
+        746C652E5469746C65427574746F6E091E436F6C756D6E44656656616C756573
+        2E5469746C652E546F6F6C546970730918436F6C756D6E44656656616C756573
+        2E546F6F6C54697073090A44617461536F75726365071466436F756E74657273
+        2E6473436F756E746572730844796E50726F70730E00074F7074696F6E730B08
+        64675469746C65730B6467496E64696361746F720E6467436F6C756D6E526573
+        697A650A6467436F6C4C696E65730A6467526F774C696E657306646754616273
+        0F6467436F6E6669726D44656C6574650E646743616E63656C4F6E4578697400
+        094F7074696F6E7345680B0A6467684669786564334411646768486967686C69
+        676874466F63757311646768436C65617253656C656374696F6E126467684175
+        746F536F72744D61726B696E670C646768496E63536561726368126467685072
+        65666572496E635365617263680D6467684469616C6F6746696E640F64676843
+        6F6C756D6E526573697A650D646768436F6C756D6E4D6F766512646768457874
+        656E64566572744C696E65730009536F72744C6F63616C09085461624F726465
+        720200001854526F7744657461696C50616E656C436F6E74726F6C45680D526F
+        7744657461696C44617461000000}
+      FStorage = {
+        5450463011544669656C647344656653746F72616765000B53746F726167654E
+        616D65060A666C646465662E696E690000}
+    end
+  end
+  object pnlObjects: TPanel [3]
+    Left = 0
+    Top = 312
+    Width = 871
+    Height = 356
+    Align = alBottom
+    BevelOuter = bvNone
+    TabOrder = 3
+    object pnlHouses: TPanel
+      Left = 440
+      Top = 0
+      Width = 431
+      Height = 356
+      Align = alRight
+      BevelOuter = bvNone
+      TabOrder = 0
+      object dspHouses: TDataSetPanel
+        AlignWithMargins = True
+        Left = 3
+        Top = 3
+        Width = 425
+        Height = 350
+        Align = alClient
+        BevelOuter = bvNone
+        TabOrder = 0
+        DataSource = dsHouses
+        Title = #1046#1080#1083#1086#1081' '#1092#1086#1085#1076
+        FGrid = {
+          54504630095444424772696445680447726964044C656674020003546F700214
+          05576964746803A90106486569676874034A0105416C69676E0708616C436C69
+          656E741B436F6C756D6E44656656616C7565732E456E64456C6C697073697309
+          1F436F6C756D6E44656656616C7565732E5469746C652E416C69676E6D656E74
+          0708746143656E74657221436F6C756D6E44656656616C7565732E5469746C65
+          2E456E64456C6C69707369730921436F6C756D6E44656656616C7565732E5469
+          746C652E5469746C65427574746F6E091E436F6C756D6E44656656616C756573
+          2E5469746C652E546F6F6C546970730918436F6C756D6E44656656616C756573
+          2E546F6F6C54697073090A44617461536F75726365071266436F756E74657273
+          2E6473486F757365730844796E50726F70730E00074F7074696F6E730B086467
+          5469746C65730B6467496E64696361746F720E6467436F6C756D6E526573697A
+          650A6467436F6C4C696E65730A6467526F774C696E6573066467546162730F64
+          67436F6E6669726D44656C6574650E646743616E63656C4F6E4578697400094F
+          7074696F6E7345680B0A6467684669786564334411646768486967686C696768
+          74466F63757311646768436C65617253656C656374696F6E126467684175746F
+          536F72744D61726B696E670C646768496E635365617263681264676850726566
+          6572496E635365617263680D6467684469616C6F6746696E640F646768436F6C
+          756D6E526573697A650D646768436F6C756D6E4D6F766512646768457874656E
+          64566572744C696E65730009536F72744C6F63616C09085461624F7264657202
+          00001854526F7744657461696C50616E656C436F6E74726F6C45680D526F7744
+          657461696C44617461000000}
+        FStorage = {
+          5450463011544669656C647344656653746F72616765000B53746F726167654E
+          616D65060A666C646465662E696E690000}
+      end
+    end
+    object pnlObject: TPanel
+      Left = 0
+      Top = 0
+      Width = 438
+      Height = 356
+      Align = alClient
+      BevelOuter = bvNone
+      TabOrder = 1
+      object dspObjects: TDataSetPanel
+        AlignWithMargins = True
+        Left = 3
+        Top = 3
+        Width = 432
+        Height = 350
+        Align = alClient
+        BevelOuter = bvNone
+        TabOrder = 0
+        DataSource = dsObjects
+        Title = #1054#1073#1098#1077#1082#1090#1099
+        FGrid = {
+          54504630095444424772696445680447726964044C656674020003546F700214
+          05576964746803B00106486569676874034A0105416C69676E0708616C436C69
+          656E741B436F6C756D6E44656656616C7565732E456E64456C6C697073697309
+          1F436F6C756D6E44656656616C7565732E5469746C652E416C69676E6D656E74
+          0708746143656E74657221436F6C756D6E44656656616C7565732E5469746C65
+          2E456E64456C6C69707369730921436F6C756D6E44656656616C7565732E5469
+          746C652E5469746C65427574746F6E091E436F6C756D6E44656656616C756573
+          2E5469746C652E546F6F6C546970730918436F6C756D6E44656656616C756573
+          2E546F6F6C54697073090A44617461536F75726365071366436F756E74657273
+          2E64734F626A656374730844796E50726F70730E00074F7074696F6E730B0864
+          675469746C65730B6467496E64696361746F720E6467436F6C756D6E52657369
+          7A650A6467436F6C4C696E65730A6467526F774C696E6573066467546162730F
+          6467436F6E6669726D44656C6574650E646743616E63656C4F6E457869740009
+          4F7074696F6E7345680B0A6467684669786564334411646768486967686C6967
+          6874466F63757311646768436C65617253656C656374696F6E12646768417574
+          6F536F72744D61726B696E670C646768496E6353656172636812646768507265
+          666572496E635365617263680D6467684469616C6F6746696E640F646768436F
+          6C756D6E526573697A650D646768436F6C756D6E4D6F76651264676845787465
+          6E64566572744C696E65730009536F72744C6F63616C09085461624F72646572
+          0200001854526F7744657461696C50616E656C436F6E74726F6C45680D526F77
+          44657461696C44617461000000}
+        FStorage = {
+          5450463011544669656C647344656653746F72616765000B53746F726167654E
+          616D65060A666C646465662E696E690000}
+      end
+    end
+    object spl2: TRxSplitter
+      Left = 438
+      Top = 0
+      Width = 2
+      Height = 356
+      ControlFirst = pnlObject
+      ControlSecond = pnlHouses
+      Align = alRight
+    end
+  end
+  object spl1: TRxSplitter [4]
+    Left = 0
+    Top = 310
+    Width = 871
+    Height = 2
+    ControlFirst = pnlCounters
+    ControlSecond = pnlObjects
+    Align = alBottom
+  end
+  inherited tmMainTimer: TTimer
+    Left = 409
+  end
+  inherited ilMainLarge: TcxImageList
+    FormatVersion = 1
+    DesignInfo = 11010527
+  end
+  inherited ilMainSmall: TcxImageList
+    FormatVersion = 1
+    DesignInfo = 11010595
+  end
+  object qryCounters: TUniQuery
+    SQLInsert.Strings = (
+      'INSERT INTO Counters'
+      '  (CounterName, ConsumerId, CounterKindRefId, IsGroup)'
+      'VALUES'
+      '  (:CounterName, :ConsumerId, :CounterKindRefId, :IsGroup)'
+      'SET :CounterId = SCOPE_IDENTITY()')
+    SQLDelete.Strings = (
+      'DELETE FROM Counters'
+      'WHERE'
+      '  CounterId = :Old_CounterId')
+    SQLUpdate.Strings = (
+      'UPDATE Counters'
+      'SET'
+      
+        '  CounterName = :CounterName, ConsumerId = :ConsumerId, CounterK' +
+        'indRefId = :CounterKindRefId, IsGroup = :IsGroup'
+      'WHERE'
+      '  CounterId = :Old_CounterId')
+    SQLLock.Strings = (
+      'SELECT * FROM Counters'
+      'WITH (UPDLOCK, ROWLOCK, HOLDLOCK)'
+      'WHERE'
+      '  CounterId = :Old_CounterId')
+    SQLRefresh.Strings = (
+      
+        'SELECT CounterName, ConsumerId, CounterKindRefId, IsGroup FROM C' +
+        'ounters'
+      'WHERE'
+      '  CounterId = :CounterId')
+    SQLRecCount.Strings = (
+      'SET :PCOUNT = (SELECT COUNT(*) FROM Counters'
+      ')')
+    Connection = dm.dbConn
+    SQL.Strings = (
+      
+        'SELECT c.*, ckr.CounterKindName FROM Counters c, CounterKindsRef' +
+        ' ckr'
+      '  WHERE ckr.CounterKindRefId = c.CounterKindRefId'
+      '  ORDER BY c.CounterId')
+    Left = 683
+    Top = 189
+  end
+  object qryObjects: TUniQuery
+    Connection = dm.dbConn
+    Left = 232
+    Top = 424
+  end
+  object qryHouses: TUniQuery
+    Connection = dm.dbConn
+    Left = 616
+    Top = 440
+  end
+  object dsHouses: TUniDataSource
+    DataSet = qryHouses
+    Left = 680
+    Top = 440
+  end
+  object dsObjects: TUniDataSource
+    DataSet = qryObjects
+    Left = 288
+    Top = 424
+  end
+  object dsCounters: TUniDataSource
+    DataSet = qryCounters
+    Left = 752
+    Top = 190
+  end
+end

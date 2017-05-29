@@ -115,6 +115,24 @@ GO
 IF @@error = 0
   PRINT 'Drop FK_LOCATIONTYPEID'
 
+IF EXISTS (SELECT
+      1
+    FROM sys.sysreferences r
+    JOIN sys.sysobjects o
+      ON (o.id = r.constid
+      AND o.type = 'F')
+    WHERE r.fkeyid = OBJECT_ID('dbo.ProductSites')
+    AND o.name = 'FK_COUNTERID')
+  ALTER TABLE dbo.ProductSites
+  DROP CONSTRAINT FK_COUNTERID
+GO
+IF @@error <> 0
+  AND @@trancount > 0
+  ROLLBACK TRANSACTION
+GO
+IF @@error = 0
+  PRINT 'Drop FK_COUNTERID'
+
 /*==============================================================*/
 /* Tables                                                       */
 /*==============================================================*/
@@ -199,7 +217,7 @@ CREATE TABLE dbo.ProductSites (
  ,ProductSiteName VARCHAR(50) COLLATE Cyrillic_General_CI_AS NOT NULL
  ,LocationTypeId SMALLINT NOT NULL
  ,Chief VARCHAR(50) COLLATE Cyrillic_General_CI_AS NULL
- ,GroupCounterId INT NULL
+ ,CounterId INT NULL
  ,CONSTRAINT PK_PRODUCTSITES PRIMARY KEY (ProductSiteId)
 )
 GO
@@ -220,6 +238,7 @@ CREATE TABLE dbo.Counters (
  ,CounterName VARCHAR(50) COLLATE Cyrillic_General_CI_AS NOT NULL
  ,ConsumerId INT NULL
  ,CounterKindRefId SMALLINT NULL
+ ,IsGroup SMALLINT NULL
  ,CONSTRAINT PK_COUNTERS PRIMARY KEY (CounterId)
 )
 GO
@@ -284,6 +303,11 @@ GO
 ALTER TABLE dbo.ProductSites
 ADD CONSTRAINT FK_LOCATIONTYPEID FOREIGN KEY (LocationTypeId)
 REFERENCES dbo.LocationTypesRef (LocationTypeRefId)
+GO
+
+ALTER TABLE dbo.ProductSites
+ADD CONSTRAINT FK_COUNTERID FOREIGN KEY (CounterId)
+REFERENCES dbo.Counters (CounterId)
 GO
 
 COMMIT TRANSACTION

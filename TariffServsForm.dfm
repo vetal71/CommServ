@@ -2,6 +2,7 @@ inherited fTariffServs: TfTariffServs
   Caption = #1058#1072#1088#1080#1092#1080#1082#1072#1094#1080#1103' '#1074#1080#1076#1086#1074' '#1091#1089#1083#1091#1075
   ClientHeight = 712
   ClientWidth = 834
+  OnClose = FormClose
   ExplicitWidth = 850
   ExplicitHeight = 770
   PixelsPerInch = 96
@@ -12,7 +13,7 @@ inherited fTariffServs: TfTariffServs
     ExplicitTop = 702
     ExplicitWidth = 834
     inherited SpTBXRightAlignSpacerItem1: TSpTBXRightAlignSpacerItem
-      CustomWidth = 641
+      CustomWidth = 633
     end
   end
   inherited dckTop: TSpTBXDock

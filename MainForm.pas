@@ -29,10 +29,14 @@ type
     tbiClassificator: TSpTBXItem;
     miN1: TMenuItem;
     miN3: TMenuItem;
+    SpTBXSeparatorItem7: TSpTBXSeparatorItem;
+    tbiCounters: TSpTBXItem;
+    tbiProductSuit: TSpTBXItem;
     procedure FormCreate(Sender: TObject);
     procedure tbiConsumersClick(Sender: TObject);
     procedure tbiTariffServsClick(Sender: TObject);
     procedure tbiClassificatorClick(Sender: TObject);
+    procedure tbiCountersClick(Sender: TObject);
   private
     FUserName: string;
     procedure SetUserName(const Value: string);
@@ -48,7 +52,7 @@ implementation
 
 uses
   Common.Consts, Common.StrFuncs, Common.DBUtils, Common.Config,
-  ClassificatorForm;
+  ClassificatorForm, CountersForm;
 
 {$R *.dfm}
 
@@ -63,6 +67,8 @@ begin
 
   lblCalcPeriod.Caption:= Format('%s ã.', [ OrgParams.CalcPeriod ]);
   Config.Values['WorkingDate'] := DateToStr( DateOfPeriod( OrgParams.CalcPeriodIndex ) );
+
+//  Application.OnHint := AppShowHint;
 end;
 
 procedure TfMain.SetUserName(const Value: string);
@@ -92,6 +98,19 @@ var
 begin
   inherited;
   CF := TfConsumers.Create(Application);
+  try
+    CF.ShowModal;
+  finally
+    CF.Free;
+  end;
+end;
+
+procedure TfMain.tbiCountersClick(Sender: TObject);
+var
+  CF: TfCounters;
+begin
+  inherited;
+  CF := TfCounters.Create(Application);
   try
     CF.ShowModal;
   finally

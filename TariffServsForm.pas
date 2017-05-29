@@ -56,6 +56,7 @@ type
     procedure tbiDelTariffValClick(Sender: TObject);
     procedure tbiAddTariffValClick(Sender: TObject);
     procedure tbiEditTariffValClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
 
   private
     procedure EditTariff(AMode: TEditMode);
@@ -263,6 +264,11 @@ begin
   finally
     F.Free;
   end;
+end;
+
+procedure TfTariffServs.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+//  Action := caFree;
 end;
 
 (*
