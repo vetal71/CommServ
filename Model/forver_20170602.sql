@@ -17,7 +17,7 @@ INSERT INTO Banks (BankId, BankName, BankAddress)
    ,b.adres_bank
   FROM bank b;
 GO
-PRINT 'Добавили банки'
+PRINT 'Заполнили справочник "Банки"'
 
 SELECT
   kodorg
@@ -35,7 +35,7 @@ SELECT
  ,data_per INTO dbo.tmp_org
 FROM dbo.org
 GO
-PRINT 'Создали tmp_org'
+PRINT 'Создали копию таблицы org в tmp_org'
 
 UPDATE dbo.tmp_org
 SET tiporg = 4
@@ -84,6 +84,7 @@ INSERT INTO dbo.MinistryRef (MinistryRefId, MinistryName)
 GO
 DROP TABLE tmp_Ministry
 GO
+PRINT 'Заполнили справочник "Министерства"'
 
 DELETE FROM dbo.ClientsKindRef
 GO
@@ -96,6 +97,7 @@ INSERT INTO dbo.ClientsKindRef (ClientKindRefId, ClientKindName)
 INSERT INTO dbo.ClientsKindRef (ClientKindRefId, ClientKindName)
   VALUES (4, N'ЖСК (БГСХА)');
 GO
+PRINT 'Заполнили справочник "Виды клиентов"'
 
 DELETE FROM dbo.BudgetKindRef
 GO
@@ -108,7 +110,7 @@ INSERT INTO dbo.BudgetKindRef (BudgetKindRefId, BudgetKindName)
 INSERT INTO dbo.BudgetKindRef (BudgetKindRefId, BudgetKindName)
   VALUES (4, N'Прочее финансирование');
 GO
-PRINT 'Заполнили вспомагательные таблицы'
+PRINT 'Заполнили справочник "Виды финансирования"'
 
 DELETE FROM dbo.Clients
 GO
@@ -133,7 +135,7 @@ INSERT INTO dbo.Clients (ClientName, ClientAddress, Account, unn, ClientKindRefI
 GO
 SET IDENTITY_INSERT dbo.Clients OFF
 GO
-PRINT 'Добавили клиентов.'
+PRINT 'Заполнили таблицу клиентов'
 GO
 
 DELETE FROM dbo.TariffServsVal
@@ -151,6 +153,7 @@ INSERT INTO dbo.ServiceKindRef (ServiceKindRefId, ServiceKindName)
 INSERT INTO dbo.ServiceKindRef (ServiceKindRefId, ServiceKindName)
   VALUES (4, N'Вывоз мусора')
 GO
+PRINT 'Заполнили справочник "Виды услуг"'
 
 DELETE FROM dbo.VatsRef
 GO
@@ -161,7 +164,7 @@ INSERT INTO dbo.VatsRef (VatID, VatName, VatValue)
 INSERT INTO dbo.VatsRef (VatID, VatName, VatValue)
   VALUES (3, N'НДС 20% в цене', 16.67)
 GO
-PRINT 'Заполнили вспомагательные таблицы'
+PRINT 'Заполнили справочник "Виды расчета НДС"'
 
 DELETE FROM dbo.TariffServs
 GO
@@ -197,7 +200,7 @@ INSERT INTO dbo.TariffServs (ServId, ServTitle, ServiceKindId, VatID)
    ,2
   FROM dbo.tarifg
 GO
-PRINT 'Заполнили виды тарифов'
+PRINT 'Заполнили справочник "Виды тарифов"'
 
 DELETE FROM dbo.TariffServsVal
 GO
@@ -274,7 +277,7 @@ INSERT INTO dbo.TariffServsVal (ServId, DateFrom, Value)
          FROM dbo.datatarifg dt) dd
   WHERE dd.kodtg + 300 = ts.ServId
 GO
-PRINT 'Заполнили значения тарифов'
+PRINT 'Заполнили таблицу значений тарифов'
 
 DELETE FROM dbo.CommonsRef
 GO
@@ -321,12 +324,14 @@ INSERT INTO dbo.CounterKindsRef (CounterKindRefId, CounterKindName)
 INSERT INTO dbo.CounterKindsRef (CounterKindRefId, CounterKindName)
   VALUES (4, 'Счетчик расхода холодной воды');
 GO
+PRINT 'Заполнили справочник "Виды приборов учета"'
 
 INSERT INTO dbo.LocationTypesRef (LocationTypeRefId, LocationTypeName)
   VALUES (1, 'Город');
 INSERT INTO dbo.LocationTypesRef (LocationTypeRefId, LocationTypeName)
   VALUES (2, 'Село');
 GO
+PRINT 'Заполнили справочник "Типы местоположений"'
 
 INSERT INTO AttrsRef (AttrRefId, AttrFullName, AttrType)
   VALUES ('ENERGY_RATE', 'Норма расхода электроэнергии', 'N');
@@ -339,9 +344,13 @@ INSERT INTO AttrsRef (AttrRefId, AttrFullName, AttrType)
 INSERT INTO AttrsRef (AttrRefId, AttrFullName, AttrType)
   VALUES ('Q_OT', 'Нагрузка на отопление', 'N');
 INSERT INTO AttrsRef (AttrRefId, AttrFullName, AttrType)
+  VALUES ('Q_HW', 'Нагрузка на ГВС', 'N');
+INSERT INTO AttrsRef (AttrRefId, AttrFullName, AttrType)
   VALUES ('Q_V', 'Номинальный расход воды', 'N');
 INSERT INTO AttrsRef (AttrRefId, AttrFullName, AttrType)
   VALUES ('Q_K', 'Номинальный расход сточных вод', 'N');
+INSERT INTO AttrsRef (AttrRefId, AttrFullName, AttrType)
+  VALUES ('Q_G', 'Номинальный объем мусора', 'N');
 INSERT INTO AttrsRef (AttrRefId, AttrFullName, AttrType)
   VALUES ('INT_TEMP', 'Внутренняя температура', 'N');
 INSERT INTO AttrsRef (AttrRefId, AttrFullName, AttrType)
@@ -355,17 +364,19 @@ INSERT INTO AttrsRef (AttrRefId, AttrFullName, AttrType)
 INSERT INTO AttrsRef (AttrRefId, AttrFullName, AttrType)
   VALUES ('PREVILEG_AREA', 'Льготная площадь', 'N');
 GO
+PRINT 'Добавили новые атрибуты'
 
 SET IDENTITY_INSERT ProductSites ON
 INSERT INTO dbo.ProductSites (ProductSiteId, ProductSiteName, LocationTypeId, Chief)
   SELECT
-    k.Kodkot
+    k.kodkot
    ,k.nazk
    ,k.mesto
    ,k.master
   FROM dbo.koteln k;
 SET IDENTITY_INSERT ProductSites OFF
 GO
+PRINT 'Заполнили справочник "Производственные участки"'
 
 DECLARE @ProdSiteId_ INT
 DECLARE cur CURSOR FAST_FORWARD READ_ONLY LOCAL FOR
@@ -385,7 +396,8 @@ BEGIN
      ,NULL
      ,d.nel
      ,NULL
-    FROM dbo.dankot d;
+    FROM dbo.dankot d
+    WHERE d.kodkot = @ProdSiteId_;
   INSERT INTO dbo.ProdSiteAttrs (ProductSiteId, AttrRefId, ValueDate, SValue, NValue, DValue)
     SELECT
       @ProdSiteId_
@@ -394,12 +406,14 @@ BEGIN
      ,NULL
      ,d.ps
      ,NULL
-    FROM dbo.dankot d;
+    FROM dbo.dankot d
+    WHERE d.kodkot = @ProdSiteId_;
   FETCH NEXT FROM cur INTO @ProdSiteId_
 END
 CLOSE cur
 DEALLOCATE cur
 GO
+PRINT 'Заполнили атрибуты для производственных участков'
 
 SET IDENTITY_INSERT dbo.Counters ON
 GO
@@ -468,9 +482,9 @@ SET CounterId = (SELECT
     k.kodpr
   FROM dbo.koteln k
   WHERE k.kodpr > 1
-  AND k.Kodkot = ProductSiteId);
+  AND k.kodkot = ProductSiteId);
 GO
-PRINT 'Заполнили приборы.'
+PRINT 'Заполнили таблицу "Приборы учета"'
 
 DELETE FROM dbo.LocalitiesRef
 GO
@@ -484,15 +498,492 @@ GO
 SET IDENTITY_INSERT LocalitiesRef ON
 INSERT INTO dbo.LocalitiesRef (LocalityRefID, LocalityName, LocalityCouncil)
   SELECT
-    l.LocalityID
+    l.LocalityId
    ,l.LocalityName
    ,l.LocalityCouncil
   FROM dbo.localities l
 SET IDENTITY_INSERT LocalitiesRef OFF
 GO
+PRINT 'Заполнили справочник "Населенные пункты"'
 
 SET IDENTITY_INSERT Consumers ON
 INSERT INTO dbo.Consumers (ConsumerId, ClientId, ConsumerName, IsHousingStock, LocalityId)
-  SELECT o.kodobk, o.kodorg, o.nazv, o.prin, o.LocalityId FROM dbo.obekt o;
+  SELECT
+    o.kodobk
+   ,o.kodorg
+   ,o.nazv
+   ,o.prin
+   ,o.LocalityId
+  FROM dbo.obekt o;
+SET IDENTITY_INSERT Consumers OFF
+GO
+PRINT 'Заполнили картотеку потребителей'
+
+DECLARE @ConsumerId_ INT
+DECLARE cur CURSOR FAST_FORWARD READ_ONLY LOCAL FOR
+SELECT
+  c.ConsumerId
+FROM dbo.Consumers c
+
+OPEN cur
+FETCH NEXT FROM cur INTO @ConsumerId_
+WHILE @@fetch_status = 0
+BEGIN
+  INSERT INTO dbo.ConsumerAttrs (ConsumerAttrId, ConsumerId, AttrRefId, ValueDate, SValue, NValue, DValue)
+    SELECT
+      @ConsumerId_
+     ,'COUNT_RESIDENTS'
+     ,d.dataiz
+     ,NULL
+     ,d.prj
+     ,NULL
+    FROM dbo.danobk d
+    WHERE d.prj > 0
+    AND d.kodobk = @ConsumerId_
+    UNION ALL
+    SELECT
+      @ConsumerId_
+     ,'COUNT_RESIDENTS'
+     ,SYSDATETIME()
+     ,NULL
+     ,o.prj
+     ,NULL
+    FROM dbo.obekt o
+    WHERE o.prj > 0
+    AND o.kodobk = @ConsumerId_;
+  INSERT INTO dbo.ConsumerAttrs (ConsumerAttrId, ConsumerId, AttrRefId, ValueDate, SValue, NValue, DValue)
+    SELECT
+      @ConsumerId_
+     ,'COUNT_PREVILEGES'
+     ,d.dataiz
+     ,NULL
+     ,d.prjl
+     ,NULL
+    FROM dbo.danobk d
+    WHERE d.prjl > 0
+    AND d.kodobk = @ConsumerId_
+    UNION ALL
+    SELECT
+      @ConsumerId_
+     ,'COUNT_PREVILEGES'
+     ,SYSDATETIME()
+     ,NULL
+     ,o.prjl
+     ,NULL
+    FROM dbo.obekt o
+    WHERE o.prjl > 0
+    AND o.kodobk = @ConsumerId_;
+  INSERT INTO dbo.ConsumerAttrs (ConsumerAttrId, ConsumerId, AttrRefId, ValueDate, SValue, NValue, DValue)
+    SELECT
+      @ConsumerId_
+     ,'TOTAL_AREA'
+     ,d.dataiz
+     ,NULL
+     ,d.spl
+     ,NULL
+    FROM dbo.danobk d
+    WHERE d.spl > 0
+    AND d.kodobk = @ConsumerId_
+    UNION ALL
+    SELECT
+      @ConsumerId_
+     ,'TOTAL_AREA'
+     ,SYSDATETIME()
+     ,NULL
+     ,o.spl
+     ,NULL
+    FROM dbo.obekt o
+    WHERE o.spl > 0
+    AND o.kodobk = @ConsumerId_;
+  INSERT INTO dbo.ConsumerAttrs (ConsumerAttrId, ConsumerId, AttrRefId, ValueDate, SValue, NValue, DValue)
+    SELECT
+      @ConsumerId_
+     ,'PREVILEG_AREA'
+     ,d.dataiz
+     ,NULL
+     ,d.spll
+     ,NULL
+    FROM dbo.danobk d
+    WHERE d.spll > 0
+    AND d.kodobk = @ConsumerId_
+    UNION ALL
+    SELECT
+      @ConsumerId_
+     ,'PREVILEG_AREA'
+     ,SYSDATETIME()
+     ,NULL
+     ,o.spll
+     ,NULL
+    FROM dbo.obekt o
+    WHERE o.spll > 0
+    AND o.kodobk = @ConsumerId_;
+  INSERT INTO dbo.ConsumerAttrs (ConsumerAttrId, ConsumerId, AttrRefId, ValueDate, SValue, NValue, DValue)
+    SELECT
+      @ConsumerId_
+     ,'INT_TEMP'
+     ,SYSDATETIME()
+     ,NULL
+     ,o.t
+     ,NULL
+    FROM dbo.obekt o
+    WHERE o.t > 0
+    AND o.kodobk = @ConsumerId_;
+  INSERT INTO dbo.ConsumerAttrs (ConsumerAttrId, ConsumerId, AttrRefId, ValueDate, SValue, NValue, DValue)
+    SELECT
+      @ConsumerId_
+     ,'NORMA_HOT_WATER'
+     ,SYSDATETIME()
+     ,NULL
+     ,o.ngvs
+     ,NULL
+    FROM dbo.obekt o
+    WHERE o.ngvs > 0
+    AND o.kodobk = @ConsumerId_;
+  INSERT INTO dbo.ConsumerAttrs (ConsumerAttrId, ConsumerId, AttrRefId, ValueDate, SValue, NValue, DValue)
+    SELECT
+      @ConsumerId_
+     ,'Q_OT'
+     ,d.dataiz
+     ,NULL
+     ,d.q
+     ,NULL
+    FROM dbo.danobk d
+    WHERE d.q > 0
+    AND d.kodobk = @ConsumerId_
+    UNION ALL
+    SELECT
+      @ConsumerId_
+     ,'Q_OT'
+     ,SYSDATETIME()
+     ,NULL
+     ,o.q
+     ,NULL
+    FROM dbo.obekt o
+    WHERE o.q > 0
+    AND o.kodobk = @ConsumerId_;
+  INSERT INTO dbo.ConsumerAttrs (ConsumerAttrId, ConsumerId, AttrRefId, ValueDate, SValue, NValue, DValue)
+    SELECT
+      @ConsumerId_
+     ,'VOLUME'
+     ,d.dataiz
+     ,NULL
+     ,d.v
+     ,NULL
+    FROM dbo.danobk d
+    WHERE d.v > 0
+    AND d.kodobk = @ConsumerId_
+    UNION ALL
+    SELECT
+      @ConsumerId_
+     ,'VOLUME'
+     ,SYSDATETIME()
+     ,NULL
+     ,o.v
+     ,NULL
+    FROM dbo.obekt o
+    WHERE o.v > 0
+    AND o.kodobk = @ConsumerId_;
+  INSERT INTO dbo.ConsumerAttrs (ConsumerAttrId, ConsumerId, AttrRefId, ValueDate, SValue, NValue, DValue)
+    SELECT
+      @ConsumerId_
+     ,'Q_V'
+     ,SYSDATETIME()
+     ,NULL
+     ,o.qv
+     ,NULL
+    FROM dbo.obekt o
+    WHERE o.qv > 0
+    AND o.kodobk = @ConsumerId_;
+  INSERT INTO dbo.ConsumerAttrs (ConsumerAttrId, ConsumerId, AttrRefId, ValueDate, SValue, NValue, DValue)
+    SELECT
+      @ConsumerId_
+     ,'Q_K'
+     ,SYSDATETIME()
+     ,NULL
+     ,o.qk
+     ,NULL
+    FROM dbo.obekt o
+    WHERE o.qk > 0
+    AND o.kodobk = @ConsumerId_;
+  INSERT INTO dbo.ConsumerAttrs (ConsumerAttrId, ConsumerId, AttrRefId, ValueDate, SValue, NValue, DValue)
+    SELECT
+      @ConsumerId_
+     ,'Q_G'
+     ,SYSDATETIME()
+     ,NULL
+     ,o.qg
+     ,NULL
+    FROM dbo.obekt o
+    WHERE o.qg > 0
+    AND o.kodobk = @ConsumerId_;
+  INSERT INTO dbo.ConsumerAttrs (ConsumerAttrId, ConsumerId, AttrRefId, ValueDate, SValue, NValue, DValue)
+    SELECT
+      @ConsumerId_
+     ,'ECOLOGY_TAX'
+     ,SYSDATETIME()
+     ,NULL
+     ,o.ecnal
+     ,NULL
+    FROM dbo.obekt o
+    WHERE o.ecnal > 0
+    AND o.kodobk = @ConsumerId_;
+  FETCH NEXT FROM cur INTO @ConsumerId_
+END
+CLOSE cur
+DEALLOCATE cur
+GO
+PRINT 'Заполнили атрибуты по потребителям'
+
+DELETE FROM dbo.ConsumerServs
+GO
+INSERT INTO dbo.ConsumerServs (ConsumerId, ServId, ProductSiteId, CounterId, IsActive)
+  SELECT
+    o.kodobk
+   ,1 /* отопление и ГВС */
+   ,o.kodkot
+   ,CASE
+      WHEN o.kodpr > 1 THEN o.kodpr
+      ELSE NULL
+    END
+   ,1
+  FROM dbo.obekt o
+  WHERE o.podkl = 0
+  OR o.podklgv = 0
+  UNION ALL
+  SELECT
+    o.kodobk
+   ,2 /* вода */
+   ,o.kodkot
+   ,NULL
+   ,1
+  FROM dbo.obekt o
+  WHERE o.podklv = 0
+  UNION ALL
+  SELECT
+    o.kodobk
+   ,3 /* стоки */
+   ,o.kodkot
+   ,NULL
+   ,1
+  FROM dbo.obekt o
+  WHERE o.podklv = 0
+  UNION ALL
+  SELECT
+    o.kodobk
+   ,4 /* мусор */
+   ,o.kodkot
+   ,NULL
+   ,1
+  FROM dbo.obekt o
+  WHERE o.podklg = 0;
+GO
+PRINT 'Заполнили подключенные услуги по потребителям'
+
+DELETE FROM dbo.StreetRef
+GO
+
+SET IDENTITY_INSERT StreetRef ON
+INSERT INTO dbo.StreetRef (StreetRefId, StreetName)
+  SELECT
+    u.kodul
+   ,u.nazvul
+  FROM dbo.ulica u;
+SET IDENTITY_INSERT StreetRef OFF
+GO
+PRINT 'Заполнили справочник улиц'
+
+DELETE FROM dbo.Houses
+GO
+
+SET IDENTITY_INSERT Houses ON
+INSERT INTO dbo.Houses (HouseId, ProductSiteId, LocalityId, StreetId, HouseNum, HCounterId, IsHeat, IsHotWater)
+  SELECT d.koddom, d.kodkot, NULL, d.kodul, d.ndom, D.kodpr, CASE WHEN d.podkl = 0 THEN 1 ELSE 0 END, CASE WHEN d.podklgv = 0 THEN 1 ELSE 0 END FROM dbo.doma d;
+SET IDENTITY_INSERT Houses OFF
+GO
+PRINT 'Заполнили таблицу "Дома"'
+
+DECLARE @HouseId_ INT
+DECLARE cur CURSOR FAST_FORWARD READ_ONLY LOCAL FOR
+SELECT
+  h.HouseId
+FROM dbo.Houses h
+
+OPEN cur
+FETCH NEXT FROM cur INTO @HouseId_
+WHILE @@fetch_status = 0
+BEGIN
+  INSERT INTO dbo.HouseAttrs (HouseId, AttrId, ValueDate, SValue, NValue, DValue)
+    SELECT
+      @HouseId_
+     ,'COUNT_RESIDENTS'
+     ,d.dataiz
+     ,NULL
+     ,d.prj
+     ,NULL
+    FROM dbo.dandoma d
+    WHERE d.prj > 0
+    AND d.koddom = @HouseId_
+    UNION ALL
+    SELECT
+      @HouseId_
+     ,'COUNT_RESIDENTS'
+     ,SYSDATETIME()
+     ,NULL
+     ,d.prj
+     ,NULL
+    FROM dbo.doma d
+    WHERE d.prj > 0
+    AND d.koddom = @HouseId_;  
+  INSERT INTO dbo.ConsumerAttrs (ConsumerAttrId, ConsumerId, AttrRefId, ValueDate, SValue, NValue, DValue)
+    SELECT
+      @HouseId_
+     ,'TOTAL_AREA'
+     ,d.dataiz
+     ,NULL
+     ,d.prj
+     ,NULL
+    FROM dbo.dandoma d
+    WHERE d.prj > 0
+    AND d.koddom = @HouseId_
+    UNION ALL
+    SELECT
+      @HouseId_
+     ,'TOTAL_AREA'
+     ,SYSDATETIME()
+     ,NULL
+     ,d.prj
+     ,NULL
+    FROM dbo.doma d
+    WHERE d.prj > 0
+    AND d.koddom = @HouseId_;  
+  INSERT INTO dbo.ConsumerAttrs (ConsumerAttrId, ConsumerId, AttrRefId, ValueDate, SValue, NValue, DValue)
+    SELECT
+      @HouseId_
+     ,'Q_OT'
+     ,d.dataiz
+     ,NULL
+     ,d.prj
+     ,NULL
+    FROM dbo.dandoma d
+    WHERE d.prj > 0
+    AND d.koddom = @HouseId_
+    UNION ALL
+    SELECT
+      @HouseId_
+     ,'Q_OT'
+     ,SYSDATETIME()
+     ,NULL
+     ,d.prj
+     ,NULL
+    FROM dbo.doma d
+    WHERE d.prj > 0
+    AND d.koddom = @HouseId_;
+
+  INSERT INTO dbo.ConsumerAttrs (ConsumerAttrId, ConsumerId, AttrRefId, ValueDate, SValue, NValue, DValue)
+    SELECT
+      @ConsumerId_
+     ,'NORMA_HOT_WATER'
+     ,SYSDATETIME()
+     ,NULL
+     ,o.ngvs
+     ,NULL
+    FROM dbo.obekt o
+    WHERE o.ngvs > 0
+    AND o.kodobk = @ConsumerId_;
+  INSERT INTO dbo.ConsumerAttrs (ConsumerAttrId, ConsumerId, AttrRefId, ValueDate, SValue, NValue, DValue)
+    SELECT
+      @ConsumerId_
+     ,'Q_OT'
+     ,d.dataiz
+     ,NULL
+     ,d.q
+     ,NULL
+    FROM dbo.danobk d
+    WHERE d.q > 0
+    AND d.kodobk = @ConsumerId_
+    UNION ALL
+    SELECT
+      @ConsumerId_
+     ,'Q_OT'
+     ,SYSDATETIME()
+     ,NULL
+     ,o.q
+     ,NULL
+    FROM dbo.obekt o
+    WHERE o.q > 0
+    AND o.kodobk = @ConsumerId_;
+  INSERT INTO dbo.ConsumerAttrs (ConsumerAttrId, ConsumerId, AttrRefId, ValueDate, SValue, NValue, DValue)
+    SELECT
+      @ConsumerId_
+     ,'VOLUME'
+     ,d.dataiz
+     ,NULL
+     ,d.v
+     ,NULL
+    FROM dbo.danobk d
+    WHERE d.v > 0
+    AND d.kodobk = @ConsumerId_
+    UNION ALL
+    SELECT
+      @ConsumerId_
+     ,'VOLUME'
+     ,SYSDATETIME()
+     ,NULL
+     ,o.v
+     ,NULL
+    FROM dbo.obekt o
+    WHERE o.v > 0
+    AND o.kodobk = @ConsumerId_;
+  INSERT INTO dbo.ConsumerAttrs (ConsumerAttrId, ConsumerId, AttrRefId, ValueDate, SValue, NValue, DValue)
+    SELECT
+      @ConsumerId_
+     ,'Q_V'
+     ,SYSDATETIME()
+     ,NULL
+     ,o.qv
+     ,NULL
+    FROM dbo.obekt o
+    WHERE o.qv > 0
+    AND o.kodobk = @ConsumerId_;
+  INSERT INTO dbo.ConsumerAttrs (ConsumerAttrId, ConsumerId, AttrRefId, ValueDate, SValue, NValue, DValue)
+    SELECT
+      @ConsumerId_
+     ,'Q_K'
+     ,SYSDATETIME()
+     ,NULL
+     ,o.qk
+     ,NULL
+    FROM dbo.obekt o
+    WHERE o.qk > 0
+    AND o.kodobk = @ConsumerId_;
+  INSERT INTO dbo.ConsumerAttrs (ConsumerAttrId, ConsumerId, AttrRefId, ValueDate, SValue, NValue, DValue)
+    SELECT
+      @ConsumerId_
+     ,'Q_G'
+     ,SYSDATETIME()
+     ,NULL
+     ,o.qg
+     ,NULL
+    FROM dbo.obekt o
+    WHERE o.qg > 0
+    AND o.kodobk = @ConsumerId_;
+  INSERT INTO dbo.ConsumerAttrs (ConsumerAttrId, ConsumerId, AttrRefId, ValueDate, SValue, NValue, DValue)
+    SELECT
+      @ConsumerId_
+     ,'ECOLOGY_TAX'
+     ,SYSDATETIME()
+     ,NULL
+     ,o.ecnal
+     ,NULL
+    FROM dbo.obekt o
+    WHERE o.ecnal > 0
+    AND o.kodobk = @ConsumerId_;
+  FETCH NEXT FROM cur INTO @ConsumerId_
+END
+CLOSE cur
+DEALLOCATE cur
+GO
+PRINT 'Заполнили атрибуты по потребителям'
+
 
 PRINT 'ГОТОВО!!!'
